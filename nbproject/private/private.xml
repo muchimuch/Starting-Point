@@ -17,5 +17,11 @@
             <file>file:/Users/youssefsafi/NetBeansProjects/HelpyAcademy/web/WEB-INF/pages/inscriptionProfesseur.xhtml</file>
             <file>file:/Users/youssefsafi/NetBeansProjects/HelpyAcademy/web/WEB-INF/pages/wizard/etap2.xhtml</file>
         </group>
+        <group>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/wizard/etap1.xhtml</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/wizard/etap2.xhtml</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/bean/profInsciptionBean.java</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/wizard/etap3.xhtml</file>
+        </group>
     </open-files>
 </project-private>
