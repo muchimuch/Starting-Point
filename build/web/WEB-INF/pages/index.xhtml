@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pretty="http://ocpsoft.com/prettyfaces">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>HelpY Academy </title>
+
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="font-awesome.min.css" />
+        <h:outputStylesheet library="css" name="grayscale.css" />
+
+    </h:head>
+    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand page-scroll" href="#page-top">
+                        <h:graphicImage library="img" name="logo.png" styleClass="logo"/>
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                    <ul class="nav navbar-nav">
+                        <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                        <li class="hidden">
+                            <a href="#page-top"></a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#about">Qui somme nous ?</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#download">Test</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#contact">Contactez-Nous</a>
+                        </li>
+                        <li style="margin-left: 5px;margin-right: 5px">
+                            <a class="btn btn-default page-scroll" style="padding-top: 6px;padding-bottom: 6px;margin-top: 8px" href="#auth">Connexion</a>
+                        </li>
+                        <li>
+                            <button class="btn btn-info btnM" data-toggle="modal" data-target="#inscription">Inscription</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Intro Header -->
+        <header class="intro">
+            <div class="intro-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h1 class="brand-heading">HelpY Academy</h1>
+                            <p class="intro-text">E-learning Plateforme</p>
+                            <a href="#about" class="btn btn-circle page-scroll">
+                                <i class="fa fa-angle-double-down animated"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- About Section -->
+        <section id="about" class="container content-section text-center">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>About</h2>
+                    <p></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section id="download" class="content-section text-center">
+            <div class="download-section">
+                <div class="container">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <h2>Download Grayscale</h2>
+                        <p>You can download Grayscale for free on the preview page at Start Bootstrap.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="container content-section text-center">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Contact Start Bootstrap</h2>
+                    <p>Feel free to email us to provide some feedback on our templates, give us suggestions for new templates and themes, or to just say hello!</p>
+                    <p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
+                    </p>
+                    <ul class="list-inline banner-social-buttons">
+                        <li>
+                            <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        </li>
+                        <li>
+                            <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Auth Section -->
+        <!-- Contact Section -->
+        <section id="auth" class="container content-section text-center">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2" style="height: 300px">
+                    <h2>Authentification</h2>
+                    <pretty:link mappingId="connexion_etudiant" styleClass="btn btn-danger">
+                        Espace Etudiant
+                    </pretty:link>
+                    <pretty:link mappingId="connexion_etudiant" styleClass="btn btn-warning">
+                        Espace Professeur
+                    </pretty:link>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container text-center">
+                <p>Copyright &copy; Helpy Academy</p>
+            </div>
+        </footer>
+
+
+        <!-- Models -->
+        <div class="modal fade" id="inscription" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content col-sm-12">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-primary text-center">Inscription</h4>
+                    </div>
+                    <div class="modal-body col-sm-12">
+                        <dir class="col-sm-6">
+                            <pretty:link mappingId="inscriptionE">
+                                <h:graphicImage library="img" name="etudiant.png" styleClass="img-thumbnail"/>
+                                <p class="text-center" style="color: black">Etudiant</p>
+                            </pretty:link>
+                        </dir>
+                        <dir class="col-sm-6">
+                            <pretty:link mappingId="inscriptionP">
+                                <h:graphicImage library="img" name="prof.jpg" styleClass="img-thumbnail" />
+                                <p class="text-center" style="color: black">Professeur</p>
+                            </pretty:link>
+                        </dir>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <h:outputScript library="js" name="jquery.min.js"/>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <h:outputScript library="js" name="jquery.easing.min.js"/>
+        <h:outputScript library="js" name="grayscale.js"/>
+    </body>
+</html>
+

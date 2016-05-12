@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pretty="http://ocpsoft.com/prettyfaces">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>Inscription Etudiant | HelpY Academy </title>
+        
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="font-awesome.min.css" />
+        <h:outputStylesheet library="css" name="style.css" />
+        
+    </h:head>
+    <h:body onload="#{etudiantBean.reset()}">
+        <header class="container-fluid">
+            <div class="container">
+                <h:outputLink value="#{request.contextPath}/">
+                    <h:graphicImage id="logo2" library="img" name="logo2.png"/>
+                </h:outputLink>
+            </div>
+        </header>
+        <div class="container-fluid" id="ssHeader">
+            <div class="container">
+                <h2 class="pull-left"><i class="fa fa-paperclip"></i> inscription des nouveaux etudiants</h2>
+                <pretty:link id="backHome" mappingId="home" styleClass="btn btn-default pull-right">
+                    <i class="fa fa-chevron-left"></i> Accueil
+                </pretty:link>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="container">
+                <h:messages styleClass="alert alert-danger" style="padding-left: 80px" />
+                <h:form styleClass="form-horizontal col-sm-8 col-sm-offset-2">
+                    <div class="form-group">                      
+                        <h:outputLabel value="Genre" styleClass="col-sm-3 control-label"/>
+                        <div class="col-sm-9">
+                            <h:selectOneRadio value="#{etudiantBean.genre}" required="true" requiredMessage="Veuillez indiquez votre genre">
+                                <f:selectItem itemValue="Etudiant" itemLabel="Etudiant" />
+                                <f:selectItem itemValue="Etudiante" itemLabel="Etudiante" />	   			
+                            </h:selectOneRadio>
+                        </div>
+                    </div>
+                    <div class="form-group">                      
+                        <h:outputLabel for="nom" value="Nom" styleClass="col-sm-3 control-label"/>
+                        <div class="col-sm-9">
+                            <h:inputText id="nom" styleClass="form-control" value="#{etudiantBean.nom}" required="true" requiredMessage="Veuillez saisir votre nom"/>
+                        </div>
+                    </div>
+                    <div class="form-group">                      
+                        <h:outputLabel for="prenom" value="Prénom" styleClass="col-sm-3 control-label"/>
+                        <div class="col-sm-9">
+                            <h:inputText id="prenom" styleClass="form-control" value="#{etudiantBean.prenom}" required="true" requiredMessage="Veuillez saisir votre prénom"/>
+                        </div>
+                    </div>
+                    <div class="form-group #{etudiantBean.emailExiste ? 'has-error':''}" >                      
+                        <h:outputLabel for="email" value="E-mail" styleClass="col-sm-3 control-label"/>
+                        <div class="col-sm-9">
+                            <h:inputText id="email" styleClass="form-control" value="#{etudiantBean.email}" required="true" requiredMessage="Veuillez saisir votre email"/>
+                        </div>
+                    </div>
+                    <div class="form-group">                      
+                        <h:outputLabel for="mdp" value="Mot de passe" styleClass="col-sm-3 control-label"/>
+                        <div class="col-sm-9">
+                            <h:inputSecret id="mdp" styleClass="form-control" value="#{etudiantBean.mdp}" required="true" requiredMessage="Veuillez saisir votre mot de passe"/>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group #{etudiantBean.isPwdValid ? '':'has-error'}">                      
+                        <h:outputLabel for="mdpconfirm" value="Confirmation du Mot de passe" styleClass="col-sm-3 control-label"/>
+                        <div class="col-sm-9">
+                            <h:inputSecret id="mdpconfirm" styleClass="form-control" value="#{etudiantBean.mdpConfirm}" required="true" requiredMessage="Veuillez saisir la confirmation de votre mot de passe"/>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <div class="col-sm-offset-3 col-sm-9">
+                          <h:commandButton value="S'inscrire" styleClass="btn btn-success col-sm-3" action="#{etudiantBean.inscrire}"/>
+                      </div>
+                    </div>                  
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>

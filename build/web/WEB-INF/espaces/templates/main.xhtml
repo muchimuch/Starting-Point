@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title><ui:insert name="title"></ui:insert></title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="font-awesome.min.css" />
+        <h:outputStylesheet library="css" name="AdminLTE.min.css" />
+        <h:outputStylesheet library="css" name="_all-skins.min.css" />
+    </h:head>
+    <h:body class="hold-transition #{session.getAttribute('theme')} sidebar-mini">
+        <!-- Site wrapper -->
+        <div class="wrapper">
+
+            <!-- =============================================== -->
+            <header class="main-header">
+                <ui:insert name="espace"> -- </ui:insert>
+                <!-- Header Navbar: style can be found in header.less -->
+                <nav class="navbar navbar-static-top">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- Messages -->
+                            <ui:insert name="messages"></ui:insert>
+                            <!-- Notifications -->
+                            <ui:insert name="notifications"></ui:insert>
+
+                            <!-- ========================= User Account ============================== -->
+
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <h:graphicImage styleClass="user-image" library="img" name="avatar5.png" />
+                                    <span class="hidden-xs"><ui:insert name="username">User name</ui:insert></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- User image -->
+                                    <li class="user-header">
+                                        <ui:insert name="user-header"/>
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <ui:insert name="logout-btn"> btn deconnexion </ui:insert>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- =============================================== -->
+
+            <!-- Menu Principale -->
+            <ui:include src="../templates/menu.xhtml"></ui:include>
+
+            <!-- =============================================== -->
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        <ui:insert name="page-title">Blank page</ui:insert>
+                        <small><ui:insert name="page-subtitle">it all starts here</ui:insert></small>
+                    </h1>
+                </section>
+                <ui:insert name="page-content"></ui:insert>
+            </div>
+            <footer class="main-footer">
+                <strong>Copyright 2016. HelpY<small>Academy</small></strong> All rights reserved.
+            </footer>
+            <div class="control-sidebar-bg"></div>
+        </div>
+        <!-- ./wrapper -->
+
+        <h:outputScript library="js" name="jquery.min.js" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="jquery.slimscroll.min.js" />
+        <h:outputScript library="js" name="fastclick.min.js" />        
+        <h:outputScript library="js" name="app.min.js" />
+
+    </h:body>
+</html>
+

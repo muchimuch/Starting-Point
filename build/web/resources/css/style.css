@@ -1,0 +1,79 @@
+header{
+    background-color: #222;
+}
+#ssHeader{
+    background-color: #c7254e;
+    color: white;
+    margin-bottom: 30px;
+}
+#backHome{
+    background-color: #c7254e;
+    border-color: white;
+    border-width: 2px;
+    color: white;
+    margin-top: 18px;
+    font-weight: bold;
+}
+#ssHeader h2{
+    padding-bottom: 8px;
+    text-transform: capitalize;
+}
+#logo2{
+    height: 70px;
+}
+input[value="Etudiante"],input[value="Etudiant"]{
+    margin-left: 35px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+#compteActive{
+    margin-top: 60px;
+    margin-bottom : 60px;
+}
+#btn-connextion{
+    color: #088970;
+    border-color: #088970;
+    border-width: 2px;
+}
+#btn-connextion:hover{
+    color: white;
+    background-color: #088970;
+}
+#compteActive p {
+    font-size: 1.2em;
+}
+
+#btn-home{
+    color: #14478D;
+    border-color: #14478D;
+    border-width: 2px;
+}
+#btn-home:hover{
+    color: white;
+    background-color: #14478D;
+}
+/* ------- wizard ------- */
+#wizard-container{
+    border-radius: 8px;
+    border: 2px #EDEDED solid;
+    box-shadow: 0px 0px 8px 1px #eee;
+    padding: 0;
+}
+#wizard-menu{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 0;
+}
+#wizard-menu li{
+    background: #EDEDED;
+    padding: 0;
+    margin: 0;
+}
+#wizard-menu li a{
+    text-transform: uppercase;
+}
+#wizard-footer{
+    padding-bottom: 5px;
+    padding-top: 7px;
+    border-top: 2px #EDEDED solid;
+}

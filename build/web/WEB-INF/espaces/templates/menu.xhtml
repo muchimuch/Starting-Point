@@ -1,0 +1,30 @@
+<ui:composition
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    >
+
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <h:graphicImage styleClass="img-circle" library="img" name="avatar5.png"/>
+                </div>
+                <div class="pull-left info">
+                    <p><ui:insert name="username">User name</ui:insert></p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="header">MENU PRINCIPALE</li>
+                <ui:insert name="menu">
+                    links
+                </ui:insert>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+</ui:composition>

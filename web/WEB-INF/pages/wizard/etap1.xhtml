@@ -1,0 +1,33 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+    <div class="form-group">
+        <label for="email" class="col-sm-3 col-sm-offset-1 control-label">Email</label>
+        <div class="col-sm-5">
+            <h:inputText id="email" value="#{profInsciptionBean.email}" styleClass="form-control" required="true" requiredMessage="Veuillez saisir votre email" validatorMessage="Entrez un Email valide">
+                <f:validateRegex pattern="(^([a-zA-Z])+([a-zA-Z0-9_\.-]+)@([a-zA-Z])+([\da-zA-Z\.-]+)\.([a-zA-Z\.]{2,6})$)"/>
+            </h:inputText>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="mdp" class="col-sm-3 col-sm-offset-1 control-label">Mot de passe</label>
+        <div class="col-sm-5">
+            <h:inputSecret id="mdp" value="#{profInsciptionBean.mdp}" styleClass="form-control" required="true" requiredMessage="Veuillez saisir votre mot de passe"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="mdpConfirm" class="col-sm-3 col-sm-offset-1 control-label">Confirmation du Mot de passe</label>
+        <div class="col-sm-5">
+            <h:inputSecret id="mdpConfirm" value="#{profInsciptionBean.mdpConfirm}" styleClass="form-control" required="true" requiredMessage="Veuillez saisir la confirmation de votre mot de passe"/>
+        </div>
+    </div>
+
+</ui:composition>
+
+
+

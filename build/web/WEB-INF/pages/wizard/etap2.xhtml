@@ -1,0 +1,40 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <div class="form-group">
+        <label for="civilite" class="col-sm-3 col-sm-offset-1 control-label">Civilité <span class="text-danger"> (*)</span></label>
+        <div class="col-sm-2">
+            <h:selectOneListbox styleClass="form-control" id="civilite" value="#{profInsciptionBean.civilite}" required="true" requiredMessage="Veuillez indiquez votre genre">
+                <f:selectItem itemValue="" itemLabel="--- Choisir ---"/>
+                <f:selectItem itemValue="M" />
+                <f:selectItem itemValue="Mlle" />
+                <f:selectItem itemValue="Mme" />	   			
+            </h:selectOneListbox>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="nom" class="col-sm-3 col-sm-offset-1 control-label">Nom <span class="text-danger"> (*)</span></label>
+        <div class="col-sm-5">
+            <h:inputText id="nom" value="#{profInsciptionBean.nom}" styleClass="form-control" required="true" requiredMessage="Veuillez saisir votre nom" />
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="prenom" class="col-sm-3 col-sm-offset-1 control-label">Prénom <span class="text-danger"> (*)</span></label>
+        <div class="col-sm-5">
+            <h:inputText id="prenom" value="#{profInsciptionBean.prenom}" styleClass="form-control" required="true" requiredMessage="Veuillez saisir votre Prénom" />
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="tel" class="col-sm-3 col-sm-offset-1 control-label">Téléphone</label>
+        <div class="col-sm-5">
+            <h:inputText id="tel" value="#{profInsciptionBean.tel}" styleClass="form-control" />
+        </div>
+    </div>
+    
+</ui:composition>

@@ -1,0 +1,41 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+        <!-- ***************************** Invites *******************************-->
+	<url-mapping id="home">
+            <pattern value="/" />
+            <view-id value="/WEB-INF/pages/index.xhtml" />
+	</url-mapping>
+        <url-mapping id="inscriptionE">
+            <pattern value="/Inscription/Etudiant" />
+            <view-id value="/WEB-INF/pages/inscriptionEtudiant.xhtml" />
+	</url-mapping>
+        <url-mapping id="verificationCompte">
+            <pattern value="/VerificationCompte/#{token}/#{email}/" />
+            <view-id value="/WEB-INF/pages/compteVerification.xhtml" /> 
+            <action>#{etudiantService.verifier(email,token)}</action>
+        </url-mapping>
+        <url-mapping id="inscription_faite">
+            <pattern value="/Inscription/ActiveVotreCompte" />
+            <view-id value="/WEB-INF/pages/inscription_faite.xhtml" />
+        </url-mapping>
+        <url-mapping id="connexion_etudiant">
+            <pattern value="/Auth/Etudiant" />
+            <view-id value="/WEB-INF/pages/connexion_etudiant.xhtml?faces-redirect=true" />
+        </url-mapping>
+        
+        <url-mapping id="inscriptionP">
+            <pattern value="/Inscription/Professeur" />
+            <view-id value="/WEB-INF/pages/inscriptionProfesseur.xhtml" />
+        </url-mapping>
+        <!-- ***************************** Espace Etudiant ***********************-->
+        <url-mapping id="EspaceE_HOME">
+            <pattern value="/Espace/Etudiant/" />
+            <view-id value="/WEB-INF/espaces/etudiant/index.xhtml?faces-redirect=true" />
+        </url-mapping>
+        <!-- ***************************** Espace Prof ***************************-->
+        
+
+</pretty-config>

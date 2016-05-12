@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pretty="http://ocpsoft.com/prettyfaces">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>Félicitation votre compte est bien créé | HelpY Academy </title>
+        
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="font-awesome.min.css" />
+        <h:outputStylesheet library="css" name="style.css" />
+        
+    </h:head>
+    <h:body>
+        <header class="container-fluid">
+            <div class="container">
+                <h:outputLink value="#{request.contextPath}/">
+                    <h:graphicImage id="logo2" library="img" name="logo2.png"/>
+                </h:outputLink>
+            </div>
+        </header>
+        <div class="container-fluid" id="ssHeader">
+            <div class="container">
+                <h2 class="pull-left"><i class="fa fa-check"></i> Félicitation votre compte est bien créé</h2>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="container">
+                
+                <div id="compteActive" class="text-center">
+                    <br/>
+                    <p class="text-success">
+                        Merci pour votre inscription sur la plateforme HelpY Academy<br/>
+                        Veuillez activer votre compte en cliquant sur le lien envoyé à l'email que vous avez utilisé pour l'inscription
+                    </p> 
+                </div>
+                <br/>
+                <br/>
+                <pretty:link id="btn-home" mappingId="home" styleClass="btn btn-default col-sm-offset-4 col-sm-4">
+                    <i class="fa fa-home"></i> Accueil
+                </pretty:link>
+                
+            </div>
+        </div>
+    </h:body>
+</html>
