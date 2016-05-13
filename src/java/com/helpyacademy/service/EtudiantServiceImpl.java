@@ -6,9 +6,13 @@
 package com.helpyacademy.service;
 
 import com.helpyacademy.dao.EtudiantDAO;
+import com.helpyacademy.dao.NiveauDAO;
 import com.helpyacademy.dao.model.Etudiant;
-import com.helpyacademy.util.Utils;;
+import com.helpyacademy.dao.model.Niveau;
+import com.helpyacademy.util.Utils;import java.util.List;
+;
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -18,9 +22,14 @@ import javax.servlet.http.HttpSession;
 public class EtudiantServiceImpl implements EtudiantService{
 
     private EtudiantDAO etudiantDAO;
+    private NiveauDAO niveauDAO;
 
     public void setEtudiantDAO(EtudiantDAO etudiantDAO) {
         this.etudiantDAO = etudiantDAO;
+    }
+
+    public void setNiveauDAO(NiveauDAO niveauDAO) {
+        this.niveauDAO = niveauDAO;
     }
     
     @Override
@@ -77,6 +86,11 @@ public class EtudiantServiceImpl implements EtudiantService{
     @Override
     public boolean emailExiste(String email) {
         return etudiantDAO.emailExiste(email);
+    }
+
+    @Override
+    public List<Niveau> listNiveau() {
+        return niveauDAO.listNiveau();
     }
 
 }

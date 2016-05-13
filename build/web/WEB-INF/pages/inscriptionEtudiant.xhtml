@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:pretty="http://ocpsoft.com/prettyfaces">
+      xmlns:pretty="http://ocpsoft.com/prettyfaces"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -11,11 +12,11 @@
         <meta name="author" content=""/>
 
         <title>Inscription Etudiant | HelpY Academy </title>
-        
+
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
         <h:outputStylesheet library="css" name="font-awesome.min.css" />
         <h:outputStylesheet library="css" name="style.css" />
-        
+
     </h:head>
     <h:body onload="#{etudiantBean.reset()}">
         <header class="container-fluid">
@@ -70,18 +71,29 @@
                             <h:inputSecret id="mdp" styleClass="form-control" value="#{etudiantBean.mdp}" required="true" requiredMessage="Veuillez saisir votre mot de passe"/>
                         </div>
                     </div>
-                    
+
                     <div class="form-group #{etudiantBean.isPwdValid ? '':'has-error'}">                      
                         <h:outputLabel for="mdpconfirm" value="Confirmation du Mot de passe" styleClass="col-sm-3 control-label"/>
                         <div class="col-sm-9">
                             <h:inputSecret id="mdpconfirm" styleClass="form-control" value="#{etudiantBean.mdpConfirm}" required="true" requiredMessage="Veuillez saisir la confirmation de votre mot de passe"/>
                         </div>
                     </div>
-                    
+
+                    <div class="form-group">                      
+                        <h:outputLabel for="niveau" value="Niveau" styleClass="col-sm-3 control-label"/>
+                        <div class="col-sm-9">
+                            <h:selectOneMenu id="niveau" value="#{etudiantBean.niveau}" styleClass="form-control">
+                                <c:forEach var="niveau" items="#{etudiantBean.ListNiveau()}">
+                                    <f:selectItem itemValue="#{niveau.id}" itemLabel="#{niveau.niveau}" />
+                                </c:forEach>							
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+
                     <div class="form-group">
-                      <div class="col-sm-offset-3 col-sm-9">
-                          <h:commandButton value="S'inscrire" styleClass="btn btn-success col-sm-3" action="#{etudiantBean.inscrire}"/>
-                      </div>
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <h:commandButton value="S'inscrire" styleClass="btn btn-success col-sm-3" action="#{etudiantBean.inscrire}"/>
+                        </div>
                     </div>                  
                 </h:form>
             </div>
