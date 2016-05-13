@@ -44,7 +44,7 @@ public class EtudiantBean implements Serializable{
     private String token;
     private boolean isPwdValid;
     private boolean emailExiste;
-    private Niveau niveau;
+    private int niveau;
     
     private EtudiantService etudiantService;
     
@@ -189,11 +189,11 @@ public class EtudiantBean implements Serializable{
         return df.format(date_inscription);
     }
     
-    public Niveau getNiveau() {
+    public int getNiveau() {
         return niveau;
     }
 
-    public void setNiveau(Niveau niveau) {
+    public void setNiveau(int niveau) {
         this.niveau = niveau;
     }
     
@@ -207,7 +207,10 @@ public class EtudiantBean implements Serializable{
                     Utils.addMessage("L'email existe déjà. Veuillez entrer un autre");
                     return "inscriptionEtudiant.xhtml";
             } else {        
-                Etudiant etudiant = new Etudiant(nom, prenom, genre, email, mdp, solde, date_inscription,false,niveau);
+                Niveau niv = new Niveau();
+                niv.setId(niveau);
+                
+                Etudiant etudiant = new Etudiant(nom, prenom, genre, email, mdp, solde, date_inscription,false, niv);
                 
                 etudiantService.inscrire(etudiant);
             }    
