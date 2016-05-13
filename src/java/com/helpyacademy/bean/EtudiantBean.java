@@ -194,7 +194,8 @@ public class EtudiantBean implements Serializable{
                     Utils.addMessage("L'email existe déjà. Veuillez entrer un autre");
                     return "inscriptionEtudiant.xhtml";
             } else {        
-                Etudiant etudiant = new Etudiant(nom, prenom, null, null, null, genre, email, mdp, date_inscription, compte_active, null);
+                Etudiant etudiant = new Etudiant(nom, prenom, genre, email, mdp, solde, date_inscription);
+                
                 etudiantService.inscrire(etudiant);
             }    
         } else {
@@ -216,7 +217,7 @@ public class EtudiantBean implements Serializable{
             solde = e.getSolde();
             adresse = e.getAdresse();
             tel = e.getTel();
-            date_inscription = e.getDate_inscription();
+            date_inscription = e.getDateInscription();
             
             HttpSession session = Utils.getSession();
             session.setAttribute("EtudiantID", id);

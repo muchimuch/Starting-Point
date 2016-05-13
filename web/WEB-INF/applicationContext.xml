@@ -22,7 +22,15 @@
         <beans:property name="dataSource" ref="dataSource" />
         <beans:property name="annotatedClasses">
             <beans:list>
+                <beans:value>com.helpyacademy.dao.model.Admin</beans:value>
+                <beans:value>com.helpyacademy.dao.model.Conference</beans:value>
+                <beans:value>com.helpyacademy.dao.model.Diplome</beans:value>
+                <beans:value>com.helpyacademy.dao.model.Enseigner</beans:value>
                 <beans:value>com.helpyacademy.dao.model.Etudiant</beans:value>
+                <beans:value>com.helpyacademy.dao.model.Matiere</beans:value>
+                <beans:value>com.helpyacademy.dao.model.Message</beans:value>
+                <beans:value>com.helpyacademy.dao.model.Niveau</beans:value>
+                <beans:value>com.helpyacademy.dao.model.Note</beans:value>
                 <beans:value>com.helpyacademy.dao.model.Professeur</beans:value>
             </beans:list>
         </beans:property>

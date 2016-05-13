@@ -5,14 +5,24 @@
  */
 package com.helpyacademy.dao.model;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -20,148 +30,186 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "etudiant")
-public class Etudiant {
-    
+public class Etudiant implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Basic(optional = false)
     @Column(name = "id")
-    private int id;
+    private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
     @Column(name = "nom")
     private String nom;
-    @Column(name = "prenom")    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "prenom")
     private String prenom;
-    @Column(name = "tel")    
+    @Size(max = 20)
+    @Column(name = "tel")
     private String tel;
-    @Column(name = "adresse")    
+    @Size(max = 100)
+    @Column(name = "adresse")
     private String adresse;
-    @Column(name = "ville")    
+    @Size(max = 40)
+    @Column(name = "ville")
     private String ville;
-    @Column(name = "genre")    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "genre")
     private String genre;
-    @Column(name = "email",unique = true)    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "email")
     private String email;
-    @Column(name = "mdp")    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "mdp")
     private String mdp;
-    @Column(name = "solde")  
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "solde")
     private float solde;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "date_inscription")
-    private Date date_inscription;
-    @Column(name="compte_active")
-    private boolean compte_active;
-    @Column(name="token")
+    @Temporal(TemporalType.DATE)
+    private Date dateInscription;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "compte_active")
+    private short compteActive;
+    @Size(max = 100)
+    @Column(name = "token")
     private String token;
-    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEleve")
+    private List<Note> noteList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEleve")
+    private List<Conference> conferenceList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEleve")
+    private List<Message> messageList;
+    @JoinColumn(name = "niveau", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Niveau niveau;
+
     public Etudiant() {
     }
 
-    public Etudiant(String nom, String prenom, String tel, String adresse, String ville, String genre, String email, String mdp, Date date_inscription, boolean compte_active, String token) {
+    
+    public Etudiant(Integer id) {
+        this.id = id;
+    }
+
+    public Etudiant( String nom, String prenom, String genre, String email, String mdp, float solde, Date dateInscription) {
         this.nom = nom;
         this.prenom = prenom;
-        this.tel = tel;
-        this.adresse = adresse;
-        this.ville = ville;
         this.genre = genre;
         this.email = email;
         this.mdp = mdp;
-        this.date_inscription = date_inscription;
-        this.compte_active = compte_active;
-        this.token = token;
+        this.solde = solde;
+        this.dateInscription = dateInscription;
     }
 
-    public Date getDate_inscription() {
-        return date_inscription;
-    }
-
-    public void setDate_inscription(Date date_inscription) {
-        this.date_inscription = date_inscription;
-    }
-
-    public boolean isCompte_active() {
-        return compte_active;
-    }
-
-    public void setCompte_active(boolean compte_active) {
-        this.compte_active = compte_active;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNom() {
         return nom;
     }
 
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public String getVille() {
-        return ville;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getMdp() {
-        return mdp;
-    }
-
-    public float getSolde() {
-        return solde;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
     }
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
 
+    public String getTel() {
+        return tel;
+    }
+
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public String getAdresse() {
+        return adresse;
     }
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
 
+    public String getVille() {
+        return ville;
+    }
+
     public void setVille(String ville) {
         this.ville = ville;
+    }
+
+    public String getGenre() {
+        return genre;
     }
 
     public void setGenre(String genre) {
         this.genre = genre;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getMdp() {
+        return mdp;
     }
 
     public void setMdp(String mdp) {
         this.mdp = mdp;
     }
 
+    public float getSolde() {
+        return solde;
+    }
+
     public void setSolde(float solde) {
         this.solde = solde;
+    }
+
+    public Date getDateInscription() {
+        return dateInscription;
+    }
+
+    public void setDateInscription(Date dateInscription) {
+        this.dateInscription = dateInscription;
+    }
+
+    public short getCompteActive() {
+        return compteActive;
+    }
+
+    public void setCompteActive(short compteActive) {
+        this.compteActive = compteActive;
     }
 
     public String getToken() {
@@ -170,6 +218,63 @@ public class Etudiant {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public List<Note> getNoteList() {
+        return noteList;
+    }
+
+    public void setNoteList(List<Note> noteList) {
+        this.noteList = noteList;
+    }
+
+    public List<Conference> getConferenceList() {
+        return conferenceList;
+    }
+
+    public void setConferenceList(List<Conference> conferenceList) {
+        this.conferenceList = conferenceList;
+    }
+
+    public List<Message> getMessageList() {
+        return messageList;
+    }
+
+    public void setMessageList(List<Message> messageList) {
+        this.messageList = messageList;
+    }
+
+    public Niveau getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(Niveau niveau) {
+        this.niveau = niveau;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Etudiant)) {
+            return false;
+        }
+        Etudiant other = (Etudiant) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.helpyacademy.dao.model.Etudiant[ id=" + id + " ]";
     }
     
 }

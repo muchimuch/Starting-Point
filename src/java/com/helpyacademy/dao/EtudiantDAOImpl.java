@@ -32,7 +32,7 @@ public class EtudiantDAOImpl implements EtudiantDAO{
         Integer ID = null;
         try{
            tx = session.beginTransaction();
-           etudiant.setDate_inscription(new Date());
+           etudiant.setDateInscription(new Date());
            ID = (Integer) session.save(etudiant); 
            tx.commit();
         }catch (HibernateException e) {
