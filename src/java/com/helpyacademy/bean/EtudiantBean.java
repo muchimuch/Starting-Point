@@ -1,11 +1,13 @@
 package com.helpyacademy.bean;
 
 import com.helpyacademy.dao.model.Etudiant;
+import com.helpyacademy.dao.model.Niveau;
 import com.helpyacademy.service.EtudiantService;
 import com.helpyacademy.util.Utils;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -42,8 +44,10 @@ public class EtudiantBean implements Serializable{
     private String token;
     private boolean isPwdValid;
     private boolean emailExiste;
+    private Niveau niveau;
     
     private EtudiantService etudiantService;
+    
     
     public EtudiantBean() {
     }
@@ -184,8 +188,17 @@ public class EtudiantBean implements Serializable{
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.FRENCH);
         return df.format(date_inscription);
     }
-    // -------------------------------------------------------------------------
     
+    public Niveau getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(Niveau niveau) {
+        this.niveau = niveau;
+    }
+    
+    // -------------------------------------------------------------------------
+
     public String inscrire(){
         isPwdValid = mdp.equals(mdpConfirm); 
         if(isPwdValid){
@@ -194,7 +207,7 @@ public class EtudiantBean implements Serializable{
                     Utils.addMessage("L'email existe déjà. Veuillez entrer un autre");
                     return "inscriptionEtudiant.xhtml";
             } else {        
-                Etudiant etudiant = new Etudiant(nom, prenom, genre, email, mdp, solde, date_inscription);
+                Etudiant etudiant = new Etudiant(nom, prenom, genre, email, mdp, solde, date_inscription,false,niveau);
                 
                 etudiantService.inscrire(etudiant);
             }    
@@ -245,6 +258,10 @@ public class EtudiantBean implements Serializable{
         email=null;
         mdp=null;
         
+    }
+    
+    public List<Niveau> ListNiveau(){
+        return etudiantService.listNiveau();
     }
 
 }

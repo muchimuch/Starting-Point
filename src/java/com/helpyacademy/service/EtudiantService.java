@@ -6,6 +6,8 @@
 package com.helpyacademy.service;
 
 import com.helpyacademy.dao.model.Etudiant;
+import com.helpyacademy.dao.model.Niveau;
+import java.util.List;
 
 /**
  *
@@ -17,4 +19,5 @@ public interface EtudiantService {
     public Etudiant login(String email,String mdp);
     public String logout();
     public boolean emailExiste(String email);
+    public List<Niveau> listNiveau();
 }

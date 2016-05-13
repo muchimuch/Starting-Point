@@ -84,7 +84,7 @@ public class Etudiant implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "compte_active")
-    private short compteActive;
+    private boolean compteActive;
     @Size(max = 100)
     @Column(name = "token")
     private String token;
@@ -106,7 +106,7 @@ public class Etudiant implements Serializable {
         this.id = id;
     }
 
-    public Etudiant( String nom, String prenom, String genre, String email, String mdp, float solde, Date dateInscription) {
+    public Etudiant( String nom, String prenom, String genre, String email, String mdp, float solde, Date dateInscription,boolean compteActive,Niveau niveau) {
         this.nom = nom;
         this.prenom = prenom;
         this.genre = genre;
@@ -114,6 +114,8 @@ public class Etudiant implements Serializable {
         this.mdp = mdp;
         this.solde = solde;
         this.dateInscription = dateInscription;
+        this.compteActive = compteActive;
+        this.niveau = niveau;
     }
 
     public Integer getId() {
@@ -204,11 +206,11 @@ public class Etudiant implements Serializable {
         this.dateInscription = dateInscription;
     }
 
-    public short getCompteActive() {
+    public boolean getCompteActive() {
         return compteActive;
     }
 
-    public void setCompteActive(short compteActive) {
+    public void setCompteActive(boolean compteActive) {
         this.compteActive = compteActive;
     }
 

@@ -42,13 +42,17 @@
             </beans:props>
         </beans:property>
     </beans:bean>
-    
+    <!-- ++++++++++++    Niveau    +++++++++++++ -->
+    <beans:bean id="niveauDAO" class="com.helpyacademy.dao.NiveauDAOImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
     <!-- ++++++++++++    Etudiant    +++++++++++++ -->
     <beans:bean id="etudiantDAO" class="com.helpyacademy.dao.EtudiantDAOImpl">
         <beans:property name="sessionFactory" ref="sessionFactory" />
     </beans:bean>
     <beans:bean id="etudiantService" class="com.helpyacademy.service.EtudiantServiceImpl">
         <beans:property name="etudiantDAO" ref="etudiantDAO"/>
+        <beans:property name="niveauDAO" ref="niveauDAO" />
     </beans:bean>
     <beans:bean id="etudiantBean" class="com.helpyacademy.bean.EtudiantBean">
         <beans:property name="etudiantService" ref="etudiantService" />
