@@ -7,7 +7,10 @@ package com.helpyacademy.bean;
 
 import com.helpyacademy.util.Utils;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -31,9 +34,15 @@ public class profInsciptionBean implements Serializable{
     private String mdpConfirm;
     private Date date_naissance;
     private String situation_pro;
-    private String niv_etude;    
+    private String niv_etude;   
+    private String Diplome;
+    private List<String> Diplomes = new ArrayList<String>();
     private int etape = 1;
+    private boolean success;
     
+    @PostConstruct
+    public void init(){
+    }
     
     public int getId() {
         return id;
@@ -146,18 +155,69 @@ public class profInsciptionBean implements Serializable{
     public void setEtape(int etape) {
         this.etape = etape;
     }
-    
+
+    public List<String> getDiplomes() {
+        return Diplomes;
+    }
+
+    public void setDiplomes(List<String> Diplomes) {
+        this.Diplomes = Diplomes;
+    }
+
+    public String getDiplome() {
+        return Diplome;
+    }
+
+    public void setDiplome(String Diplome) {
+        this.Diplome = Diplome;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
     /* ====================================================================== */
+    
+    public void addDiplome(){
+        if(Diplome != null && !Diplome.isEmpty()){
+            Diplomes.add(Diplome);
+            Diplome = "";
+        }else{
+            Utils.addMessage("Insérer un diplome pour l'ajouter à vous Diplomes");
+        }
+    }
     
     public void next(){
         if(etape == 1){
             if(!mdp.equals(mdpConfirm)){
                 Utils.addMessage("Confirmation du mot de passe est erroné");
+                success=false;
             } else {
                 etape ++;
             }            
         } else if(etape == 2){
-            etape ++;
+            boolean t1=true,t2=true,t3=true;
+            if(civilite == null || civilite.isEmpty()){
+                Utils.addMessage("Veuillez indiquez votre Civilité");
+                t1=false;
+            }
+            if(nom == null || nom.isEmpty()){
+                Utils.addMessage("Veuillez indiquez votre nom");
+                t2=false;
+            }
+            if(prenom == null || prenom.isEmpty()){
+                Utils.addMessage("Veuillez indiquez votre prenom");
+                t3=false;
+            }
+            if(t1 && t2 && t3){
+                etape++;
+            }else{
+                success=false;
+            }
         } 
     }
     
@@ -168,10 +228,29 @@ public class profInsciptionBean implements Serializable{
     }
     
     public void finish(){
-        
+        if(Diplomes.size()>0){
+            //-- #Inscription Code
+            
+            //-------------------
+            success=true;
+            Utils.addMessage("Inscription Complète.\nMerci de vérifier votre Email!");
+            reset();
+        }else{
+            Utils.addMessage("Veuillez insérez vos Diplomes.");
+            success=false;
+        }
     }
     
     public void reset(){
-        
+        civilite = "";
+        nom = "";
+        prenom = "";
+        tel="";
+        email = "";
+        mdp="";
+        mdpConfirm="";
+        Diplome="";
+        Diplomes.clear();
+        etape = 1;
     }
 }

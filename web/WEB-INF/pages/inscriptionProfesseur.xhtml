@@ -17,7 +17,9 @@
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
         <h:outputStylesheet library="css" name="font-awesome.min.css" />
         <h:outputStylesheet library="css" name="style.css" />
-
+        <style>
+            .alert:empty{display:none;}
+        </style>
     </h:head>
     <h:body onload="#{professeurBean.reset()}">
         <header class="container-fluid">
@@ -48,7 +50,8 @@
                         <li role="presentation" class="col-sm-4 #{profInsciptionBean.etape eq 3 ? 'active' : ''}"><a class="text-center">formation et expérience</a></li>
                     </ul>
                     <h:form styleClass="form-horizontal col-sm-12">
-                        <h:messages styleClass="alert alert-danger" style="padding-left: 80px;margin-top: -10px" />
+                        
+                        <h:messages styleClass="alert #{profInsciptionBean.success ? 'alert-success' : 'alert-danger'}" style="padding-left: 80px;margin-top: -10px" />
                         <c:choose>
                             <c:when test="#{profInsciptionBean.etape eq 1}">
                                 <ui:include src="wizard/etap1.xhtml"/>

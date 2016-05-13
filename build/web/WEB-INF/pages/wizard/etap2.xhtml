@@ -7,26 +7,26 @@
     <div class="form-group">
         <label for="civilite" class="col-sm-3 col-sm-offset-1 control-label">Civilité <span class="text-danger"> (*)</span></label>
         <div class="col-sm-2">
-            <h:selectOneListbox styleClass="form-control" id="civilite" value="#{profInsciptionBean.civilite}" required="true" requiredMessage="Veuillez indiquez votre genre">
+            <h:selectOneMenu styleClass="form-control" id="civilite" value="#{profInsciptionBean.civilite}" >
                 <f:selectItem itemValue="" itemLabel="--- Choisir ---"/>
                 <f:selectItem itemValue="M" />
                 <f:selectItem itemValue="Mlle" />
                 <f:selectItem itemValue="Mme" />	   			
-            </h:selectOneListbox>
+            </h:selectOneMenu>
         </div>
     </div>
     
     <div class="form-group">
         <label for="nom" class="col-sm-3 col-sm-offset-1 control-label">Nom <span class="text-danger"> (*)</span></label>
         <div class="col-sm-5">
-            <h:inputText id="nom" value="#{profInsciptionBean.nom}" styleClass="form-control" required="true" requiredMessage="Veuillez saisir votre nom" />
+            <h:inputText id="nom" value="#{profInsciptionBean.nom}" styleClass="form-control" />
         </div>
     </div>
     
     <div class="form-group">
         <label for="prenom" class="col-sm-3 col-sm-offset-1 control-label">Prénom <span class="text-danger"> (*)</span></label>
         <div class="col-sm-5">
-            <h:inputText id="prenom" value="#{profInsciptionBean.prenom}" styleClass="form-control" required="true" requiredMessage="Veuillez saisir votre Prénom" />
+            <h:inputText id="prenom" value="#{profInsciptionBean.prenom}" styleClass="form-control"  />
         </div>
     </div>
     

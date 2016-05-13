@@ -1,6 +1,26 @@
 <ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <div class="form-group">
+        <label for="diplome" class="col-sm-3 col-sm-offset-1 control-label">Ajouter Diplome : </label>
+        <div class="col-sm-5">
+            <h:inputText id="diplome" value="#{profInsciptionBean.diplome}" styleClass="form-control" />
+        </div>
+        <h:commandButton styleClass="btn btn-primary pull-left" value="Ajouter" action="#{profInsciptionBean.addDiplome()}">
+        
+        </h:commandButton>
+    </div>
     
-    <h:inputText styleClass="form-control" value="#{profInsciptionBean.nom}"/>
+    <div class="form-group">
+        <label for="diplomes" class="col-sm-3 col-sm-offset-1 control-label">Vos Diplomes<span class="text-danger"> (*)</span></label>
+        <div class="col-sm-2">
+            <h:selectOneListbox   styleClass="form-control" disabled="true" id="diplomes">
+                <f:selectItems value="#{profInsciptionBean.diplomes}" />	
+            </h:selectOneListbox>
+        </div>
+    </div>
+    
 </ui:composition>
