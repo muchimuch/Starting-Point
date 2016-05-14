@@ -50,7 +50,9 @@ public class InscriptionFilter implements Filter {
     
         if(ses != null && ses.getAttribute("EtudiantNom") != null){
             res.sendRedirect(req.getContextPath()+"/Espace/Etudiant/");
-        }else{
+        } else if(ses != null && ses.getAttribute("AdmineEmail") != null){
+            res.sendRedirect(req.getContextPath()+"/Espace/Admin/");
+        } else{
             chain.doFilter(request, response);
         }
     }

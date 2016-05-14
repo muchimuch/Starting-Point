@@ -5,10 +5,10 @@
  */
 package com.helpyacademy.filter;
 
-import com.helpyacademy.bean.EtudiantBean;
 import java.io.IOException;
-import javax.faces.bean.ManagedProperty;
-import javax.inject.Inject;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -25,12 +25,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author youssefsafi
  */
-@WebFilter(filterName = "EspaceEtudiantFilter", urlPatterns = {"/WEB-INF/espaces/etudiant/*"},dispatcherTypes = {DispatcherType.REQUEST,DispatcherType.FORWARD,DispatcherType.ERROR})
-public class EspaceEtudiantFilter implements Filter {
+@WebFilter(filterName = "EspaceEtudiantFilter", urlPatterns = {"/WEB-INF/espaces/admin/*"},dispatcherTypes = {DispatcherType.REQUEST,DispatcherType.FORWARD,DispatcherType.ERROR})
+public class EspaceAdminFilter implements Filter {
     
-    public EspaceEtudiantFilter() {
+    public EspaceAdminFilter() {
     }    
-
+    
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
@@ -39,21 +39,27 @@ public class EspaceEtudiantFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession ses = req.getSession(false);
     
-        if(ses == null || ses.getAttribute("EtudiantNom") == null){
-            res.sendRedirect(req.getContextPath()+"/Auth/Etudiant");
+        if(ses == null || ses.getAttribute("AdmineEmail") == null){
+            res.sendRedirect(req.getContextPath()+"/Auth/Admin");
         }else{
             chain.doFilter(request, response);
         }
+       
     }
 
-    @Override
-    public void init(FilterConfig fc) throws ServletException {
+    
+
+    /**
+     * Destroy method for this filter
+     */
+    public void destroy() {        
     }
 
-    @Override
-    public void destroy() {
+    /**
+     * Init method for this filter
+     */
+    public void init(FilterConfig filterConfig) {        
         
     }
-
- 
+    
 }

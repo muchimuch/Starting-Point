@@ -11,17 +11,18 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="JEE">
-            <file>file:/Users/youssefsafi/NetBeansProjects/HelpyAcademy/src/java/com/helpyacademy/bean/profInsciptionBean.java</file>
-            <file>file:/Users/youssefsafi/NetBeansProjects/HelpyAcademy/web/resources/css/style.css</file>
-            <file>file:/Users/youssefsafi/NetBeansProjects/HelpyAcademy/web/WEB-INF/pages/inscriptionProfesseur.xhtml</file>
-            <file>file:/Users/youssefsafi/NetBeansProjects/HelpyAcademy/web/WEB-INF/pages/wizard/etap2.xhtml</file>
-        </group>
         <group>
             <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/wizard/etap1.xhtml</file>
             <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/wizard/etap2.xhtml</file>
             <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/bean/profInsciptionBean.java</file>
             <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/wizard/etap3.xhtml</file>
+        </group>
+        <group name="JEE">
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/applicationContext.xml</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/pages/inscriptionEtudiant.xhtml</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/nbproject/build-impl.xml</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/service/EtudiantServiceImpl.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/bean/EtudiantBean.java</file>
         </group>
     </open-files>
 </project-private>

@@ -6,6 +6,7 @@
 package com.helpyacademy.dao.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,6 +40,8 @@ public class Admin implements Serializable {
     @Size(max = 100)
     @Column(name = "motDePasse")
     private String motDePasse;
+    @Column(name = "date_inscription")
+    private Date dateInscription;
 
     public Admin() {
     }
@@ -49,6 +52,14 @@ public class Admin implements Serializable {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setDateInscription(Date dateInscription) {
+        this.dateInscription = dateInscription;
+    }
+
+    public Date getDateInscription() {
+        return dateInscription;
     }
 
     public void setEmail(String email) {

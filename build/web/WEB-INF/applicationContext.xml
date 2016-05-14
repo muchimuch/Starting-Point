@@ -13,7 +13,7 @@
         <beans:property name="url"
             value="jdbc:mysql://localhost:3306/helpy" />
         <beans:property name="username" value="root" />
-        <beans:property name="password" value="" />
+        <beans:property name="password" value="root" />
     </beans:bean>
  
     <!-- Hibernate 4 SessionFactory Bean definition -->
@@ -59,6 +59,14 @@
         <beans:property name="isPwdValid" value="true"/>
         <beans:property name="emailExiste" value="false" />
     </beans:bean>
-    
- 
+    <!-- ++++++++++++    Admin    +++++++++++++ -->
+    <beans:bean id="adminDAO" class="com.helpyacademy.dao.AdminDAOImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
+    <beans:bean id="adminService" class="com.helpyacademy.service.AdminServiceImpl">
+        <beans:property name="adminDAO" ref="adminDAO"/>
+    </beans:bean>
+    <beans:bean id="adminBean" class="com.helpyacademy.bean.AdminBean">
+        <beans:property name="adminService" ref="adminService" />
+    </beans:bean>
 </beans:beans>

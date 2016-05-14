@@ -37,5 +37,14 @@
         </url-mapping>
         <!-- ***************************** Espace Prof ***************************-->
         
+        <!-- ***************************** Espace Admin ***************************-->
+        <url-mapping id="connexion_admin">
+            <pattern value="/Auth/Admin" />
+            <view-id value="/WEB-INF/pages/connexion_admin.xhtml?faces-redirect=true" />
+        </url-mapping>
+        <url-mapping id="EspaceA_HOME">
+            <pattern value="/Espace/Admin/" />
+            <view-id value="/WEB-INF/espaces/admin/index.xhtml?faces-redirect=true" />
+        </url-mapping>
 
 </pretty-config>
