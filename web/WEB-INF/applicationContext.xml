@@ -46,6 +46,12 @@
     <beans:bean id="niveauDAO" class="com.helpyacademy.dao.NiveauDAOImpl">
         <beans:property name="sessionFactory" ref="sessionFactory" />
     </beans:bean>
+    <beans:bean id="niveauService" class="com.helpyacademy.service.NiveauServiceImpl">
+        <beans:property name="niveauDAO" ref="niveauDAO" />
+    </beans:bean>
+    <beans:bean id="niveauBean" class="com.helpyacademy.bean.NiveauBean">
+        <beans:property name="niveauService" ref="niveauService" />
+    </beans:bean>
     <!-- ++++++++++++    Etudiant    +++++++++++++ -->
     <beans:bean id="etudiantDAO" class="com.helpyacademy.dao.EtudiantDAOImpl">
         <beans:property name="sessionFactory" ref="sessionFactory" />

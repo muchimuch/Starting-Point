@@ -1,4 +1,5 @@
 <ui:composition template="../templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
                 xmlns:f="http://java.sun.com/jsp/jstl/functions"
@@ -6,7 +7,7 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="title">Espace Etudiant | HelpYAcademy</ui:define>
     <ui:define name="espace">
-        <pretty:link styleClass="logo" mappingId="EspaceE_HOME">
+        <pretty:link styleClass="logo" mappingId="EspaceA_HOME">
             <span class="logo-mini"><b>HelpY</b></span>
             <span class="logo-lg"><b>ESPACE</b>Administrateur</span>
         </pretty:link>
@@ -79,15 +80,24 @@
     <ui:define name="menu">
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-pie-chart"></i>
-                <span>multi Links </span>
+                <i class="fa fa-book"></i>
+                <span> Gestion des Matières </span>
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-                <li><a href="../charts/chartjs.html"><i class="fa fa-circle-o"></i> sub link</a></li>
+                <li>
+                    <pretty:link mappingId="EspaceA_LNiveau">
+                        <i class="fa fa-circle-o"></i> Liste des Niveaux
+                    </pretty:link>
+                </li>
+                <li>
+                    <pretty:link mappingId="EspaceA_LMatieres">
+                        <i class="fa fa-circle-o"></i> Liste des Matières
+                    </pretty:link>
+                </li>
             </ul>
         </li>
-        <li><a href="#"><i class="fa fa-book"></i> <span>link</span></a></li>
+
     </ui:define>
 
 </ui:composition>

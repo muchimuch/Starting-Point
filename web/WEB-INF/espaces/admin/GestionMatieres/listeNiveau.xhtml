@@ -1,0 +1,101 @@
+<ui:composition template="../../templates/espaceAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">Liste des Niveaux | HelpYAcademy</ui:define>
+    <ui:define name="page-title">
+        Liste des Niveaux
+    </ui:define>
+    <ui:define name="page-subtitle"></ui:define>
+
+    <ui:define name="page-content">
+        <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#ajouterNiveau"> <i class="fa fa-plus"></i> Ajouter un Niveau</button>
+        <h:messages styleClass="alert #{niveauBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px"/>
+
+        <div class="col-sm-12" style="padding: 0">
+            <c:choose>
+                <c:when test="#{niveauBean.emptyNiveau()}">
+                    <p class="text-center text-muted" style="margin-top: 80px;font-size: 2.3em">Pas de Niveaux</p>
+                </c:when>
+                <c:otherwise>
+                    <h:dataTable
+                        value="#{niveauBean.listDesNiveau}" var="niveau"
+                        styleClass="table table-bordered table-striped"
+                        style="background-color: white;margin-top: 15px"
+                        >
+                        <h:column  headerClass="col-sm-10">    				
+                            <f:facet name="header">Niveau</f:facet>    				
+                                #{niveau.niveau}
+                        </h:column>
+                        <!-- Suppression -->
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>    				
+                            <h:form onsubmit="return confirm('Vous voulez vraiment continuer ?')">
+                                <h:commandButton id="delete" styleClass="btn btn-sm btn-danger" value="Supprimer" action="#{niveauBean.delete(niveau)}" />
+                            </h:form>
+                        </h:column>
+                        <!-- Modification -->
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>    				
+                            <h:form>
+                                <h:commandButton id="update" value="Modifier" styleClass="btn btn-sm btn-primary" action="#{niveauBean.setNiv(niveau)}"
+                                               onclick="$('#ModifierModal').modal('show');">
+                                    <f:ajax execute="@this" render="updateForm"/>
+                                </h:commandButton>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                </c:otherwise>
+            </c:choose>
+        </div>
+
+        <!-- Ajouter Niveau Modal -->
+        <div class="modal fade" id="ajouterNiveau" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Nouveau Niveau</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h:outputLabel value="Niveau" for="niv" styleClass=""/>
+                            <h:inputText id="niv" value="#{niveauBean.niveau}" styleClass="form-control" required="true" requiredMessage="Entrez un niveau !"/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{niveauBean.save()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modifier Niveau Modal -->
+        <div class="modal fade" id="ModifierModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form id="updateForm">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modifier Niveau</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h:outputLabel value="Niveau" for="niv" styleClass=""/>
+                            <h:inputText id="niv" value="#{niveauBean.nivUpdate}" styleClass="form-control" required="true" requiredMessage="Entrez un niveau !"/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton id="btnUpdate" styleClass="btn btn-primary" value="Enregistrer" action="#{niveauBean.update()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+    </ui:define>
+
+</ui:composition>

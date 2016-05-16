@@ -37,6 +37,8 @@
         </url-mapping>
         <!-- ***************************** Espace Prof ***************************-->
         
+        
+        
         <!-- ***************************** Espace Admin ***************************-->
         <url-mapping id="connexion_admin">
             <pattern value="/Auth/Admin" />
@@ -46,5 +48,15 @@
             <pattern value="/Espace/Admin/" />
             <view-id value="/WEB-INF/espaces/admin/index.xhtml?faces-redirect=true" />
         </url-mapping>
+        <!-- Gestion des Matieres -->
+        <url-mapping id="EspaceA_LMatieres">
+            <pattern value="/Espace/Admin/Matieres" />
+            <view-id value="/WEB-INF/espaces/admin/GestionMatieres/listeMatieres.xhtml?faces-redirect=true" />
+        </url-mapping>
+        <url-mapping id="EspaceA_LNiveau">
+            <pattern value="/Espace/Admin/Niveau" />
+            <view-id value="/WEB-INF/espaces/admin/GestionMatieres/listeNiveau.xhtml?faces-redirect=true" />
+        </url-mapping>
+        
 
 </pretty-config>

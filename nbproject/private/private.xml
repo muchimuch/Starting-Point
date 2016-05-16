@@ -19,10 +19,10 @@
         </group>
         <group name="JEE">
             <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/applicationContext.xml</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/pages/inscriptionEtudiant.xhtml</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/nbproject/build-impl.xml</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/service/EtudiantServiceImpl.java</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/bean/EtudiantBean.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/espaces/admin/GestionMatieres/listeNiveau.xhtml</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/pretty-config.xml</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/bean/NiveauBean.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/service/NiveauServiceImpl.java</file>
         </group>
     </open-files>
 </project-private>

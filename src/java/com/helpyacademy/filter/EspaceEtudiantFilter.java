@@ -39,7 +39,7 @@ public class EspaceEtudiantFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession ses = req.getSession(false);
     
-        if(ses == null || ses.getAttribute("EtudiantNom") == null){
+        if(ses == null || ses.getAttribute("EtudiantNom") == null || ses.getAttribute("EtudiantNom").toString().isEmpty()){
             res.sendRedirect(req.getContextPath()+"/Auth/Etudiant");
         }else{
             chain.doFilter(request, response);

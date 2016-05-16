@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author youssefsafi
  */
-@WebFilter(filterName = "EspaceEtudiantFilter", urlPatterns = {"/WEB-INF/espaces/admin/*"},dispatcherTypes = {DispatcherType.REQUEST,DispatcherType.FORWARD,DispatcherType.ERROR})
+@WebFilter(filterName = "EspaceAdminFilter", urlPatterns = {"/WEB-INF/espaces/admin/*"},dispatcherTypes = {DispatcherType.REQUEST,DispatcherType.FORWARD,DispatcherType.ERROR})
 public class EspaceAdminFilter implements Filter {
     
     public EspaceAdminFilter() {

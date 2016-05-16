@@ -9,10 +9,9 @@ import com.helpyacademy.dao.EtudiantDAO;
 import com.helpyacademy.dao.NiveauDAO;
 import com.helpyacademy.dao.model.Etudiant;
 import com.helpyacademy.dao.model.Niveau;
-import com.helpyacademy.util.Utils;import java.util.List;
-;
+import com.helpyacademy.util.Utils;
+import java.util.List;
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpSession;import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 /**
