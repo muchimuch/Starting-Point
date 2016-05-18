@@ -5,6 +5,8 @@
  */
 package com.helpyacademy.bean;
 
+import com.helpyacademy.dao.model.Professeur;
+import com.helpyacademy.service.professeurService;
 import com.helpyacademy.util.Utils;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,8 +22,8 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class profInsciptionBean implements Serializable{
-    
+public class profInsciptionBean implements Serializable {
+
     private int id;
     private String civilite;
     private String nom;
@@ -34,16 +36,22 @@ public class profInsciptionBean implements Serializable{
     private String mdpConfirm;
     private Date date_naissance;
     private String situation_pro;
-    private String niv_etude;   
+    private String niv_etude;
     private String Diplome;
     private List<String> Diplomes = new ArrayList<String>();
     private int etape = 1;
     private boolean success;
-    
-    @PostConstruct
-    public void init(){
+
+    private professeurService profService;
+
+    public void setProfService(professeurService profService) {
+        this.profService = profService;
     }
-    
+
+    @PostConstruct
+    public void init() {
+    }
+
     public int getId() {
         return id;
     }
@@ -181,75 +189,100 @@ public class profInsciptionBean implements Serializable{
     }
 
     /* ====================================================================== */
-    
-    public void addDiplome(){
-        if(Diplome != null && !Diplome.isEmpty()){
+    public void addDiplome() {
+        if (Diplome != null && !Diplome.isEmpty()) {
             Diplomes.add(Diplome);
             Diplome = "";
-        }else{
+        } else {
             Utils.addMessage("Insérer un diplome pour l'ajouter à vous Diplomes");
         }
     }
-    
-    public void next(){
-        if(etape == 1){
-            if(!mdp.equals(mdpConfirm)){
+
+    public void next() {
+        if (etape == 1) {
+            boolean t1 = true, t2 = true;
+            if (!mdp.equals(mdpConfirm)) {
                 Utils.addMessage("Confirmation du mot de passe est erroné");
-                success=false;
-            } else {
-                etape ++;
-            }            
-        } else if(etape == 2){
-            boolean t1=true,t2=true,t3=true;
-            if(civilite == null || civilite.isEmpty()){
-                Utils.addMessage("Veuillez indiquez votre Civilité");
-                t1=false;
+                t1 = false;
             }
-            if(nom == null || nom.isEmpty()){
-                Utils.addMessage("Veuillez indiquez votre nom");
-                t2=false;
+            if (profService.emailExiste(email)) {
+                Utils.addMessage("Cet email est déjà utilisé");
+                t2 = false;
             }
-            if(prenom == null || prenom.isEmpty()){
-                Utils.addMessage("Veuillez indiquez votre prenom");
-                t3=false;
-            }
-            if(t1 && t2 && t3){
+            if (t1 && t2) {
                 etape++;
-            }else{
-                success=false;
+            } else {
+                success = false;
             }
-        } 
-    }
-    
-    public void previous(){
-        if(etape == 2 || etape == 3){
-            etape --;
-        }
-    }
-    
-    public void finish(){
-        if(Diplomes.size()>0){
-            //-- #Inscription Code
+        } else if (etape == 2) {
+            boolean t1 = true, t2 = true, t3 = true,t4=true;
+            if (civilite == null || civilite.isEmpty()) {
+                Utils.addMessage("Veuillez indiquez votre Civilité");
+                t1 = false;
+            }
+            if (nom == null || nom.isEmpty()) {
+                Utils.addMessage("Veuillez indiquez votre nom");
+                t2 = false;
+            }
+            if (prenom == null || prenom.isEmpty()) {
+                Utils.addMessage("Veuillez indiquez votre prenom");
+                t3 = false;
+            }
             
-            //-------------------
-            success=true;
-            Utils.addMessage("Inscription Complète.\nMerci de vérifier votre Email!");
-            reset();
-        }else{
-            Utils.addMessage("Veuillez insérez vos Diplomes.");
-            success=false;
+            if(tel == null || tel.isEmpty())
+                tel = null;
+            
+            if(tel != null && !tel.isEmpty()){
+                if(tel.length()<10){
+                    Utils.addMessage("Veuillez entrez un tele valide");
+                    t4 = false;
+                }
+            }
+            if (t1 && t2 && t3 && t4) {
+                etape++;
+            } else {
+                success = false;
+            }
         }
     }
-    
-    public void reset(){
+
+    public void previous() {
+        if (etape == 2 || etape == 3) {
+            etape--;
+        }
+    }
+
+    public void finish() {
+        if (Diplomes.size() > 0) {
+            //-- #Inscription Code
+            Professeur prof = new Professeur(civilite, nom, prenom, adresse, ville, tel, email, mdp, date_naissance, situation_pro, niv_etude, 0, "1");
+            
+            Professeur insertedProf = profService.insert(prof);
+            if (insertedProf != null && insertedProf.getId() != 0) {
+                success = true;
+                Utils.addMessage("Inscription Complète. Merci de vérifier votre Email!");
+                reset();
+            }else{
+                success = false;
+                etape = 1;
+                Utils.addMessage("Inscription érroné. Veuillez réessayer ultérieurement");
+            }
+            //-------------------
+        } else {
+            Utils.addMessage("Veuillez insérez vos Diplomes.");
+            success = false;
+        }
+    }
+
+    public void reset() {
         civilite = "";
         nom = "";
         prenom = "";
-        tel="";
+        tel = "";
         email = "";
-        mdp="";
-        mdpConfirm="";
-        Diplome="";
+        mdp = "";
+        mdpConfirm = "";
+        Diplome = "";
         Diplomes.clear();
         etape = 1;
     }

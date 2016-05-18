@@ -25,23 +25,22 @@ import javax.servlet.http.HttpSession;
  *
  * @author youssefsafi
  */
-@WebFilter(filterName = "EspaceEtudiantFilter", urlPatterns = {"/WEB-INF/espaces/*"},dispatcherTypes = {DispatcherType.REQUEST,DispatcherType.FORWARD,DispatcherType.ERROR})
+@WebFilter(filterName = "EspaceEtudiantFilter", urlPatterns = {"/WEB-INF/espaces/*"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ERROR})
 public class EspaceEtudiantFilter implements Filter {
-    
-    public EspaceEtudiantFilter() {
-    }    
 
-    public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain)
+    public EspaceEtudiantFilter() {
+    }
+
+    public void doFilter(ServletRequest request, ServletResponse response,FilterChain chain)
             throws IOException, ServletException {
-        
+
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession ses = req.getSession(false);
-    
-        if(ses == null || ses.getAttribute("EtudiantNom") == null){
-            res.sendRedirect(req.getContextPath()+"/Auth/Etudiant");
-        }else{
+
+        if (ses == null || ses.getAttribute("EtudiantNom") == null) {
+            res.sendRedirect(req.getContextPath() + "/Auth/Etudiant");
+        } else {
             chain.doFilter(request, response);
         }
     }
@@ -52,8 +51,7 @@ public class EspaceEtudiantFilter implements Filter {
 
     @Override
     public void destroy() {
-        
+
     }
 
- 
 }

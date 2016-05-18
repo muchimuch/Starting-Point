@@ -36,7 +36,6 @@ public class Professeur implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "civilite")
     private String civilite;
@@ -51,17 +50,14 @@ public class Professeur implements Serializable {
     @Column(name = "prenom")
     private String prenom;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "adresse")
     private String adresse;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "ville")
     private String ville;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "tel")
     private String tel;
@@ -76,22 +72,18 @@ public class Professeur implements Serializable {
     @Column(name = "mdp")
     private String mdp;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "date_naissance")
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "situation_pro")
     private String situationPro;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "niv_etude")
     private String nivEtude;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "disponibilite")
     private int disponibilite;
     @Size(max = 100)
@@ -118,8 +110,7 @@ public class Professeur implements Serializable {
         this.id = id;
     }
 
-    public Professeur(Integer id, String civilite, String nom, String prenom, String adresse, String ville, String tel, String email, String mdp, Date dateNaissance, String situationPro, String nivEtude, int disponibilite, String compteActive) {
-        this.id = id;
+    public Professeur(String civilite, String nom, String prenom, String adresse, String ville, String tel, String email, String mdp, Date dateNaissance, String situationPro, String nivEtude, int disponibilite, String compteActive) {
         this.civilite = civilite;
         this.nom = nom;
         this.prenom = prenom;
@@ -134,6 +125,7 @@ public class Professeur implements Serializable {
         this.disponibilite = disponibilite;
         this.compteActive = compteActive;
     }
+    
 
     public Integer getId() {
         return id;

@@ -52,7 +52,7 @@ public class Utils {
     }
     
     public static String urlVerification(String email,String token){
-        return "http://localhost:8080/HelpyAcademy/VerificationCompte/"+token+"/"+email+"/";
+        return "http://localhost:8080/Starting-Point/VerificationCompte/"+token+"/"+email+"/";
     }
     
 }

@@ -7,18 +7,15 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
  
-    <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-        destroy-method="close">
+    <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <beans:property name="url"
-            value="jdbc:mysql://localhost:3306/helpy" />
+        <beans:property name="url" value="jdbc:mysql://localhost:3306/helpy" />
         <beans:property name="username" value="root" />
         <beans:property name="password" value="" />
     </beans:bean>
  
     <!-- Hibernate 4 SessionFactory Bean definition -->
-    <beans:bean id="sessionFactory"
-        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <beans:bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <beans:property name="dataSource" ref="dataSource" />
         <beans:property name="annotatedClasses">
             <beans:list>
@@ -36,8 +33,7 @@
         </beans:property>
         <beans:property name="hibernateProperties">
             <beans:props>
-                <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
-                </beans:prop>
+                <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
                 <beans:prop key="hibernate.show_sql">true</beans:prop>
             </beans:props>
         </beans:property>
@@ -60,5 +56,14 @@
         <beans:property name="emailExiste" value="false" />
     </beans:bean>
     
- 
+    <!-- #############     Professeur     ############# -->
+    <beans:bean id="professeurDAO" class="com.helpyacademy.dao.professeurDAO">
+        <beans:property name="sessionFactory" ref="sessionFactory"/>
+    </beans:bean>
+    <beans:bean id="professeurService" class="com.helpyacademy.service.professeurService">
+        <beans:property name="profDAO" ref="professeurDAO"/>
+    </beans:bean>        
+    <beans:bean id="profInsciptionBean" class="com.helpyacademy.bean.profInsciptionBean">
+        <beans:property name="profService" ref="professeurService" />
+    </beans:bean>
 </beans:beans>
