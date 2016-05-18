@@ -1,14 +1,153 @@
 <ui:composition template="../../templates/espaceAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-        <ui:define name="title">Liste des Matières | HelpYAcademy</ui:define>
-        <ui:define name="page-title">
-            Liste des Matières
-        </ui:define>
-        <ui:define name="page-subtitle"></ui:define>
-        
-        <ui:define name="page-content">
-            
-        </ui:define>
-        
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="title">Liste des Matières | HelpYAcademy</ui:define>
+    <ui:define name="page-title">
+        Liste des Matières
+    </ui:define>
+
+    <ui:define name="page-subtitle"></ui:define>
+
+    <ui:define name="page-content">
+        <c:choose>
+            <c:when test="#{matiereBean.emptyNiveau()}" >
+                <button class="btn btn-sm btn-success" disabled="true" > <i class="fa fa-plus"></i> Ajouter une Matière </button>
+            </c:when>
+            <c:otherwise>
+                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#ajouterMatiere"> <i class="fa fa-plus"></i> Ajouter une Matière </button>
+            </c:otherwise>
+        </c:choose>
+        <h:messages styleClass="alert #{matiereBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px"/>
+
+        <div class="col-sm-12" style="padding: 0">
+            <c:choose>
+                <c:when test="#{matiereBean.emptyMatiere()}">
+                    <p class="text-center text-muted" style="margin-top: 80px;font-size: 2.3em">Pas de Matières</p>
+                </c:when>
+                <c:otherwise>
+                    <h:form styleClass="form-horizontal" style="margin-top: 20px">
+                        <div class="form-group">
+                            <h:outputLabel for="listNiv" styleClass="col-sm-3 control-label" value="Choisissez un Niveau"  />
+                            <div class="col-sm-3" style="margin-top: 5px">
+                                <h:selectOneMenu id="listNiv" value="#{matiereBean.idNiveau}" styleClass="form-control" valueChangeListener="#{matiereBean.MatiereParNiv}" onchange="submit()">
+                                    <f:selectItems value="#{matiereBean.listNiveau}" var="niveau" itemValue="#{niveau.id}" itemLabel="#{niveau.niveau}" />
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                    </h:form>
+                    <c:if test="#{empty matiereBean.listMatiere}">
+                        <p class="text-center text-muted" style="margin-top: 80px;font-size: 2.3em">Pas de Matières pour ce Niveau</p>
+                    </c:if>
+                    <h:dataTable
+                        rendered="#{not empty matiereBean.listMatiere}"
+                        value="#{matiereBean.listMatiere}" var="matiere"
+                        styleClass="table table-bordered table-striped"
+                        style="background-color: white;margin-top: 15px"
+                        id="tableMatieres"
+                        >
+                        <h:column  headerClass="col-sm-10">    				
+                            <f:facet name="header">Matière</f:facet>    				
+                                #{matiere.matiere}
+                        </h:column>
+                        <!-- Suppression -->
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>    				
+                            <h:form onsubmit="return confirm('Vous voulez vraiment continuer ?')">
+                                <h:commandButton id="delete" styleClass="btn btn-sm btn-danger" value="Supprimer" action="#{matiereBean.delete(matiere.id)}" />
+                            </h:form>
+                        </h:column>
+                        <!-- Modification -->
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>    				
+                            <h:form>
+                                <h:commandButton id="update" value="Modifier" styleClass="btn btn-sm btn-primary" action="#{matiereBean.initUpdate(matiere)}"
+                                                 onclick="$('#ModifierModal').modal('show');">
+                                    <f:ajax execute="@this" render="updateForm"/>
+                                </h:commandButton>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                </c:otherwise>
+            </c:choose>
+        </div>
+
+        <!-- Ajouter Matiere Modal -->
+        <div class="modal fade" id="ajouterMatiere" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Nouvelle Matière</h4>
+                        </div>
+                        <div class="modal-body form-horizontal">
+                            <div class="form-group">
+                                <h:outputLabel for="niv" styleClass="col-sm-2 control-label" value="Niveau"/>
+                                <div class="col-sm-10">
+                                    <h:selectOneMenu value="#{matiereBean.idNiveau}" styleClass="form-control" required="true" requiredMessage="Choisissez un Niveau">
+                                        <f:selectItem itemValue="" itemLabel="--- Choisissez un Niveau ---" />
+                                        <c:forEach items="#{matiereBean.listNiveau}" var="niveau">
+                                            <f:selectItem itemValue="#{niveau.id}" itemLabel="#{niveau.niveau}" />
+                                        </c:forEach>							
+                                    </h:selectOneMenu>	
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="matiere" styleClass="col-sm-2 control-label" value="Matière"/>
+                                <div class="col-sm-10">
+                                    <h:inputText id="matiere" styleClass="form-control" value="#{matiereBean.matiere}" required="true" requiredMessage="Veuillez saisir le nom du Matière"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{matiereBean.save()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modifier Matiere Modal -->
+        <div class="modal fade" id="ModifierModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form id="updateForm">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modification d'une Matière</h4>
+                        </div>
+                        <div class="modal-body form-horizontal">
+                            <div class="form-group">
+                                <h:outputLabel for="niv" styleClass="col-sm-2 control-label" value="Niveau"/>
+                                <div class="col-sm-10">
+                                    <h:selectOneMenu value="#{matiereBean.midNieau}" styleClass="form-control" required="true" requiredMessage="Choisissez un Niveau">
+                                        <f:selectItem itemValue="" itemLabel="--- Choisissez un Niveau ---" />
+                                        <c:forEach items="#{matiereBean.listNiveau}" var="niveau">
+                                            <f:selectItem itemValue="#{niveau.id}" itemLabel="#{niveau.niveau}" />
+                                        </c:forEach>							
+                                    </h:selectOneMenu>	
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="matiere" styleClass="col-sm-2 control-label" value="Matière"/>
+                                <div class="col-sm-10">
+                                    <h:inputText id="matiere" styleClass="form-control" value="#{matiereBean.mmatiere}" required="true" requiredMessage="Veuillez saisir le nom du Matière"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{matiereBean.update()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
 </ui:composition>

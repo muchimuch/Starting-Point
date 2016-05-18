@@ -52,6 +52,17 @@
     <beans:bean id="niveauBean" class="com.helpyacademy.bean.NiveauBean">
         <beans:property name="niveauService" ref="niveauService" />
     </beans:bean>
+    <!-- ++++++++++++    Matiere    +++++++++++++ -->
+    <beans:bean id="matiereDAO" class="com.helpyacademy.dao.MatiereDAOImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
+    <beans:bean id="matiereService" class="com.helpyacademy.service.MatiereServiceImpl">
+        <beans:property name="matiereDAO" ref="matiereDAO" />
+        <beans:property name="niveauDAO" ref="niveauDAO" />
+    </beans:bean>
+    <beans:bean id="matiereBean" class="com.helpyacademy.bean.MatiereBean">
+        <beans:property name="matiereService" ref="matiereService" />
+    </beans:bean>
     <!-- ++++++++++++    Etudiant    +++++++++++++ -->
     <beans:bean id="etudiantDAO" class="com.helpyacademy.dao.EtudiantDAOImpl">
         <beans:property name="sessionFactory" ref="sessionFactory" />

@@ -18,11 +18,14 @@
             <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/wizard/etap3.xhtml</file>
         </group>
         <group name="JEE">
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/bean/MatiereBean.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/service/MatiereServiceImpl.java</file>
             <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/applicationContext.xml</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/espaces/admin/GestionMatieres/listeNiveau.xhtml</file>
             <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/pretty-config.xml</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/bean/NiveauBean.java</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/service/NiveauServiceImpl.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/espaces/admin/GestionMatieres/listeMatieres.xhtml</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/dao/MatiereDAOImpl.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/service/MatiereService.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/dao/MatiereDAO.java</file>
         </group>
     </open-files>
 </project-private>
