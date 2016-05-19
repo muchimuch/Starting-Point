@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:3306
--- Généré le :  Mer 18 Mai 2016 à 20:07
+-- Généré le :  Jeu 19 Mai 2016 à 22:10
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -66,7 +66,14 @@ CREATE TABLE `diplome` (
   `id` int(11) NOT NULL,
   `idProf` int(11) NOT NULL,
   `diplome` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `diplome`
+--
+
+INSERT INTO `diplome` (`id`, `idProf`, `diplome`) VALUES
+(2, 4, 'DUT ');
 
 -- --------------------------------------------------------
 
@@ -102,14 +109,14 @@ CREATE TABLE `etudiant` (
   `date_inscription` date NOT NULL,
   `compte_active` tinyint(4) NOT NULL DEFAULT '0',
   `token` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `etudiant`
 --
 
 INSERT INTO `etudiant` (`id`, `nom`, `prenom`, `tel`, `adresse`, `ville`, `genre`, `email`, `mdp`, `solde`, `niveau`, `date_inscription`, `compte_active`, `token`) VALUES
-(1, 'SAFI', 'YOUSSEF', NULL, NULL, NULL, 'Etudiant', 'youssef.safi.95@gmail.com', 'Fiverr', 0, 1, '2016-05-13', 1, NULL);
+(5, 'SAFI', 'YOUSSEF', NULL, NULL, NULL, 'Etudiant', 'youssef.safi.95@gmail.com', 'admin', 0, 1, '2016-05-19', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -193,18 +200,26 @@ CREATE TABLE `professeur` (
   `civilite` varchar(10) NOT NULL,
   `nom` varchar(30) NOT NULL,
   `prenom` varchar(30) NOT NULL,
-  `adresse` varchar(100) NOT NULL,
-  `ville` varchar(30) NOT NULL,
+  `adresse` varchar(100) DEFAULT NULL,
+  `ville` varchar(30) DEFAULT NULL,
   `tel` varchar(20) NOT NULL,
   `email` varchar(100) NOT NULL,
   `mdp` varchar(100) NOT NULL,
-  `date_naissance` date NOT NULL,
-  `situation_pro` varchar(100) NOT NULL,
-  `niv_etude` varchar(50) NOT NULL,
-  `disponibilite` int(11) NOT NULL,
+  `date_naissance` date DEFAULT NULL,
+  `situation_pro` varchar(100) DEFAULT NULL,
+  `niv_etude` varchar(50) DEFAULT NULL,
+  `disponibilite` int(11) DEFAULT NULL,
   `token` varchar(100) DEFAULT NULL,
-  `compte_active` enum('0','1','2') NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `compte_active` enum('0','1','2') DEFAULT '0',
+  `date_inscription` date NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `professeur`
+--
+
+INSERT INTO `professeur` (`id`, `civilite`, `nom`, `prenom`, `adresse`, `ville`, `tel`, `email`, `mdp`, `date_naissance`, `situation_pro`, `niv_etude`, `disponibilite`, `token`, `compte_active`, `date_inscription`) VALUES
+(4, 'M', 'SAFI', 'YOUSSEF', NULL, NULL, '0626759424', 'youssef.safi.95@gmail.com', 'admin', NULL, NULL, NULL, 0, NULL, '1', '2016-05-19');
 
 --
 -- Index pour les tables exportées
@@ -282,6 +297,7 @@ ALTER TABLE `note`
 --
 ALTER TABLE `professeur`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
   ADD KEY `niv_etude` (`niv_etude`);
 
 --
@@ -297,12 +313,12 @@ ALTER TABLE `conference`
 -- AUTO_INCREMENT pour la table `diplome`
 --
 ALTER TABLE `diplome`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `etudiant`
 --
 ALTER TABLE `etudiant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `matiere`
 --
@@ -327,7 +343,7 @@ ALTER TABLE `note`
 -- AUTO_INCREMENT pour la table `professeur`
 --
 ALTER TABLE `professeur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Contraintes pour les tables exportées
 --
