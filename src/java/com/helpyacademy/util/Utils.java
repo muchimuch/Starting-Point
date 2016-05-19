@@ -43,6 +43,17 @@ public class Utils {
 
         return msg;
     }
+    
+    public static String VerrificationCompteProfMessage(String nom, String prenom, String url) {
+        String msg = "<div style=\"font-size:1.3em\"><span>Salutation <b>" + nom + " " + prenom + "</b><span><br/><br/>";
+
+        msg += "<div style=\"padding-left:30px;padding-top:40px;padding-bottom:40px\">Merci pour votre inscription sur la plateforme <b>HelpY Academy</b><br/><br/>";
+        msg += "S'il vous plaît cliquer sur le lien ci-dessous :<br/><br/>";
+        msg += "<a style=\"color:#2B865D\" target=\"_blank\" href=\"" + url + "\">Vérifiez votre E-mail</a><br/><br/></div>";
+        msg += "Cordialement,<br/>L'équipe <b>HelpyAcademy</b></div>";
+
+        return msg;
+    }
 
     public static String token() {
         SecureRandom random = new SecureRandom();

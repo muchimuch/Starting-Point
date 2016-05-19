@@ -58,7 +58,7 @@ public class ProfesseurServiceImpl implements ProfesseurService {
             try {
 
                 String url = Utils.urlVerification(p.getEmail(), token,2);
-                String msg = Utils.VerrificationCompteMessage(p.getNom().toUpperCase(), p.getPrenom().toUpperCase(), url);
+                String msg = Utils.VerrificationCompteProfMessage(p.getNom().toUpperCase(), p.getPrenom().toUpperCase(), url);
                 MailService.sendMessage(p.getEmail(), "Vérifiez votre compte HelpyAcademy", msg);
                 
                 return true;
