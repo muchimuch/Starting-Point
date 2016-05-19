@@ -49,9 +49,8 @@ public class EtudiantDAOImpl implements EtudiantDAO{
         Session session = sessionFactory.openSession();
         int nbr = session.createQuery("FROM Etudiant e WHERE e.email='"+email+"'").list().size();
         session.close();
-        if(nbr == 0)
-            return false;
-        return true;
+        
+        return nbr != 0;
     }
 
     @Override
@@ -60,8 +59,10 @@ public class EtudiantDAOImpl implements EtudiantDAO{
         Session session = sessionFactory.openSession();
         Query query = session.createQuery(hql);
         query.setParameter("email", email);
+        Integer n = query.executeUpdate();
+        session.close();
         
-        return query.executeUpdate();
+        return n;
     }
 
     @Override
@@ -72,9 +73,9 @@ public class EtudiantDAOImpl implements EtudiantDAO{
         q.setParameter("email", email);
         q.setParameter("token", token);
         int n = q.list().size();
-        if(n == 0)
-            return false;
-        return true;
+        session.close();
+        
+        return n != 0;
     }
 
     @Override
@@ -84,7 +85,10 @@ public class EtudiantDAOImpl implements EtudiantDAO{
         Query q = session.createQuery(hql);
         q.setParameter("email", email);
         q.setParameter("mdp", mdp);
-        return (Etudiant) q.uniqueResult();
+        Etudiant e = (Etudiant) q.uniqueResult();
+        session.close();
+        
+        return e;
     }
     
     

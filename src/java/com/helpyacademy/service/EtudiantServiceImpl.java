@@ -34,8 +34,6 @@ public class EtudiantServiceImpl implements EtudiantService{
     @Override
     public boolean inscrire(Etudiant etudiant) {
         
-        
-        
                 String token = Utils.token();
                 etudiant.setToken(token);
                 Integer id = etudiantDAO.add(etudiant);
@@ -44,7 +42,7 @@ public class EtudiantServiceImpl implements EtudiantService{
                 } else {
                     try{
                         
-                        String url = Utils.urlVerification(etudiant.getEmail(),token);
+                        String url = Utils.urlVerification(etudiant.getEmail(),token,1);
                         String msg = Utils.VerrificationCompteMessage(etudiant.getNom().toUpperCase(), etudiant.getPrenom().toUpperCase(), url);
                         MailService.sendMessage(etudiant.getEmail(), "Vérifiez votre compte HelpyAcademy", msg);
         

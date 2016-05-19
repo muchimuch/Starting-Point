@@ -17,6 +17,11 @@
             <view-id value="/WEB-INF/pages/compteVerification.xhtml" /> 
             <action>#{etudiantService.verifier(email,token)}</action>
         </url-mapping>
+        <url-mapping id="verificationCompteProfesseur">
+            <pattern value="/VerificationCompteProfesseur/#{token}/#{email}/" />
+            <view-id value="/WEB-INF/pages/VerificationCompteProfesseur.xhtml" /> 
+            <action>#{professeurService.verifier(email,token)}</action>
+        </url-mapping>
         <url-mapping id="inscription_faite">
             <pattern value="/Inscription/ActiveVotreCompte" />
             <view-id value="/WEB-INF/pages/inscription_faite.xhtml" />

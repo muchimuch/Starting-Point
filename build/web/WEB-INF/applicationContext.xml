@@ -42,6 +42,10 @@
             </beans:props>
         </beans:property>
     </beans:bean>
+    <!-- ++++++++++++    Diplome    +++++++++++++ -->
+    <beans:bean id="diplomeDAO" class="com.helpyacademy.dao.DiplomeDAOImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
     <!-- ++++++++++++    Niveau    +++++++++++++ -->
     <beans:bean id="niveauDAO" class="com.helpyacademy.dao.NiveauDAOImpl">
         <beans:property name="sessionFactory" ref="sessionFactory" />
@@ -92,8 +96,13 @@
     </beans:bean>
     <beans:bean id="professeurService" class="com.helpyacademy.service.ProfesseurServiceImpl">
         <beans:property name="professeurDAO" ref="professeurDAO" />
+        <beans:property name="diplomeDAO" ref="diplomeDAO" />
     </beans:bean>
     <beans:bean id="professeurBean" class="com.helpyacademy.bean.professeurBean">
         <beans:property name="professeurService" ref="professeurService" />
     </beans:bean>
+    <beans:bean id="profInsciptionBean" class="com.helpyacademy.bean.profInsciptionBean">
+        <beans:property name="professeurService" ref="professeurService" />
+    </beans:bean>
+    
 </beans:beans>

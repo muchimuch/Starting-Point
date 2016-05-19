@@ -6,6 +6,7 @@
 package com.helpyacademy.service;
 
 import com.helpyacademy.dao.model.Professeur;
+import java.util.List;
 
 /**
  *
@@ -14,4 +15,7 @@ import com.helpyacademy.dao.model.Professeur;
 
 public interface ProfesseurService {
     public Professeur login(String email,String mdp);
+    public boolean emailExiste(String email);
+    public boolean inscrire(String email, String mdp, String civilite, String nom, String prenom, String tel, List<String> Diplomes);
+    public String verifier(String email,String token);
 }

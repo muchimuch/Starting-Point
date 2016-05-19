@@ -51,12 +51,10 @@ public class Professeur implements Serializable {
     @Column(name = "prenom")
     private String prenom;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "adresse")
     private String adresse;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "ville")
     private String ville;
@@ -76,30 +74,23 @@ public class Professeur implements Serializable {
     @Column(name = "mdp")
     private String mdp;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "date_naissance")
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "situation_pro")
     private String situationPro;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "niv_etude")
     private String nivEtude;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "disponibilite")
     private int disponibilite;
     @Size(max = 100)
     @Column(name = "token")
     private String token;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2)
     @Column(name = "compte_active",columnDefinition = "enum('0', '1', '2')")
     private char compteActive;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProf")
@@ -122,21 +113,16 @@ public class Professeur implements Serializable {
         this.id = id;
     }
 
-    public Professeur(Integer id, String civilite, String nom, String prenom, String adresse, String ville, String tel, String email, String mdp, Date dateNaissance, String situationPro, String nivEtude, char compteActive,Date dateInscription) {
-        this.id = id;
+    public Professeur(String civilite, String nom, String prenom, String tel, String email, String mdp) {
+        
         this.civilite = civilite;
         this.nom = nom;
         this.prenom = prenom;
-        this.adresse = adresse;
-        this.ville = ville;
         this.tel = tel;
         this.email = email;
         this.mdp = mdp;
-        this.dateNaissance = dateNaissance;
-        this.situationPro = situationPro;
-        this.nivEtude = nivEtude;
-        this.compteActive = compteActive;
-        this.dateInscription = dateInscription;
+        this.dateInscription = new Date();
+        this.compteActive = '0';
     }
 
     public Integer getId() {

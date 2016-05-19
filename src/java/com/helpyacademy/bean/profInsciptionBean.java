@@ -5,6 +5,7 @@
  */
 package com.helpyacademy.bean;
 
+import com.helpyacademy.service.ProfesseurService;
 import com.helpyacademy.util.Utils;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,8 +41,10 @@ public class profInsciptionBean implements Serializable{
     private int etape = 1;
     private boolean success;
     
-    @PostConstruct
-    public void init(){
+    private ProfesseurService professeurService;
+
+    public void setProfesseurService(ProfesseurService professeurService) {
+        this.professeurService = professeurService;
     }
     
     public int getId() {
@@ -184,8 +187,12 @@ public class profInsciptionBean implements Serializable{
     
     public void addDiplome(){
         if(Diplome != null && !Diplome.isEmpty()){
-            Diplomes.add(Diplome);
-            Diplome = "";
+            if(Diplomes.indexOf(Diplome) == -1){
+                Diplomes.add(Diplome);
+                Diplome = "";
+            } else {
+                Utils.addMessage("le Diplome Existe deja");
+            }
         }else{
             Utils.addMessage("Insérer un diplome pour l'ajouter à vous Diplomes");
         }
@@ -195,6 +202,9 @@ public class profInsciptionBean implements Serializable{
         if(etape == 1){
             if(!mdp.equals(mdpConfirm)){
                 Utils.addMessage("Confirmation du mot de passe est erroné");
+                success=false;
+            } else if(professeurService.emailExiste(email)){
+                Utils.addMessage("L'Email est déjà utilisé. Veuillez entrer un nouveau E-mail");
                 success=false;
             } else {
                 etape ++;
@@ -227,18 +237,19 @@ public class profInsciptionBean implements Serializable{
         }
     }
     
-    public void finish(){
+    public String finish(){
         if(Diplomes.size()>0){
-            //-- #Inscription Code
-            
-            //-------------------
-            success=true;
-            Utils.addMessage("Inscription Complète.\nMerci de vérifier votre Email!");
-            reset();
+            if(professeurService.inscrire(email,mdp,civilite,nom,prenom,tel,Diplomes)){
+                return "pretty:inscription_faite";
+            } else {
+                success=false;
+                Utils.addMessage("l'inscription n'est pas completé. Veuillez vérifier vos données");
+            }
         }else{
             Utils.addMessage("Veuillez insérez vos Diplomes.");
             success=false;
         }
+        return "pretty:inscriptionP";
     }
     
     public void reset(){
