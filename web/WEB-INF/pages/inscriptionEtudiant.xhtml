@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:pretty="http://ocpsoft.com/prettyfaces"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -83,9 +83,7 @@
                         <h:outputLabel for="niveau" value="Niveau" styleClass="col-sm-3 control-label"/>
                         <div class="col-sm-9">
                             <h:selectOneMenu id="niveau" value="#{etudiantBean.niveau}" styleClass="form-control">
-                                <c:forEach var="niveau" items="#{etudiantBean.ListNiveau()}">
-                                    <f:selectItem itemValue="#{niveau.id}" itemLabel="#{niveau.niveau}" />
-                                </c:forEach>							
+                                <f:selectItems value="#{etudiantBean.ListNiveau()}" var="niveau" itemLabel="#{niveau.niveau}" itemValue="#{niveau.id}"/>	
                             </h:selectOneMenu>
                         </div>
                     </div>

@@ -100,8 +100,8 @@ public class Professeur implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
-    @Column(name = "compte_active")
-    private String compteActive;
+    @Column(name = "compte_active",columnDefinition = "enum('0', '1', '2')")
+    private char compteActive;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProf")
     private List<Note> noteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProf")
@@ -110,7 +110,11 @@ public class Professeur implements Serializable {
     private List<Message> messageList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProf")
     private List<Diplome> diplomeList;
-
+    @NotNull
+    @Column(name = "date_inscription")
+    @Temporal(TemporalType.DATE)
+    private Date dateInscription;
+    
     public Professeur() {
     }
 
@@ -118,7 +122,7 @@ public class Professeur implements Serializable {
         this.id = id;
     }
 
-    public Professeur(Integer id, String civilite, String nom, String prenom, String adresse, String ville, String tel, String email, String mdp, Date dateNaissance, String situationPro, String nivEtude, int disponibilite, String compteActive) {
+    public Professeur(Integer id, String civilite, String nom, String prenom, String adresse, String ville, String tel, String email, String mdp, Date dateNaissance, String situationPro, String nivEtude, char compteActive,Date dateInscription) {
         this.id = id;
         this.civilite = civilite;
         this.nom = nom;
@@ -131,8 +135,8 @@ public class Professeur implements Serializable {
         this.dateNaissance = dateNaissance;
         this.situationPro = situationPro;
         this.nivEtude = nivEtude;
-        this.disponibilite = disponibilite;
         this.compteActive = compteActive;
+        this.dateInscription = dateInscription;
     }
 
     public Integer getId() {
@@ -141,6 +145,10 @@ public class Professeur implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setDateInscription(Date dateInscription) {
+        this.dateInscription = dateInscription;
     }
 
     public String getCivilite() {
@@ -207,6 +215,10 @@ public class Professeur implements Serializable {
         this.mdp = mdp;
     }
 
+    public Date getDateInscription() {
+        return dateInscription;
+    }
+
     public Date getDateNaissance() {
         return dateNaissance;
     }
@@ -247,11 +259,11 @@ public class Professeur implements Serializable {
         this.token = token;
     }
 
-    public String getCompteActive() {
+    public char getCompteActive() {
         return compteActive;
     }
 
-    public void setCompteActive(String compteActive) {
+    public void setCompteActive(char compteActive) {
         this.compteActive = compteActive;
     }
 

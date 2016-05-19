@@ -25,21 +25,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author youssefsafi
  */
-@WebFilter(filterName = "InscriptionFilter", urlPatterns = {"/WEB-INF/pages/*"},dispatcherTypes = {DispatcherType.REQUEST,DispatcherType.FORWARD})
-public class InscriptionFilter implements Filter {
-   
-    public InscriptionFilter() {
+@WebFilter(filterName = "EspaceProfesseurFilter", urlPatterns = {"/WEB-INF/espaces/professeur/*"},dispatcherTypes = {DispatcherType.REQUEST,DispatcherType.FORWARD,DispatcherType.ERROR})
+public class EspaceProfesseurFilter implements Filter {
+    
+    public EspaceProfesseurFilter() {
     }    
     
-    /**
-     *
-     * @param request The servlet request we are processing
-     * @param response The servlet response we are creating
-     * @param chain The filter chain we are processing
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet error occurs
-     */
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
@@ -48,16 +39,15 @@ public class InscriptionFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession ses = req.getSession(false);
     
-        if(ses != null && ses.getAttribute("EtudiantNom") != null){
-            res.sendRedirect(req.getContextPath()+"/Espace/Etudiant/");
-        } else if(ses != null && ses.getAttribute("AdmineEmail") != null){
-            res.sendRedirect(req.getContextPath()+"/Espace/Admin/");
-        } else if(ses != null && ses.getAttribute("ProfesseurID") != null){
-            res.sendRedirect(req.getContextPath()+"/Espace/Professeur/");
+        if(ses == null || ses.getAttribute("ProfesseurID") == null){
+            res.sendRedirect(req.getContextPath()+"/Auth/Professeur");
         }else{
             chain.doFilter(request, response);
         }
+       
     }
+
+    
 
     /**
      * Destroy method for this filter
@@ -65,9 +55,11 @@ public class InscriptionFilter implements Filter {
     public void destroy() {        
     }
 
-    @Override
-    public void init(FilterConfig fc) throws ServletException {
+    /**
+     * Init method for this filter
+     */
+    public void init(FilterConfig filterConfig) {        
+        
     }
-
     
 }

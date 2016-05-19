@@ -19,24 +19,23 @@ import javax.servlet.http.HttpSession;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author youssefsafi
  */
 @ManagedBean
 @SessionScoped
-public class EtudiantBean implements Serializable{
-    
+public class EtudiantBean implements Serializable {
+
     private int id;
-    private String nom;    
-    private String prenom;    
-    private String tel;    
-    private String adresse;    
-    private String ville;    
-    private String genre;    
-    private String email;    
-    private String mdp;  
+    private String nom;
+    private String prenom;
+    private String tel;
+    private String adresse;
+    private String ville;
+    private String genre;
+    private String email;
+    private String mdp;
     private String mdpConfirm;
     private float solde;
     private Date date_inscription;
@@ -45,10 +44,9 @@ public class EtudiantBean implements Serializable{
     private boolean isPwdValid;
     private boolean emailExiste;
     private int niveau;
-    
+
     private EtudiantService etudiantService;
-    
-    
+
     public EtudiantBean() {
     }
 
@@ -183,12 +181,12 @@ public class EtudiantBean implements Serializable{
     public boolean isEmailExiste() {
         return emailExiste;
     }
-    
-    public String dateInscriptionStr(){
+
+    public String dateInscriptionStr() {
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.FRENCH);
         return df.format(date_inscription);
     }
-    
+
     public int getNiveau() {
         return niveau;
     }
@@ -196,74 +194,77 @@ public class EtudiantBean implements Serializable{
     public void setNiveau(int niveau) {
         this.niveau = niveau;
     }
-    
-    // -------------------------------------------------------------------------
 
-    public String inscrire(){
-        isPwdValid = mdp.equals(mdpConfirm); 
-        if(isPwdValid){
+    // -------------------------------------------------------------------------
+    public String inscrire() {
+        isPwdValid = mdp.equals(mdpConfirm);
+        if (isPwdValid) {
             emailExiste = etudiantService.emailExiste(email);
-            if(emailExiste){
-                    Utils.addMessage("L'email existe déjà. Veuillez entrer un autre");
-                    return "inscriptionEtudiant.xhtml";
-            } else {        
+            if (emailExiste) {
+                Utils.addMessage("L'email existe déjà. Veuillez entrer un autre");
+            } else {
                 Niveau niv = new Niveau();
                 niv.setId(niveau);
-                
-                Etudiant etudiant = new Etudiant(nom, prenom, genre, email, mdp, solde, date_inscription,false, niv);
-                
-                etudiantService.inscrire(etudiant);
-            }    
+                Etudiant etudiant = new Etudiant(nom, prenom, genre, email, mdp, solde, date_inscription, false, niv);
+                if (etudiantService.inscrire(etudiant)) {
+                    return "pretty:inscription_faite";
+                } else {
+                    Utils.addMessage("Veuillez renseigner correctement les champs");
+                }
+            }
         } else {
             Utils.addMessage("Confirmation du mot de passe est erroné");
         }
-        
-        return "inscriptionEtudiant.xhtml";
+
+        return "pretty:inscriptionE";
     }
-    
-    public String login(){
-        Etudiant e = etudiantService.login(email,mdp);
-        if(e != null){
-            
-            id = e.getId();
-            nom = e.getNom();
-            prenom = e.getPrenom();
-            email = e.getEmail();
-            genre = e.getGenre();
-            solde = e.getSolde();
-            adresse = e.getAdresse();
-            tel = e.getTel();
-            date_inscription = e.getDateInscription();
-            
-            HttpSession session = Utils.getSession();
-            session.setAttribute("EtudiantID", id);
-            session.setAttribute("EtudiantNom", nom);
-            session.setAttribute("EtudiantPrenom", prenom);
-            session.setAttribute("theme", "skin-blue");
-            
-            return "pretty:EspaceE_HOME";
+
+    public String login() {
+        Etudiant e = etudiantService.login(email, mdp);
+        if (e != null) {
+            if (e.getCompteActive()) {
+                id = e.getId();
+                nom = e.getNom();
+                prenom = e.getPrenom();
+                email = e.getEmail();
+                genre = e.getGenre();
+                solde = e.getSolde();
+                adresse = e.getAdresse();
+                tel = e.getTel();
+                date_inscription = e.getDateInscription();
+
+                HttpSession session = Utils.getSession();
+                session.setAttribute("EtudiantID", id);
+                session.setAttribute("EtudiantNom", nom);
+                session.setAttribute("EtudiantPrenom", prenom);
+                session.setAttribute("theme", "skin-blue");
+
+                return "pretty:EspaceE_HOME";
+            } else {
+                e = null;
+                Utils.addMessage("Veuillez confirmer votre E-mail !");
+            }
         } else {
             Utils.addMessage("E-mail ou mot de passe incorrect");
             reset();
         }
         return "pretty:connexion_etudiant";
     }
-    
-    public String logout(){
+
+    public String logout() {
         reset();
         return etudiantService.logout();
     }
-    
-    public void reset(){
-        id=0;
-        nom=null;
-        prenom=null;
-        email=null;
-        mdp=null;
-        
+
+    public void reset() {
+        id = 0;
+        nom = null;
+        prenom = null;
+        email = null;
+        mdp = null;
     }
-    
-    public List<Niveau> ListNiveau(){
+
+    public List<Niveau> ListNiveau() {
         return etudiantService.listNiveau();
     }
 

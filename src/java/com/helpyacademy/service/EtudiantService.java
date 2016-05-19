@@ -14,7 +14,7 @@ import java.util.List;
  * @author youssefsafi
  */
 public interface EtudiantService {
-    public String inscrire(Etudiant etudiant);
+    public boolean inscrire(Etudiant etudiant);
     public String verifier(String email,String token);
     public Etudiant login(String email,String mdp);
     public String logout();

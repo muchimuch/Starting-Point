@@ -79,7 +79,7 @@ public class EtudiantDAOImpl implements EtudiantDAO{
 
     @Override
     public Etudiant login(String email, String mdp) {
-        String hql = "FROM Etudiant WHERE email=:email AND mdp=:mdp AND compte_active=true";
+        String hql = "FROM Etudiant WHERE email=:email AND mdp=:mdp";
         Session session = sessionFactory.openSession();
         Query q = session.createQuery(hql);
         q.setParameter("email", email);

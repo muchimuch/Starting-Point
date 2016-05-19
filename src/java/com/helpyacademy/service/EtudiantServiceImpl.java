@@ -32,7 +32,7 @@ public class EtudiantServiceImpl implements EtudiantService{
     }
     
     @Override
-    public String inscrire(Etudiant etudiant) {
+    public boolean inscrire(Etudiant etudiant) {
         
         
         
@@ -40,23 +40,20 @@ public class EtudiantServiceImpl implements EtudiantService{
                 etudiant.setToken(token);
                 Integer id = etudiantDAO.add(etudiant);
                 if(id == null){
-                     Utils.addMessage("Veuillez renseigner correctement les champs");
-                     return "inscriptionEtudiant.xhtml";
+                    return false;
                 } else {
                     try{
                         
                         String url = Utils.urlVerification(etudiant.getEmail(),token);
                         String msg = Utils.VerrificationCompteMessage(etudiant.getNom().toUpperCase(), etudiant.getPrenom().toUpperCase(), url);
                         MailService.sendMessage(etudiant.getEmail(), "Vérifiez votre compte HelpyAcademy", msg);
-                        
-                        return "pretty:inscription_faite";
-
+        
                     } catch(MessagingException e){
                         e.printStackTrace();
                     }
                 }
         
-        return "inscriptionEtudiant.xhtml?faces-redirect=true";
+        return true;
     }
     
     @Override

@@ -1,0 +1,103 @@
+<ui:composition template="../templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:f="http://java.sun.com/jsp/jstl/functions"
+                xmlns:pretty="http://ocpsoft.com/prettyfaces"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="title">Espace Professeur | HelpYAcademy</ui:define>
+    <ui:define name="espace">
+        <pretty:link styleClass="logo" mappingId="EspaceP_HOME">
+            <span class="logo-mini"><b>HelpY</b></span>
+            <span class="logo-lg"><b>ESPACE</b>Professeur</span>
+        </pretty:link>
+    </ui:define>
+    <ui:define name="username">${f:toUpperCase(professeurBean.nom)} ${f:toUpperCase(professeurBean.prenom)}</ui:define>
+    <ui:define name="user-header">
+        <p>
+            ${f:toUpperCase(professeurBean.nom)} ${f:toUpperCase(professeurBean.prenom)}
+            <small>Membre depuis #{empty professeurBean.dateInscription ? '' : professeurBean.dateInscriptionStr()}</small>
+        </p>
+    </ui:define>
+    <ui:define name="logout-btn">
+        <h:form>
+            <h:commandLink styleClass="btn btn-danger btn-sm btn-flat" value="Deconnexion" action="#{professeurBean.logout()}"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="messages">
+        <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-envelope-o"></i>
+                <span class="label label-success">4</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header">Vous avez 4 messages</li>
+                <li>
+                    <ul class="menu">
+                        <li>
+                            <a href="#">
+                                <div class="pull-left">
+                                    <h:graphicImage library="img" name="avatar5.png"/>
+                                </div>
+                                <h4>
+                                    Support Team
+                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                </h4>
+                                <p>Why not buy a new awesome theme?</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="footer"><a href="#">Voir tous les Messages</a></li>
+            </ul>
+        </li>
+    </ui:define>
+
+    <ui:define name="notifications">
+        <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bell-o"></i>
+                <span class="label label-warning">10</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header">You have 10 notifications</li>
+                <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="footer"><a href="#">View all</a></li>
+            </ul>
+        </li>
+    </ui:define>
+
+    <ui:define name="menu">
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-book"></i>
+                <span> Gestion des Matières </span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <pretty:link mappingId="EspaceA_LNiveau">
+                        <i class="fa fa-circle-o"></i> Liste des Niveaux
+                    </pretty:link>
+                </li>
+                <li>
+                    <pretty:link mappingId="EspaceA_LMatieres">
+                        <i class="fa fa-circle-o"></i> Liste des Matières
+                    </pretty:link>
+                </li>
+            </ul>
+        </li>
+
+    </ui:define>
+
+</ui:composition>
