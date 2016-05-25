@@ -17,6 +17,7 @@ import javax.faces.bean.RequestScoped;
  *
  * @author youssefsafi
  */
+
 @ManagedBean
 @RequestScoped
 public class NiveauBean implements Serializable{

@@ -2,16 +2,16 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
                       http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
-
+                      
         <!-- ***************************** Invites *******************************-->
-	<url-mapping id="home">
+    	<url-mapping id="home">
             <pattern value="/" />
             <view-id value="/WEB-INF/pages/index.xhtml" />
-	</url-mapping>
+    	</url-mapping>
         <url-mapping id="inscriptionE">
             <pattern value="/Inscription/Etudiant" />
             <view-id value="/WEB-INF/pages/inscriptionEtudiant.xhtml" />
-	</url-mapping>
+    	</url-mapping>
         <url-mapping id="verificationCompte">
             <pattern value="/VerificationCompte/#{token}/#{email}/" />
             <view-id value="/WEB-INF/pages/compteVerification.xhtml" /> 
@@ -49,7 +49,10 @@
             <pattern value="/Espace/Professeur/" />
             <view-id value="/WEB-INF/espaces/professeur/index.xhtml?faces-redirect=true" />
         </url-mapping>
-        
+        <url-mapping id="gestionMatiereP">
+            <pattern value="/Espace/Professeur/Matieres" />
+            <view-id value="/WEB-INF/espaces/professeur/gestionMatiere.xhtml?faces-redirect=true" />
+        </url-mapping>
         <!-- ***************************** Espace Admin ***************************-->
         <url-mapping id="connexion_admin">
             <pattern value="/Auth/Admin" />

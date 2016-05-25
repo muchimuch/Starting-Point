@@ -59,8 +59,6 @@ public class Professeur implements Serializable {
     @Column(name = "ville")
     private String ville;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
     @Column(name = "tel")
     private String tel;
     @Basic(optional = false)

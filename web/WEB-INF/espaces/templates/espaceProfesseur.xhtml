@@ -78,26 +78,13 @@
     </ui:define>
 
     <ui:define name="menu">
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-book"></i>
-                <span> Gestion des Matières </span>
-                <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-                <li>
-                    <pretty:link mappingId="EspaceA_LNiveau">
-                        <i class="fa fa-circle-o"></i> Liste des Niveaux
-                    </pretty:link>
-                </li>
-                <li>
-                    <pretty:link mappingId="EspaceA_LMatieres">
-                        <i class="fa fa-circle-o"></i> Liste des Matières
-                    </pretty:link>
-                </li>
-            </ul>
+        
+        <li>
+            <pretty:link mappingId="gestionMatiereP">
+                <i class="fa fa-book"></i> <span> Gestion des Matières </span>
+            </pretty:link>
         </li>
-
+    
     </ui:define>
 
 </ui:composition>

@@ -169,9 +169,9 @@ public class professeurBean implements Serializable {
                 dateInscription = p.getDateInscription();
 
                 HttpSession session = Utils.getSession();
-                session.setAttribute("ProfesseurID", id);
-                session.setAttribute("ProfesseurNom", nom);
-                session.setAttribute("ProfesseurPrenom", prenom);
+                session.setAttribute("IDP", id);
+                session.setAttribute("NomP", nom);
+                session.setAttribute("PrenomP", prenom);
                 session.setAttribute("theme", "skin-red-light");
 
                 return "pretty:EspaceP_HOME";

@@ -52,7 +52,7 @@ public class InscriptionFilter implements Filter {
             res.sendRedirect(req.getContextPath()+"/Espace/Etudiant/");
         } else if(ses != null && ses.getAttribute("AdmineEmail") != null){
             res.sendRedirect(req.getContextPath()+"/Espace/Admin/");
-        } else if(ses != null && ses.getAttribute("ProfesseurID") != null){
+        } else if(ses != null && ses.getAttribute("IDP") != null){
             res.sendRedirect(req.getContextPath()+"/Espace/Professeur/");
         }else{
             chain.doFilter(request, response);

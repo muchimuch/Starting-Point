@@ -39,7 +39,7 @@ public class EspaceProfesseurFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession ses = req.getSession(false);
     
-        if(ses == null || ses.getAttribute("ProfesseurID") == null){
+        if(ses == null || ses.getAttribute("IDP") == null){
             res.sendRedirect(req.getContextPath()+"/Auth/Professeur");
         }else{
             chain.doFilter(request, response);

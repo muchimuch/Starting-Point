@@ -6,6 +6,7 @@
 package com.helpyacademy.dao;
 
 import com.helpyacademy.dao.model.Matiere;
+import com.helpyacademy.dao.model.Niveau;
 import java.util.List;
 
 /**
@@ -18,4 +19,7 @@ public interface MatiereDAO {
     public void delete(Matiere matiere);    
     public List<Matiere> MatiereParNiv(int IDniveau);
     public boolean update(Matiere matiere);
+    public int getIdNiv(int idMatiereM);
+
+    public Matiere getMatiere(int idM);
 }

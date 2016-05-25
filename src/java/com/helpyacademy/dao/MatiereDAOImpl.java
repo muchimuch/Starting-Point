@@ -103,4 +103,24 @@ public class MatiereDAOImpl implements MatiereDAO {
       return true;
    }
 
+    @Override
+    public int getIdNiv(int idMatiereM) {
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery("FROM Matiere WHERE id=:id");
+        q.setParameter("id", idMatiereM);
+        Matiere matiere = (Matiere) q.uniqueResult();
+        session.close();
+        return matiere.getIdNiveau().getId();
+    }
+
+    @Override
+    public Matiere getMatiere(int idM) {
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery("FROM Matiere WHERE id=:id");
+        q.setParameter("id", idM);
+        Matiere m = (Matiere) q.uniqueResult();
+        session.close();
+        return m;
+    }
+
 }

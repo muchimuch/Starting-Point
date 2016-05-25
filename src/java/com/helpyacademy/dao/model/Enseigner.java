@@ -10,6 +10,9 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -21,9 +24,12 @@ import javax.validation.constraints.NotNull;
 @Table(name = "enseigner")
 public class Enseigner implements Serializable {
 
-    private static final long serialVersionUID = 1L; 
+    private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected EnseignerPK enseignerPK;
+    @NotNull
+    @Column(name = "description", columnDefinition = "text")
+    private String description;
     @Basic(optional = false)
     @NotNull
     @Column(name = "prixHeure")
@@ -31,8 +37,10 @@ public class Enseigner implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "cadeau20Min")
-    private short cadeau20Min;
+    private boolean cadeau20Min;
 
+    
+    
     public Enseigner() {
     }
 
@@ -40,10 +48,11 @@ public class Enseigner implements Serializable {
         this.enseignerPK = enseignerPK;
     }
 
-    public Enseigner(EnseignerPK enseignerPK, float prixHeure, short cadeau20Min) {
+    public Enseigner(EnseignerPK enseignerPK, float prixHeure, boolean cadeau20Min, String description) {
         this.enseignerPK = enseignerPK;
         this.prixHeure = prixHeure;
         this.cadeau20Min = cadeau20Min;
+        this.description = description;
     }
 
     public Enseigner(int idMatiere, int idProf) {
@@ -66,12 +75,20 @@ public class Enseigner implements Serializable {
         this.prixHeure = prixHeure;
     }
 
-    public short getCadeau20Min() {
+    public boolean getCadeau20Min() {
         return cadeau20Min;
     }
 
-    public void setCadeau20Min(short cadeau20Min) {
+    public void setCadeau20Min(boolean cadeau20Min) {
         this.cadeau20Min = cadeau20Min;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -98,5 +115,5 @@ public class Enseigner implements Serializable {
     public String toString() {
         return "com.helpyacademy.dao.model.Enseigner[ enseignerPK=" + enseignerPK + " ]";
     }
-    
+
 }

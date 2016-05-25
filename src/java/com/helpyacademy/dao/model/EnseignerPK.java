@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -26,7 +28,7 @@ public class EnseignerPK implements Serializable {
     @NotNull
     @Column(name = "idProf")
     private int idProf;
-
+   
     public EnseignerPK() {
     }
 

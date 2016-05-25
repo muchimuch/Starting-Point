@@ -1,0 +1,236 @@
+<ui:composition template="../templates/espaceProfesseur.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:define name="title">Gestion Matières | HelpYAcademy</ui:define>
+    <ui:define name="page-title">
+        Gestion Matières
+    </ui:define>
+    <ui:define name="page-subtitle"></ui:define>
+
+    <ui:define name="page-content">
+
+        <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#ajouterMatiere"> <i class="fa fa-plus"></i> Ajouter une Matière </button>
+        <h:messages styleClass="alert #{enseignerBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px"/>
+
+        <div class="col-sm-12" style="padding: 0">
+            <c:choose>
+                <c:when test="#{enseignerBean.emptyMatiereEnseigner()}">
+                    <p class="text-center text-muted" style="margin-top: 80px;font-size: 2.3em">Pas de Matières</p>
+                </c:when>
+                <c:otherwise>
+                    <h:dataTable
+                        value="#{enseignerBean.listMatiereEnseigner}" var="matiereEns"
+                        styleClass="table table-bordered table-striped"
+                        style="background-color: white;margin-top: 15px"
+                        id="tableMatieres"
+                        >
+                        <h:column  headerClass="col-sm-4">    				
+                            <f:facet name="header">Matière</f:facet>    				
+                                #{enseignerBean.getMatiereNom(matiereEns.enseignerPK.idMatiere)}
+                        </h:column>
+                        <h:column  headerClass="col-sm-4">    				
+                            <f:facet name="header">Prix/Heure</f:facet>    				
+                                #{matiereEns.prixHeure}
+                        </h:column>
+                        <!-- plus info -->
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>    				
+                            <h:form>
+                                <h:commandButton id="moreInfo" value="Plus d'info" styleClass="btn btn-sm btn-info" action="#{enseignerBean.plusInfo(matiereEns)}"
+                                                 onclick="$('#PlusInfoModal').modal('show');">
+                                    <f:ajax execute="@this" render="prixHeureP cadeauP descriptionP niveauP matiereP"/>
+                                </h:commandButton>
+                            </h:form>
+                        </h:column>
+                        <!-- Suppression -->
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>    				
+                            <h:form onsubmit="return confirm('Vous voulez vraiment continuer ?')">
+                                <h:commandButton id="delete" styleClass="btn btn-sm btn-danger" value="Supprimer" action="#{enseignerBean.delete(matiereEns)}" />
+                            </h:form>
+                        </h:column>
+                        <!-- Modification -->
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>    				
+                            <h:form>
+                                <h:commandButton id="update" value="Modifier" styleClass="btn btn-sm btn-primary" action="#{enseignerBean.initUpdate(matiereEns)}"
+                                                 onclick="$('#ModifierModal').modal('show');">
+                                    <f:ajax execute="@this" render="updateForm"/>
+                                </h:commandButton>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                </c:otherwise>
+            </c:choose>
+        </div>
+        <!-- Plus d'info Modal -->
+        <div class="modal fade" id="PlusInfoModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" id="updatePlusInfo">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                        <h4 class="modal-title" id="myModalLabel">Plus d'information sur la Matière</h4>
+                    </div>
+                    <div class="modal-body form-horizontal">
+                        <div class="form-group">
+                            <h:outputLabel for="niv" styleClass="col-sm-3 control-label" value="Niveau"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="niveauP" value="#{enseignerBean.niveau}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel for="matiere" styleClass="col-sm-3 control-label" value="Matière"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="matiereP" value="#{enseignerBean.matiere}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel for="description" styleClass="col-sm-3 control-label" value="Description"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="descriptionP" value="#{enseignerBean.descriptionM}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel for="cad" styleClass="col-sm-3 control-label" value="Cadeau 20 min"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="cadeauP" value="#{enseignerBean.cadeau}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel for="prix" styleClass="col-sm-3 control-label" value="Prix / Heure"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="prixHeureP" value="#{enseignerBean.prixHeureM} DH"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Ajouter Modal -->
+        <div class="modal fade" id="ajouterMatiere" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Nouvelle Matière</h4>
+                        </div>
+                        <div class="modal-body form-horizontal">
+                            <div class="form-group">
+                                <h:outputLabel for="niv" styleClass="col-sm-3 control-label" value="Niveau"/>
+                                <div class="col-sm-9">
+                                    <h:selectOneMenu value="#{enseignerBean.idNiveau}" styleClass="form-control" valueChangeListener="#{enseignerBean.updateListMatiere}">
+                                        <f:selectItems value="#{enseignerBean.listNiveau}" var="niveau" itemValue="#{niveau.id}" itemLabel="#{niveau.niveau}"/>
+                                        <f:ajax execute="@this" event="change" render="listMatiere"/>
+                                    </h:selectOneMenu>	
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="matiere" styleClass="col-sm-3 control-label" value="Matière"/>
+                                <div class="col-sm-9">
+                                    <h:selectOneMenu id="listMatiere" value="#{enseignerBean.idMatiere}" styleClass="form-control" required="true" requiredMessage="Choisissez un Niveau">
+                                        <f:selectItems value="#{enseignerBean.listMatiere}" var="matiere" itemValue="#{matiere.id}" itemLabel="#{matiere.matiere}" />							
+                                    </h:selectOneMenu>	
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="description" styleClass="col-sm-3 control-label" value="Description"/>
+                                <div class="col-sm-9">
+                                    <h:inputTextarea id="description" styleClass="form-control" value="#{enseignerBean.description}" required="true" requiredMessage="Veuillez Ecrire une description"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="cad" styleClass="col-sm-3 control-label" value="Cadeau 20 min"/>
+                                <div class="col-sm-9">
+                                    <h:selectOneRadio value="#{enseignerBean.cadeau20Min}" styleClass="checkbox">
+                                        <f:selectItem itemValue="false" itemLabel="Desactive"/>
+                                        <f:selectItem itemValue="true" itemLabel="Active"/>
+                                    </h:selectOneRadio>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="prix" styleClass="col-sm-3 control-label" value="Prix / Heure"/>
+                                <div class="col-sm-9">
+                                    <h:inputText id="prix" value="#{enseignerBean.prixHeure}" p:placeholder="min 10" rendered="true"/>
+                                    <h:outputLabel value="DH" style="margin-left:20px"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{enseignerBean.save()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modifier Matiere Modal -->
+        <div class="modal fade" id="ModifierModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form id="updateForm">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modification d'une Matière</h4>
+                        </div>
+                        <div class="modal-body form-horizontal">
+                            <div class="form-group">
+                                <h:outputLabel for="niv" styleClass="col-sm-3 control-label" value="Niveau"/>
+                                <div class="col-sm-9">
+                                    <h:selectOneMenu value="#{enseignerBean.idNiveau}" styleClass="form-control" valueChangeListener="#{enseignerBean.updateListMatiere}">
+                                        <f:selectItems value="#{enseignerBean.listNiveau}" var="niveau" itemValue="#{niveau.id}" itemLabel="#{niveau.niveau}"/>
+                                        <f:ajax execute="@this" event="change" render="listMatiere"/>
+                                    </h:selectOneMenu>	
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="matiere" styleClass="col-sm-3 control-label" value="Matière"/>
+                                <div class="col-sm-9">
+                                    <h:selectOneMenu id="listMatiere" value="#{enseignerBean.idMatiere}" styleClass="form-control" required="true" requiredMessage="Choisissez un Niveau">
+                                        <f:selectItems value="#{enseignerBean.listMatiere}" var="matiere" itemValue="#{matiere.id}" itemLabel="#{matiere.matiere}" />							
+                                    </h:selectOneMenu>	
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="description" styleClass="col-sm-3 control-label" value="Description"/>
+                                <div class="col-sm-9">
+                                    <h:inputTextarea id="description" styleClass="form-control" value="#{enseignerBean.descriptionM}" required="true" requiredMessage="Veuillez Ecrire une description"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="cad" styleClass="col-sm-3 control-label" value="Cadeau 20 min"/>
+                                <div class="col-sm-9">
+                                    <h:selectOneRadio value="#{enseignerBean.cadeau20MinM}" styleClass="checkbox">
+                                        <f:selectItem itemValue="false" itemLabel="Desactive"/>
+                                        <f:selectItem itemValue="true" itemLabel="Active"/>
+                                    </h:selectOneRadio>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="prix" styleClass="col-sm-3 control-label" value="Prix / Heure"/>
+                                <div class="col-sm-9">
+                                    <h:inputText id="prix" value="#{enseignerBean.prixHeureM}" p:placeholder="min 10" rendered="true"/>
+                                    <h:outputLabel value="DH" style="margin-left:20px"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{enseignerBean.update()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>
