@@ -13,4 +13,10 @@ import com.helpyacademy.dao.model.Admin;
  */
 public interface AdminService {
     public Admin login(String email,String mdp);
+
+    public boolean changerMdp(String email, String newMotDePasse);
+
+    public boolean mdpCorrect(String email, String oldMotDePasse);
+
+    public boolean modifierInfo(String nom, String prenom);
 }

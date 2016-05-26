@@ -13,4 +13,6 @@ import com.helpyacademy.dao.model.Admin;
  */
 public interface AdminDAO {
     public Admin login(String email,String mdp);
+    public void update(Admin admin);
+    public Admin getAdmin(String email);
 }

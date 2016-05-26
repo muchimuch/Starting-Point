@@ -6,9 +6,11 @@
 package com.helpyacademy.dao;
 
 import com.helpyacademy.dao.model.Admin;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -29,6 +31,35 @@ public class AdminDAOImpl implements AdminDAO {
         Query q = session.createQuery(hql);
         q.setParameter("email", email);
         q.setParameter("mdp", mdp);
+        Admin admin = (Admin) q.uniqueResult();
+        session.close();
+        
+        return admin;
+    }
+
+    @Override
+    public void update(Admin admin) {
+        Session session = sessionFactory.openSession();
+      Transaction tx = null;
+      try{
+         tx = session.beginTransaction();
+         session.update(admin); 
+         tx.commit();
+      }catch (HibernateException e) {
+         if (tx!=null)
+             tx.rollback();
+         e.printStackTrace(); 
+      }finally {
+         session.close(); 
+      }
+    }
+
+    @Override
+    public Admin getAdmin(String email) {
+        Session session = sessionFactory.openSession();
+        String hql = "FROM Admin WHERE email=:email";
+        Query q = session.createQuery(hql);
+        q.setParameter("email", email);
         Admin admin = (Admin) q.uniqueResult();
         session.close();
         

@@ -31,6 +31,13 @@ public class AdminBean implements Serializable{
     private String motDePasse;
     private Date dateInscription;
     
+    private boolean success;
+    private String motDePasseConf;
+    private String newMotDePasse;
+    
+    private String nomM;
+    private String prenomM;
+    
     private AdminService adminService;
 
     public AdminBean() {
@@ -79,15 +86,103 @@ public class AdminBean implements Serializable{
     public String getMotDePasse() {
         return motDePasse;
     }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public String getMotDePasseConf() {
+        return motDePasseConf;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public void setMotDePasseConf(String motDePasseConf) {
+        this.motDePasseConf = motDePasseConf;
+    }
+
+    public String getNewMotDePasse() {
+        return newMotDePasse;
+    }
+
+    public void setNewMotDePasse(String newMotDePasse) {
+        this.newMotDePasse = newMotDePasse;
+    }
+
+    public String getNomM() {
+        return nomM;
+    }
+
+    public String getPrenomM() {
+        return prenomM;
+    }
+
+    public void setNomM(String nomM) {
+        this.nomM = nomM;
+    }
+
+    public void setPrenomM(String prenomM) {
+        this.prenomM = prenomM;
+    }
     
     /* ------------------------------------------ */
+    
+    public String modifierInfo(){
+        if(nomM.equals(nom) && prenomM.equals(prenom)){
+            success = false;
+            Utils.addMessage("Vous avez pas modifier vos informations");
+        } else {
+            if(adminService.modifierInfo(nomM,prenomM)){
+                success = true;
+                Utils.addMessage("Vos informations ont été bien enregistré");
+                nom = nomM;
+                prenom = prenomM;
+            } else {
+                success = false;
+                Utils.addMessage("Vos informations n'ont pas été enregistré");
+            }
+        }
+        return "pretty:EspaceA_Profil";
+    }
+    
+    public String modifierMdp(){
+        if(newMotDePasse.equals(motDePasseConf)){
+            if(newMotDePasse.length() >= 8){
+                if(adminService.mdpCorrect(email,motDePasse)){
+                    if(adminService.changerMdp(email,newMotDePasse)){
+                        Utils.addMessage("Votre mot de passe a été bien modifier");
+                        success = true;
+                    } else {
+                        Utils.addMessage("Votre mot de passe n'a pas été modifier. Essayez une autre fois");
+                        success = false;
+                    }
+                } else {
+                    Utils.addMessage("l'ancien mot de passe est incorrect ");
+                    success = false;
+                }
+            } else {
+                Utils.addMessage("le mot de passe doit contenir au moin 8 caractéres");
+                success = false;
+            }
+        } else {
+            Utils.addMessage("Veuillez confirmer votre nouveau mot de passe");
+            success = false;
+        }
+        return "pretty:EspaceA_Profil";
+    }
     
     public String login(){
         Admin admin = adminService.login(email, motDePasse);
         if(admin != null){
             nom = admin.getNom();
             prenom = admin.getPrenom();
+            nomM = nom;
+            prenomM = prenom;
             dateInscription = admin.getDateInscription();
+            email = admin.getEmail();
+            motDePasse = null;
             
             HttpSession session = Utils.getSession();
             session.setAttribute("AdmineEmail", email);

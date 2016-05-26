@@ -1,0 +1,98 @@
+<ui:composition template="../templates/espaceAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="title">Profil | HelpYAcademy</ui:define>
+    <ui:define name="page-title">Votre Profil</ui:define>
+    <ui:define name="page-subtitle"></ui:define>
+    <ui:define name="page-content">
+        <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modifierMDP"> <i class="fa fa-lock"></i> Modification du Mot de Passe</button>
+        <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modifierInfo"> <i class="fa fa-info"></i> Modification des informations Personnel</button>
+        <h:messages styleClass="alert #{adminBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px"/>
+        
+        <table style="font-size: 1.5em;margin-top: 15px" class="well">
+            <tr>
+                <td class="col-sm-3 text-light-blue">Nom</td>
+                <td> : #{adminBean.nom}</td>
+            </tr>
+            <tr>
+                <td class="col-sm-3 text-light-blue">Prénom</td>
+                <td> : #{adminBean.prenom}</td>
+            </tr>
+            <tr>
+                <td class="col-sm-3 text-light-blue">E-mail</td>
+                <td> : #{adminBean.email}</td>
+            </tr>
+        </table>
+        
+        
+        <!-- Modifier Info Modal -->
+        <div class="modal fade" id="modifierInfo" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form styleClass="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modification des Informations Personnel </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h:outputLabel for="nom" styleClass="col-sm-4 control-label" value="Nom"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{adminBean.nomM}" id="nom" styleClass="form-control" required="true" requiredMessage="Veuillez entrer votre Nom" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="prenom" styleClass="col-sm-4 control-label" value="Prénom"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{adminBean.prenomM}" id="prenom" styleClass="form-control" required="true" requiredMessage="Veuillez entrer votre Prénom" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{adminBean.modifierInfo()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <!-- Modifier Mot de passe Modal -->
+        <div class="modal fade" id="modifierMDP" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form styleClass="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modification du Mot de Passe</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h:outputLabel for="oldMdp" styleClass="col-sm-4 control-label" value="Ancien Mot de Passe"/>
+                                <div class="col-sm-8">
+                                    <h:inputSecret value="#{adminBean.motDePasse}" id="oldMdp" styleClass="form-control" required="true" requiredMessage="Veuillez entrer votre ancien mot de passe" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="newMdp" styleClass="col-sm-4 control-label" value="Nouveau Mot de Passe"/>
+                                <div class="col-sm-8">
+                                    <h:inputSecret value="#{adminBean.newMotDePasse}" id="newMdp" styleClass="form-control" required="true" requiredMessage="Veuillez entrer le nouveau mot de passe" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="confMdp" styleClass="col-sm-4 control-label" value="Confirmation"/>
+                                <div class="col-sm-8">
+                                    <h:inputSecret value="#{adminBean.motDePasseConf}" id="confMdp" styleClass="form-control" required="true" requiredMessage="Veuillez confirmer le nouveau mot de passe" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{adminBean.modifierMdp()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
