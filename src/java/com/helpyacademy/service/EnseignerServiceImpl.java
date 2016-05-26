@@ -106,7 +106,8 @@ public class EnseignerServiceImpl implements EnseignerService {
 
     @Override
     public boolean matierExiste(int idMatiere) {
-        Matiere m = matiereDAO.getMatiere(idMatiere);
+        int idp = (int) Utils.getSession().getAttribute("IDP");
+        Enseigner m = enseignerDAO.getMatiere(idMatiere,idp);
         return m != null;
     }
 

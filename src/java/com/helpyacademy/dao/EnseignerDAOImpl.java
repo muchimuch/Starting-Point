@@ -7,7 +7,6 @@ package com.helpyacademy.dao;
 
 import com.helpyacademy.dao.model.Enseigner;
 import com.helpyacademy.dao.model.EnseignerPK;
-import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -94,6 +93,17 @@ public class EnseignerDAOImpl implements EnseignerDAO{
            session.close(); 
         }
         return ID;
+    }
+
+    @Override
+    public Enseigner getMatiere(int idMatiere, int idp) {
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery("FROM Enseigner WHERE enseignerPK.idProf=:idp AND enseignerPK.idMatiere=:idMatiere");
+        q.setParameter("idp", idp);
+        q.setParameter("idMatiere", idMatiere);
+        Enseigner e = (Enseigner) q.uniqueResult();
+        session.close();
+        return e;
     }
     
 }

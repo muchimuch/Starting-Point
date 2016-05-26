@@ -20,4 +20,6 @@ public interface EnseignerDAO {
     public List<Enseigner> MatiereEnseigner(int IDP);
     public EnseignerPK add(Enseigner enseigner);
     public void update(Enseigner enseigner);
+
+    public Enseigner getMatiere(int idMatiere, int idp);
 }
