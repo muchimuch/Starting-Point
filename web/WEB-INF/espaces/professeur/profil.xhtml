@@ -1,0 +1,60 @@
+<ui:composition template="../templates/espaceProfesseur.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://java.sun.com/jsf/passthrough">
+    <ui:define name="title">Profil | HelpYAcademy</ui:define>
+    <ui:define name="page-title"> Votre Profil </ui:define>
+    <ui:define name="page-subtitle"></ui:define>
+
+    <ui:define name="page-content">
+        <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modifierMDP"> <i class="fa fa-lock"></i> Modification du Mot de Passe</button>
+        <h:messages styleClass="alert #{professeurBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px"/>
+
+        <div class="col-sm-12" style="padding: 0">
+            
+        </div>
+        
+        <!-- Modifier Mot de passe Modal -->
+        <div class="modal fade" id="modifierMDP" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form styleClass="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modification du Mot de Passe</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h:outputLabel for="oldMdp" styleClass="col-sm-4 control-label" value="Ancien Mot de Passe"/>
+                                <div class="col-sm-8">
+                                    <h:inputSecret value="#{professeurBean.oldPassword}" id="oldMdp" styleClass="form-control" required="true" requiredMessage="Veuillez entrer votre ancien mot de passe" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="newMdp" styleClass="col-sm-4 control-label" value="Nouveau Mot de Passe"/>
+                                <div class="col-sm-8">
+                                    <h:inputSecret value="#{professeurBean.newPassword}" id="newMdp" styleClass="form-control" required="true" requiredMessage="Veuillez entrer le nouveau mot de passe" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="confMdp" styleClass="col-sm-4 control-label" value="Confirmation"/>
+                                <div class="col-sm-8">
+                                    <h:inputSecret value="#{professeurBean.confPassword}" id="confMdp" styleClass="form-control" required="true" requiredMessage="Veuillez confirmer le nouveau mot de passe" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{professeurBean.modifierMdp()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

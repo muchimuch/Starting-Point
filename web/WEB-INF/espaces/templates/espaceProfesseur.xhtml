@@ -19,6 +19,9 @@
             <small>Membre depuis #{empty professeurBean.dateInscription ? '' : professeurBean.dateInscriptionStr()}</small>
         </p>
     </ui:define>
+    <ui:define name="profil-btn">
+        <pretty:link mappingId="EspaceP_Profil" styleClass="btn btn-default btn-flat"> Profil </pretty:link>
+    </ui:define>
     <ui:define name="logout-btn">
         <h:form>
             <h:commandLink styleClass="btn btn-danger btn-sm btn-flat" value="Deconnexion" action="#{professeurBean.logout()}"/>

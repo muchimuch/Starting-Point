@@ -80,4 +80,18 @@ public class ProfesseurServiceImpl implements ProfesseurService {
         }
         return "pretty:home";
     }
+
+    @Override
+    public boolean mdpCorrect(String email, String oldPassword) {
+        Professeur p = professeurDAO.login(email, oldPassword);
+        return p != null;
+    }
+
+    @Override
+    public boolean changerMdp(String email, String newPassword) {
+        Professeur p = professeurDAO.getProf(email);
+        p.setMdp(newPassword);
+        professeurDAO.update(p);
+        return true;
+    }
 }

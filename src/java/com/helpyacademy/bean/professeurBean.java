@@ -37,7 +37,11 @@ public class professeurBean implements Serializable {
     private String situation_pro;
     private String niv_etude;
     private Date dateInscription;
-
+    private String oldPassword;
+    private String newPassword;
+    private String confPassword;
+    private boolean success;
+    
     private ProfesseurService professeurService;
 
     public professeurBean() {
@@ -151,7 +155,66 @@ public class professeurBean implements Serializable {
         this.dateInscription = dateInscription;
     }
 
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public String getConfPassword() {
+        return confPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public void setConfPassword(String confPassword) {
+        this.confPassword = confPassword;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
     /* ====================================================================== */
+    
+    public String modifierMdp(){
+        if(newPassword.equals(confPassword)){
+            if(newPassword.length() >= 8){
+                if(professeurService.mdpCorrect(email,oldPassword)){
+                    if(professeurService.changerMdp(email,newPassword)){
+                        Utils.addMessage("Votre mot de passe a été bien modifier");
+                        success = true;
+                    } else {
+                        Utils.addMessage("Votre mot de passe n'a pas été modifier. Essayez une autre fois");
+                        success = false;
+                    }
+                } else {
+                    Utils.addMessage("l'ancien mot de passe est incorrect ");
+                    success = false;
+                }
+            } else {
+                Utils.addMessage("le mot de passe doit contenir au moin 8 caractéres");
+                success = false;
+            }
+        } else {
+            Utils.addMessage("Veuillez confirmer votre nouveau mot de passe");
+            success = false;
+        }
+        return "pretty:EspaceP_Profil";
+    }
+    
     public String login() {
         //Etudiant e = etudiantService.login(email,mdp);
         Professeur p = professeurService.login(email, mdp);

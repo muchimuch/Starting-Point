@@ -91,4 +91,35 @@ public class ProfesseurDAOImpl implements ProfesseurDAO {
         return n;
     }
 
+    @Override
+    public Professeur getProf(String email) {
+        Session session = sessionFactory.openSession();
+        String hql = "FROM Professeur WHERE email=:email";
+        Query q = session.createQuery(hql);
+        q.setParameter("email", email);
+        Professeur professeur = (Professeur) q.uniqueResult();
+        session.close();
+
+        return professeur;
+    }
+
+    @Override
+    public void update(Professeur p) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        Integer ID = null;
+        try {
+            tx = session.beginTransaction();
+            session.update(p);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
 }

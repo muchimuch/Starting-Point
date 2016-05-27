@@ -172,7 +172,7 @@ public class EnseignerBean {
         niveau = enseignerService.getNiveauNom(enseigner.getEnseignerPK().getIdMatiere());
         descriptionM = enseigner.getDescription();
         prixHeureM = enseigner.getPrixHeure();
-        cadeau = enseigner.getCadeau20Min() == true ? "Oui":"Nom"; 
+        cadeau = enseigner.getCadeau20Min() == true ? "Oui":"Non"; 
     }
     
     public String getMatiereNom(int idM){

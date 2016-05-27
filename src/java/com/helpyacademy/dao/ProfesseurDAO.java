@@ -17,4 +17,8 @@ public interface ProfesseurDAO {
     public Integer ajouter(Professeur p);
     public boolean isPresent(String email, String token);
     public Integer activerCompte(String email);
+
+    public Professeur getProf(String email);
+
+    public void update(Professeur p);
 }
