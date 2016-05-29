@@ -11,12 +11,131 @@
 
     <ui:define name="page-content">
         <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modifierMDP"> <i class="fa fa-lock"></i> Modification du Mot de Passe</button>
+        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#newDiplome"> <i class="fa fa-plus"></i> Nouveau Diplome</button>
         <h:messages styleClass="alert #{professeurBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px"/>
 
-        <div class="col-sm-12" style="padding: 0">
-            
+        <div class="col-sm-12" style="padding: 0;padding-top: 20px;clear:both">
+
+            <div class="panel panel-default col-sm-6 pull-left" style="padding:0">
+                <div class="panel-heading">
+                    <h2 class="panel-title text-center"><i class="fa fa-info-circle"></i> Information Personnel</h2>
+                </div>
+                <div class="panel-body" style="padding: 0">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td class="col-sm-6">Civilité </td>
+                            <td class="col-sm-6">#{professeurBean.civilite}</td>
+                        </tr>
+                        <tr>
+                            <td>Date de Naissance </td>
+                            <td>#{empty professeurBean.date_naissance ? ' --- ':professeurBean.date_naissance}</td>
+                        </tr>
+                        <tr>
+                            <td>Ville </td>
+                            <td>#{empty professeurBean.ville ? ' --- ':professeurBean.ville}</td>
+                        </tr>
+                        <tr>
+                            <td>Adresse </td>
+                            <td>#{empty professeurBean.adresse ? ' --- ':professeurBean.adresse}</td>
+                        </tr>
+                        <tr>
+                            <td>Téléphone </td>
+                            <td>#{empty professeurBean.tel ? ' --- ':professeurBean.tel}</td>
+                        </tr>
+                        <tr>
+                            <td>Situation Professionnel </td>
+                            <td>#{empty professeurBean.situation_pro ? ' --- ':professeurBean.situation_pro}</td>
+                        </tr>
+                        <tr>
+                            <td>Niveau d'étude </td>
+                            <td>#{empty professeurBean.niv_etude ? ' --- ':professeurBean.niv_etude}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel panel-default col-sm-6 pull-right" style="padding:0">
+                <div class="panel-heading">
+                    <h2 class="panel-title text-center"> <i class="fa fa-university"></i> Diplomes  </h2>
+                </div>
+                <div class="panel-body" style="padding: 0">
+                    <table class="table table-bordered table-striped">
+                        <c:forEach items="#{professeurBean.getDiplomes()}" var="diplome">
+                            <tr>
+                                <td class="col-sm-10">#{diplome.diplome}</td>
+                                <td>
+                                    <!-- Suppression -->			 				
+                                    <h:form onsubmit="return confirm('Vous voulez vraiment continuer ?')">
+                                        <h:commandButton id="delete" styleClass="btn btn-sm btn-danger" value="Supprimer" action="#{professeurBean.deleteDiplome(diplome)}" />
+                                    </h:form>
+                                </td>
+                                <td>
+                                    <!-- Modification --> 				
+                                    <h:form>
+                                        <h:commandButton id="update" value="Modifier" styleClass="btn btn-sm btn-primary" action="#{professeurBean.initUpdateDiplome(diplome)}"
+                                                         onclick="$('#ModifierModal').modal('show');">
+                                            <f:ajax execute="@this" render="initDiplomeModification"/>
+                                        </h:commandButton>
+                                    </h:form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+            </div>
         </div>
         
+        <!-- Modification d'un Diplome Modal -->
+        <div class="modal fade" id="ModifierModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form id="initDiplomeModification" styleClass="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modification d'un Diplome</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h:outputLabel for="diplome" styleClass="col-sm-4 control-label" value="Diplome"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{professeurBean.diplomeM}" id="diplome" styleClass="form-control" required="true" requiredMessage="Veuillez entrer un Diplome" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{professeurBean.modifierDiplome()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Nouveau Diplome Modal -->
+        <div class="modal fade" id="newDiplome" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form styleClass="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Nouveau Diplome</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h:outputLabel for="diplome" styleClass="col-sm-4 control-label" value="Diplome"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{professeurBean.diplome}" id="diplome" styleClass="form-control" required="true" requiredMessage="Veuillez entrer un Diplome" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{professeurBean.ajoutDiplome()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
         <!-- Modifier Mot de passe Modal -->
         <div class="modal fade" id="modifierMDP" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">

@@ -6,6 +6,8 @@
 package com.helpyacademy.dao;
 
 import com.helpyacademy.dao.model.Diplome;
+import com.helpyacademy.dao.model.Professeur;
+import java.util.List;
 
 /**
  *
@@ -13,4 +15,11 @@ import com.helpyacademy.dao.model.Diplome;
  */
 public interface DiplomeDAO {
     public Integer ajouter(Diplome diplome);
+    public List<Diplome> getDiplomes(Professeur idProf);
+
+    public void delete(Diplome d);
+
+    public Diplome getDiplomeByName(String diplome);
+
+    public void update(Diplome d);
 }

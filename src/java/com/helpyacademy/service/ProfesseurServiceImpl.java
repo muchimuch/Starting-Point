@@ -94,4 +94,43 @@ public class ProfesseurServiceImpl implements ProfesseurService {
         professeurDAO.update(p);
         return true;
     }
+
+    @Override
+    public boolean ajoutDiplome(String diplome) {
+        int idp = (int) Utils.getSession().getAttribute("IDP");
+        Professeur p = new Professeur(idp);
+        Diplome d = new Diplome();
+        d.setIdProf(p);
+        d.setDiplome(diplome);
+        Integer id = diplomeDAO.ajouter(d);
+        return id != null;
+    }
+
+    @Override
+    public List<Diplome> getDiplomes() {
+        int idp = (int) Utils.getSession().getAttribute("IDP");
+        Professeur p = new Professeur(idp);
+        return diplomeDAO.getDiplomes(p);
+    }
+
+    @Override
+    public boolean deleteDiplome(Diplome d) {
+        diplomeDAO.delete(d);
+        return true;
+    }
+
+    @Override
+    public boolean diplomeExiste(String diplome) {
+        Diplome d = diplomeDAO.getDiplomeByName(diplome);
+        return d != null;
+    }
+
+    @Override
+    public boolean modifierDiplome(Professeur idProf, int idDiplomeM, String diplomeM) {
+        Diplome d = new Diplome(idDiplomeM);
+        d.setIdProf(idProf);
+        d.setDiplome(diplomeM);
+        diplomeDAO.update(d);
+        return true;
+    }
 }

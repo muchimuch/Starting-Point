@@ -5,15 +5,18 @@
  */
 package com.helpyacademy.bean;
 
+import com.helpyacademy.dao.model.Diplome;
 import com.helpyacademy.dao.model.Professeur;
 import com.helpyacademy.service.ProfesseurService;
 import com.helpyacademy.util.Utils;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.Transient;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -41,6 +44,10 @@ public class professeurBean implements Serializable {
     private String newPassword;
     private String confPassword;
     private boolean success;
+    private String diplome;
+    private String diplomeM;
+    private int idDiplomeM;
+    private Professeur idProf;
     
     private ProfesseurService professeurService;
 
@@ -187,13 +194,78 @@ public class professeurBean implements Serializable {
         this.success = success;
     }
 
+    public String getDiplome() {
+        return diplome;
+    }
+
+    public void setDiplome(String diplome) {
+        this.diplome = diplome;
+    }
+
+    public void setDiplomeM(String diplomeM) {
+        this.diplomeM = diplomeM;
+    }
+
+    public String getDiplomeM() {
+        return diplomeM;
+    }
+
     /* ====================================================================== */
-    
-    public String modifierMdp(){
-        if(newPassword.equals(confPassword)){
-            if(newPassword.length() >= 8){
-                if(professeurService.mdpCorrect(email,oldPassword)){
-                    if(professeurService.changerMdp(email,newPassword)){
+    public String modifierDiplome() {
+        if(professeurService.diplomeExiste(diplomeM)){
+            Utils.addMessage("le diplome [ "+diplomeM+" ] existe deja");
+            success = false;
+        } else if(professeurService.modifierDiplome(idProf,idDiplomeM,diplomeM)){
+            Utils.addMessage("Votre diplome a été bien modifier");
+            success = true;
+        } else {
+            Utils.addMessage("Votre diplome n'a pas été modifier");
+            success = false;
+        }
+        return "pretty:EspaceP_Profil";
+    }
+
+    public void initUpdateDiplome(Diplome d) {
+        diplomeM = d.getDiplome();
+        idDiplomeM = d.getId();
+        idProf = d.getIdProf();
+    }
+
+    public String deleteDiplome(Diplome d) {
+        if (professeurService.deleteDiplome(d)) {
+            Utils.addMessage("Votre diplome a été bien supprimé");
+            success = true;
+        } else {
+            Utils.addMessage("Votre diplome n'a pas été supprimé");
+            success = false;
+        }
+        return "pretty:EspaceP_Profil";
+    }
+
+    public List<Diplome> getDiplomes() {
+        return professeurService.getDiplomes();
+    }
+
+    public String ajoutDiplome() {
+        if(professeurService.diplomeExiste(diplome)){
+            Utils.addMessage("le diplome [ "+diplome+" ] existe deja");
+            success = false;
+        } else if (professeurService.ajoutDiplome(diplome)) {
+            Utils.addMessage("Votre diplome a été bien ajouté");
+            success = true;
+            diplome = null;
+        } else {
+            Utils.addMessage("Votre diplome n'a pas été ajouté");
+            success = false;
+        }
+        return "pretty:EspaceP_Profil";
+    }
+
+    public String modifierMdp() {
+        if (newPassword.equals(confPassword)) {
+            if (newPassword.length() >= 8) {
+                if (professeurService.mdpCorrect(email, oldPassword)) {
+                    if (professeurService.changerMdp(email, newPassword)) {
                         Utils.addMessage("Votre mot de passe a été bien modifier");
                         success = true;
                     } else {
@@ -214,7 +286,7 @@ public class professeurBean implements Serializable {
         }
         return "pretty:EspaceP_Profil";
     }
-    
+
     public String login() {
         //Etudiant e = etudiantService.login(email,mdp);
         Professeur p = professeurService.login(email, mdp);
@@ -230,6 +302,14 @@ public class professeurBean implements Serializable {
                 nom = p.getNom();
                 prenom = p.getPrenom();
                 dateInscription = p.getDateInscription();
+
+                civilite = p.getCivilite();
+                adresse = p.getAdresse();
+                ville = p.getVille();
+                tel = p.getVille();
+                date_naissance = p.getDateNaissance();
+                situation_pro = p.getSituationPro();
+                niv_etude = p.getNivEtude();
 
                 HttpSession session = Utils.getSession();
                 session.setAttribute("IDP", id);

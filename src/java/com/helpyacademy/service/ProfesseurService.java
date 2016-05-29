@@ -5,6 +5,7 @@
  */
 package com.helpyacademy.service;
 
+import com.helpyacademy.dao.model.Diplome;
 import com.helpyacademy.dao.model.Professeur;
 import java.util.List;
 
@@ -22,4 +23,14 @@ public interface ProfesseurService {
     public boolean mdpCorrect(String email, String oldPassword);
 
     public boolean changerMdp(String email, String newPassword);
+
+    public boolean ajoutDiplome(String diplome);
+
+    public List<Diplome> getDiplomes();
+
+    public boolean deleteDiplome(Diplome d);
+
+    public boolean diplomeExiste(String diplome);
+
+    public boolean modifierDiplome(Professeur idProf, int idDiplomeM, String diplomeM);
 }
