@@ -6,6 +6,7 @@
 package com.helpyacademy.dao;
 
 import com.helpyacademy.dao.model.Professeur;
+import java.util.Date;
 
 /**
  *
@@ -17,8 +18,7 @@ public interface ProfesseurDAO {
     public Integer ajouter(Professeur p);
     public boolean isPresent(String email, String token);
     public Integer activerCompte(String email);
-
     public Professeur getProf(String email);
-
+    public Professeur getProfByID(int idp);
     public void update(Professeur p);
 }

@@ -11,14 +11,15 @@
 
     <ui:define name="page-content">
         <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modifierMDP"> <i class="fa fa-lock"></i> Modification du Mot de Passe</button>
+        <button class="btn btn-sm btn-github" data-toggle="modal" data-target="#modificationInfo"> <i class="fa fa-edit"></i> Modifier Vos Informations Personnel</button>
         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#newDiplome"> <i class="fa fa-plus"></i> Nouveau Diplome</button>
-        <h:messages styleClass="alert #{professeurBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px"/>
+        <h:messages styleClass="alert #{professeurBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px;margin-bottom: -10px"/>
 
         <div class="col-sm-12" style="padding: 0;padding-top: 20px;clear:both">
 
             <div class="panel panel-default col-sm-6 pull-left" style="padding:0">
                 <div class="panel-heading">
-                    <h2 class="panel-title text-center"><i class="fa fa-info-circle"></i> Information Personnel</h2>
+                    <h2 class="panel-title text-center"><i class="fa fa-info-circle"></i> Informations Personnel</h2>
                 </div>
                 <div class="panel-body" style="padding: 0">
                     <table class="table table-bordered table-striped">
@@ -27,8 +28,16 @@
                             <td class="col-sm-6">#{professeurBean.civilite}</td>
                         </tr>
                         <tr>
+                            <td class="col-sm-6">Nom </td>
+                            <td class="col-sm-6">#{professeurBean.nom}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-6">Prénom </td>
+                            <td class="col-sm-6">#{professeurBean.prenom}</td>
+                        </tr>
+                        <tr>
                             <td>Date de Naissance </td>
-                            <td>#{empty professeurBean.date_naissance ? ' --- ':professeurBean.date_naissance}</td>
+                            <td>#{empty professeurBean.dateNaissanceM ? ' --- ':professeurBean.dateNaissanceM}</td>
                         </tr>
                         <tr>
                             <td>Ville </td>
@@ -43,12 +52,20 @@
                             <td>#{empty professeurBean.tel ? ' --- ':professeurBean.tel}</td>
                         </tr>
                         <tr>
+                            <td class="col-sm-6">E-mail </td>
+                            <td class="col-sm-6">#{professeurBean.email}</td>
+                        </tr>
+                        <tr>
                             <td>Situation Professionnel </td>
                             <td>#{empty professeurBean.situation_pro ? ' --- ':professeurBean.situation_pro}</td>
                         </tr>
                         <tr>
                             <td>Niveau d'étude </td>
                             <td>#{empty professeurBean.niv_etude ? ' --- ':professeurBean.niv_etude}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-6">Date d'inscription </td>
+                            <td class="col-sm-6">#{professeurBean.dateInscriptionStr()}</td>
                         </tr>
                     </table>
                 </div>
@@ -84,7 +101,70 @@
                 </div>
             </div>
         </div>
-        
+
+        <!-- Modification des info personnel Modal -->
+        <div class="modal fade" id="modificationInfo" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" >
+                    <h:form id="form" styleClass="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modification des Informations Personnel</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h:outputLabel for="dateNaiss" styleClass="col-sm-4 control-label" value="Date de Naissance"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{professeurBean.dateNaissanceM}" id="dateNaiss" styleClass="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="tel" styleClass="col-sm-4 control-label" value="Téléphone"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{professeurBean.tel}" id="tel" styleClass="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="Ville" styleClass="col-sm-4 control-label" value="Ville"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{professeurBean.ville}" id="Ville" styleClass="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="Adresse" styleClass="col-sm-4 control-label" value="Adresse"/>
+                                <div class="col-sm-8">
+                                    <h:inputTextarea id="Adresse" value="#{professeurBean.adresse}" styleClass="form-control" style="resize: none"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="SP" styleClass="col-sm-4 control-label" value="Situation Professionnel"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{professeurBean.situation_pro}" id="SP" styleClass="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="Nivetd" styleClass="col-sm-4 control-label" value="Niveau d'étude"/>
+                                <div class="col-sm-8">
+                                    <h:selectOneMenu value="#{professeurBean.niv_etude}" styleClass="form-control">
+                                        <f:selectItem itemValue="" itemLabel=" --- choisissez --- "/>
+                                        <f:selectItem itemValue="BAC +1" itemLabel=" BAC +1 "/>
+                                        <f:selectItem itemValue="BAC +2" itemLabel=" BAC +2 "/>
+                                        <f:selectItem itemValue="BAC +3" itemLabel=" BAC +3 "/>
+                                        <f:selectItem itemValue="BAC +4" itemLabel=" BAC +4 "/>
+                                        <f:selectItem itemValue="BAC +5" itemLabel=" BAC +5 "/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{professeurBean.modifierInfoP()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
         <!-- Modification d'un Diplome Modal -->
         <div class="modal fade" id="ModifierModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -110,7 +190,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Nouveau Diplome Modal -->
         <div class="modal fade" id="newDiplome" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -173,7 +253,17 @@
                 </div>
             </div>
         </div>
-
     </ui:define>
-
+    <ui:define name="css">
+        <h:outputStylesheet library="css" name="datepicker3.css" />
+    </ui:define>
+    <ui:define name="js">
+        <h:outputScript library="js" name="bootstrap-datepicker.js" />
+        <script>
+            $('#form\\:dateNaiss').datepicker({
+                autoclose: true,
+                format: "yyyy-mm-dd"
+            });
+        </script>
+    </ui:define>
 </ui:composition>

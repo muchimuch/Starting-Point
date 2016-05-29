@@ -6,6 +6,7 @@
 package com.helpyacademy.dao;
 
 import com.helpyacademy.dao.model.Professeur;
+import java.util.Date;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -104,6 +105,18 @@ public class ProfesseurDAOImpl implements ProfesseurDAO {
     }
 
     @Override
+    public Professeur getProfByID(int idp) {
+        Session session = sessionFactory.openSession();
+        String hql = "FROM Professeur WHERE id=:id";
+        Query q = session.createQuery(hql);
+        q.setParameter("id", idp);
+        Professeur professeur = (Professeur) q.uniqueResult();
+        session.close();
+
+        return professeur;
+    }
+
+    @Override
     public void update(Professeur p) {
         Session session = sessionFactory.openSession();
         Transaction tx = null;
@@ -121,5 +134,4 @@ public class ProfesseurDAOImpl implements ProfesseurDAO {
             session.close();
         }
     }
-
 }

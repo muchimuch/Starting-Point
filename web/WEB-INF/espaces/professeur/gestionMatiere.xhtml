@@ -34,7 +34,7 @@
                         </h:column>
                         <h:column  headerClass="col-sm-4">    				
                             <f:facet name="header">Prix/Heure</f:facet>    				
-                                #{matiereEns.prixHeure}
+                            #{matiereEns.prixHeure} DH
                         </h:column>
                         <!-- plus info -->
                         <h:column headerClass="col-sm-1">    				
@@ -42,7 +42,7 @@
                             <h:form>
                                 <h:commandButton id="moreInfo" value="Plus d'info" styleClass="btn btn-sm btn-info" action="#{enseignerBean.plusInfo(matiereEns)}"
                                                  onclick="$('#PlusInfoModal').modal('show');">
-                                    <f:ajax execute="@this" render="prixHeureP cadeauP descriptionP niveauP matiereP"/>
+                                    <f:ajax execute="@this" render="prixHeureP cadeauP descriptionP niveauP matiereP cadeauPLabel"/>
                                 </h:commandButton>
                             </h:form>
                         </h:column>
@@ -97,7 +97,9 @@
                         <div class="form-group">
                             <h:outputLabel for="cad" styleClass="col-sm-3 control-label" value="Cadeau 20 min"/>
                             <div class="col-sm-9">
-                                <h:outputText id="cadeauP" value="#{enseignerBean.cadeau}"/>
+                                <h:outputLabel id="cadeauPLabel" class="label #{enseignerBean.cadeau eq 'Oui' ? 'label-success':'label-danger'}">
+                                    <h:outputText id="cadeauP" value="#{enseignerBean.cadeau}"/>
+                                </h:outputLabel>
                             </div>
                         </div>
                         <div class="form-group">

@@ -11,6 +11,8 @@ import com.helpyacademy.service.ProfesseurService;
 import com.helpyacademy.util.Utils;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -48,6 +50,7 @@ public class professeurBean implements Serializable {
     private String diplomeM;
     private int idDiplomeM;
     private Professeur idProf;
+    private String dateNaissanceM;
     
     private ProfesseurService professeurService;
 
@@ -210,7 +213,32 @@ public class professeurBean implements Serializable {
         return diplomeM;
     }
 
+    public void setDateNaissanceM(String dateNaissanceM) {
+        this.dateNaissanceM = dateNaissanceM;
+    }
+
+    public String getDateNaissanceM() {
+        return dateNaissanceM;
+    }
+
     /* ====================================================================== */
+    public String modifierInfoP() throws ParseException{
+        if(dateNaissanceM == ""){
+            date_naissance = null;
+        } else {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            date_naissance = formatter.parse(dateNaissanceM);
+        }
+        if(professeurService.modifierInfoP(date_naissance,ville,adresse,tel,situation_pro,niv_etude)){
+            Utils.addMessage("Vos informations ont été bien modifier");
+            success = true;
+        } else {
+            Utils.addMessage("Vos informations n'ont pas été modifier");
+            success = false;
+        }
+        return "pretty:EspaceP_Profil"; 
+    }
+    
     public String modifierDiplome() {
         if(professeurService.diplomeExiste(diplomeM)){
             Utils.addMessage("le diplome [ "+diplomeM+" ] existe deja");
@@ -306,11 +334,14 @@ public class professeurBean implements Serializable {
                 civilite = p.getCivilite();
                 adresse = p.getAdresse();
                 ville = p.getVille();
-                tel = p.getVille();
+                tel = p.getTel();
                 date_naissance = p.getDateNaissance();
                 situation_pro = p.getSituationPro();
                 niv_etude = p.getNivEtude();
-
+                
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                dateNaissanceM = formatter.format(date_naissance);
+                
                 HttpSession session = Utils.getSession();
                 session.setAttribute("IDP", id);
                 session.setAttribute("NomP", nom);

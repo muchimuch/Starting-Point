@@ -50,15 +50,10 @@ public class Professeur implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "prenom")
     private String prenom;
-    @Basic(optional = false)
-    @Size(min = 1, max = 100)
     @Column(name = "adresse")
     private String adresse;
-    @Basic(optional = false)
-    @Size(min = 1, max = 30)
     @Column(name = "ville")
     private String ville;
-    @Basic(optional = false)
     @Column(name = "tel")
     private String tel;
     @Basic(optional = false)
@@ -71,19 +66,13 @@ public class Professeur implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "mdp")
     private String mdp;
-    @Basic(optional = false)
     @Column(name = "date_naissance")
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
-    @Basic(optional = false)
-    @Size(min = 1, max = 100)
     @Column(name = "situation_pro")
     private String situationPro;
-    @Basic(optional = false)
-    @Size(min = 1, max = 50)
     @Column(name = "niv_etude")
     private String nivEtude;
-    @Basic(optional = false)
     @Column(name = "disponibilite")
     private int disponibilite;
     @Size(max = 100)
@@ -99,7 +88,6 @@ public class Professeur implements Serializable {
     private List<Message> messageList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProf")
     private List<Diplome> diplomeList;
-    @NotNull
     @Column(name = "date_inscription")
     @Temporal(TemporalType.DATE)
     private Date dateInscription;

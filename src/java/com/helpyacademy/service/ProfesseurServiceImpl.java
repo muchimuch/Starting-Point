@@ -10,6 +10,7 @@ import com.helpyacademy.dao.ProfesseurDAO;
 import com.helpyacademy.dao.model.Diplome;
 import com.helpyacademy.dao.model.Professeur;
 import com.helpyacademy.util.Utils;
+import java.util.Date;
 import java.util.List;
 import javax.mail.MessagingException;
 
@@ -131,6 +132,21 @@ public class ProfesseurServiceImpl implements ProfesseurService {
         d.setIdProf(idProf);
         d.setDiplome(diplomeM);
         diplomeDAO.update(d);
+        return true;
+    }
+
+    @Override
+    public boolean modifierInfoP(Date date_naissance, String ville, String adresse, String tel, String situation_pro, String niv_etude) {
+        int idp = (int) Utils.getSession().getAttribute("IDP");
+        Professeur p = professeurDAO.getProfByID(idp);
+        p.setDateNaissance(date_naissance);
+        p.setVille(ville);
+        p.setAdresse(adresse);
+        p.setTel(tel);
+        p.setSituationPro(situation_pro);
+        p.setNivEtude(niv_etude);
+        
+        professeurDAO.update(p);
         return true;
     }
 }
