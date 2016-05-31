@@ -58,18 +58,32 @@
         <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell-o"></i>
-                <span class="label label-warning">10</span>
+                <span class="label label-warning">
+                    <c:choose>
+                        <c:when test="#{adminNotificationBean.emptyInscNotifcations()}">
+                            0
+                        </c:when>
+                        <c:otherwise>
+                            #{adminNotificationBean.inscNotifcations.size()}
+                        </c:otherwise>
+                    </c:choose>
+                </span>
             </a>
             <ul class="dropdown-menu">
-                <li class="header">You have 10 notifications</li>
+                <li class="header">
+                    Vous avez #{adminNotificationBean.inscNotifcations.size()} notifications.
+                </li>
                 <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu">
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                            </a>
-                        </li>
+                        <ui:repeat value="#{adminNotificationBean.inscNotifcations}" var="notif">
+                            <li>
+                                <pretty:link mappingId="GestionProfInscription">
+                                    <i class="fa fa-users text-aqua"></i>
+                                    <h:outputText title="Professeur #{notif.nom} #{notif.prenom} est inscrit." value="Professeur #{notif.nom} #{notif.prenom} est inscrit."/>
+                                </pretty:link>
+                            </li>
+                        </ui:repeat>
                     </ul>
                 </li>
                 <li class="footer"><a href="#">View all</a></li>
@@ -93,6 +107,20 @@
                 <li>
                     <pretty:link mappingId="EspaceA_LMatieres">
                         <i class="fa fa-circle-o"></i> Liste des Matières
+                    </pretty:link>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-book"></i>
+                <span> Gestion des Professeurs </span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <pretty:link mappingId="GestionProfInscription">
+                        <i class="fa fa-circle-o"></i> Gestion des Inscriptions
                     </pretty:link>
                 </li>
             </ul>

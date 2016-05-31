@@ -13,7 +13,7 @@
         <beans:property name="url"
             value="jdbc:mysql://localhost:3306/helpy" />
         <beans:property name="username" value="root" />
-        <beans:property name="password" value="root" />
+        <beans:property name="password" value="" />
     </beans:bean>
  
     <!-- Hibernate 4 SessionFactory Bean definition -->
@@ -86,6 +86,8 @@
     </beans:bean>
     <beans:bean id="adminService" class="com.helpyacademy.service.AdminServiceImpl">
         <beans:property name="adminDAO" ref="adminDAO"/>
+        <beans:property name="professeurDAO" ref="professeurDAO"/>
+        <beans:property name="diplomeDAO" ref="diplomeDAO"/>
     </beans:bean>
     <beans:bean id="adminBean" class="com.helpyacademy.bean.AdminBean">
         <beans:property name="adminService" ref="adminService" />
@@ -104,5 +106,12 @@
     <beans:bean id="profInsciptionBean" class="com.helpyacademy.bean.profInsciptionBean">
         <beans:property name="professeurService" ref="professeurService" />
     </beans:bean>
-    
+    <!-- ++++++++++++    Prof Notification Bean +++++++++++++ -->
+    <beans:bean id="adminNotificationBean" class="com.helpyacademy.bean.AdminNotificationBean">
+        <beans:property name="adminService" ref="adminService" />
+    </beans:bean>
+    <!-- ++++++++++++    admin gestion profs inscriptions Bean +++++++++++++ -->
+    <beans:bean id="adminGestionProfInscriptionsBean" class="com.helpyacademy.bean.AdminGestionProfInscriptionsBean">
+        <beans:property name="adminService" ref="adminService" />
+    </beans:bean>
 </beans:beans>

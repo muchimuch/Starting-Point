@@ -11,15 +11,16 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/wizard/etap1.xhtml</file>
-            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/wizard/etap2.xhtml</file>
-            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/bean/profInsciptionBean.java</file>
-            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/wizard/etap3.xhtml</file>
-        </group>
         <group name="JEE">
             <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/applicationContext.xml</file>
             <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/pretty-config.xml</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/service/AdminServiceImpl.java</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/bean/AdminGestionProfInscriptionsBean.java</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/espaces/admin/GestionProfesseur/nouvellesInscriptions.xhtml</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/bean/NiveauBean.java</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/dao/model/Professeur.java</file>
         </group>
     </open-files>
 </project-private>

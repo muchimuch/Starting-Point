@@ -5,7 +5,9 @@
  */
 package com.helpyacademy.dao;
 
+import com.helpyacademy.dao.model.Diplome;
 import com.helpyacademy.dao.model.Professeur;
+import java.util.List;
 
 /**
  *
@@ -17,4 +19,7 @@ public interface ProfesseurDAO {
     public Integer ajouter(Professeur p);
     public boolean isPresent(String email, String token);
     public Integer activerCompte(String email);
+    public List<Professeur> getProfByCompte(char etat);
+    public boolean accepterProfInscription(Professeur p);
+    public boolean refuserProfInscription(Professeur p);
 }
