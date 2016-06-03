@@ -20,4 +20,11 @@ public interface EtudiantService {
     public String logout();
     public boolean emailExiste(String email);
     public List<Niveau> listNiveau();
+    public String getNiveauEtude();
+
+    public boolean mdpCorrect(String email, String OldMotDePasse);
+
+    public boolean changerMdp(String email, String newMotDePasse);
+
+    public boolean changerInfo(String nomM, String prenomM, String villeM, String adresseM, String telM, int nivM);
 }

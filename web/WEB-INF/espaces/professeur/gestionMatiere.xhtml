@@ -46,13 +46,6 @@
                                 </h:commandButton>
                             </h:form>
                         </h:column>
-                        <!-- Suppression -->
-                        <h:column headerClass="col-sm-1">    				
-                            <f:facet name="header"></f:facet>    				
-                            <h:form onsubmit="return confirm('Vous voulez vraiment continuer ?')">
-                                <h:commandButton id="delete" styleClass="btn btn-sm btn-danger" value="Supprimer" action="#{enseignerBean.delete(matiereEns)}" />
-                            </h:form>
-                        </h:column>
                         <!-- Modification -->
                         <h:column headerClass="col-sm-1">    				
                             <f:facet name="header"></f:facet>    				
@@ -61,6 +54,13 @@
                                                  onclick="$('#ModifierModal').modal('show');">
                                     <f:ajax execute="@this" render="updateForm"/>
                                 </h:commandButton>
+                            </h:form>
+                        </h:column>
+                        <!-- Suppression -->
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>    				
+                            <h:form onsubmit="return confirm('Vous voulez vraiment continuer ?')">
+                                <h:commandButton id="delete" styleClass="btn btn-sm btn-danger" value="Supprimer" action="#{enseignerBean.delete(matiereEns)}" />
                             </h:form>
                         </h:column>
                     </h:dataTable>

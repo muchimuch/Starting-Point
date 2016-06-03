@@ -87,4 +87,42 @@ public class EtudiantServiceImpl implements EtudiantService{
         return niveauDAO.listNiveau();
     }
 
+    @Override
+    public String getNiveauEtude() {
+        int idE = (int) Utils.getSession().getAttribute("EtudiantID");
+        Etudiant e = etudiantDAO.getEtudiant(idE);
+        return e.getNiveau().getNiveau();
+    }
+
+    @Override
+    public boolean mdpCorrect(String email, String OldMotDePasse) {
+        Etudiant e = etudiantDAO.login(email, OldMotDePasse);
+        return e != null;
+    }
+
+    @Override
+    public boolean changerMdp(String email, String newMotDePasse) {
+        int idE = (int) Utils.getSession().getAttribute("EtudiantID");
+        Etudiant e = etudiantDAO.getEtudiant(idE);
+        e.setMdp(newMotDePasse);
+        etudiantDAO.update(e);
+        return true;
+    }
+
+    @Override
+    public boolean changerInfo(String nomM, String prenomM, String villeM, String adresseM, String telM, int nivM) {
+        int idE = (int) Utils.getSession().getAttribute("EtudiantID");
+        Etudiant e = etudiantDAO.getEtudiant(idE);
+        e.setNom(nomM);
+        e.setPrenom(prenomM);
+        e.setVille(villeM);
+        e.setAdresse(adresseM);
+        e.setTel(telM);
+        Niveau niv = new Niveau(nivM);
+        e.setNiveau(niv);
+        etudiantDAO.update(e);
+        
+        return true;
+    }
+
 }

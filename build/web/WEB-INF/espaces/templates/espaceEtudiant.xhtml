@@ -1,9 +1,11 @@
 <ui:composition template="../templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
-                xmlns:f="http://java.sun.com/jsp/jstl/functions"
                 xmlns:pretty="http://ocpsoft.com/prettyfaces"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fun="http://java.sun.com/jsp/jstl/functions">
     <ui:define name="title">Espace Etudiant | HelpYAcademy</ui:define>
     <ui:define name="espace">
         <pretty:link styleClass="logo" mappingId="EspaceE_HOME">
@@ -11,19 +13,24 @@
             <span class="logo-lg"><b>ESPACE</b>Etudiant</span>
         </pretty:link>
     </ui:define>
-    <ui:define name="username">${f:toUpperCase(etudiantBean.nom)} ${f:toUpperCase(etudiantBean.prenom)}</ui:define>
+    <ui:define name="username">${fun:toUpperCase(etudiantBean.nom)} ${fun:toUpperCase(etudiantBean.prenom)}</ui:define>
     <ui:define name="user-header">
         <p>
-            ${f:toUpperCase(etudiantBean.nom)} ${f:toUpperCase(etudiantBean.prenom)}
+            ${fun:toUpperCase(etudiantBean.nom)} ${fun:toUpperCase(etudiantBean.prenom)}
             <small>Membre depuis #{empty etudiantBean.date_inscription ? '':etudiantBean.dateInscriptionStr()}</small>
         </p>
+    </ui:define>
+    <ui:define name="profil-btn">
+        <pretty:link mappingId="EspaceE_Profil" styleClass="btn btn-default btn-flat"> Profil </pretty:link>
     </ui:define>
     <ui:define name="logout-btn">
         <h:form>
             <h:commandLink styleClass="btn btn-danger btn-sm btn-flat" value="Deconnexion" action="#{etudiantBean.logout()}"/>
         </h:form>
     </ui:define>
-
+    <ui:define name="solde">
+        <h:outputLabel value="#{etudiantBean.solde} DH" style="color: #00a65a;border: 1px #00a65a solid;padding-left: 10px;padding-right: 10px"/>
+    </ui:define>
     <ui:define name="messages">
         <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -77,6 +84,7 @@
     </ui:define>
 
     <ui:define name="menu">
+        <!--
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-pie-chart"></i>
@@ -87,7 +95,50 @@
                 <li><a href="../charts/chartjs.html"><i class="fa fa-circle-o"></i> sub link</a></li>
             </ul>
         </li>
-        <li><a href="#"><i class="fa fa-book"></i> <span>link</span></a></li>
+        -->
+        <li><a href="#" data-toggle="modal" data-target="#TrouvezSoutienModal"><i class="fa fa-search"></i> <span> Trouvez un soutien</span></a></li>
+        <li>
+            <pretty:link mappingId="EspaceE_MesCommandes">
+                <i class="fa fa-cart-plus"></i> <span> Mes Commandes</span>
+            </pretty:link>
+        </li>
     </ui:define>
-
+    <ui:define name="models">
+        <!-- Trouvez un soutien Modal -->
+        <div class="modal fade" id="TrouvezSoutienModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form id="initDiplomeModification" styleClass="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title text-center" id="myModalLabel">Trouvez un soutien</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h:outputLabel for="niv" styleClass="col-sm-3 control-label" value="Niveau"/>
+                                <div class="col-sm-9">
+                                    <h:selectOneMenu value="#{trouverSoutienBean.idNiv}" styleClass="form-control" valueChangeListener="#{enseignerBean.updateListMatiere}">
+                                        <f:selectItems value="#{enseignerBean.listNiveau}" var="niveau" itemValue="#{niveau.id}" itemLabel="#{niveau.niveau}" />
+                                        <f:ajax execute="@this" event="change" render="listMatiere" />
+                                    </h:selectOneMenu>	
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="matiere" styleClass="col-sm-3 control-label" value="Matière"/>
+                                <div class="col-sm-9">
+                                    <h:selectOneMenu id="listMatiere" value="#{trouverSoutienBean.idM}" styleClass="form-control" required="true" requiredMessage="Choisissez un Niveau">
+                                        <f:selectItems value="#{enseignerBean.listMatiere}" var="matiere" itemValue="#{matiere.id}" itemLabel="#{matiere.matiere}" />							
+                                    </h:selectOneMenu>	
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-success" value="Chercher" action="#{trouverSoutienBean.TrouverSoutien()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
 </ui:composition>

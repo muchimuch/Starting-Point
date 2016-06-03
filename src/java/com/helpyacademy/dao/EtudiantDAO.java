@@ -17,4 +17,8 @@ public interface EtudiantDAO {
     public Integer activerCompte(String email);
     public boolean isPresent(String email, String token);
     public Etudiant login(String email,String mdp);
+
+    public Etudiant getEtudiant(int idE);
+
+    public void update(Etudiant e);
 }

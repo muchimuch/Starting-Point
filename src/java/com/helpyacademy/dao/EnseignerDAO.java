@@ -22,4 +22,6 @@ public interface EnseignerDAO {
     public void update(Enseigner enseigner);
 
     public Enseigner getMatiere(int idMatiere, int idp);
+
+    public List<Enseigner> getMatiere(int idM);
 }

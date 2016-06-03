@@ -1,0 +1,163 @@
+<ui:composition template="../templates/espaceEtudiant.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="title">Mes Commandes | HelpYAcademy</ui:define>
+    <ui:define name="page-title"> <i class="fa fa-cart-plus"></i> Mes Commandes</ui:define>
+    <ui:define name="page-subtitle"></ui:define>
+    <ui:define name="page-content">
+        <h:messages styleClass="alert #{trouverSoutienBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px"/>
+
+        <div class="col-sm-12" style="padding: 0">
+            <c:choose>
+                <c:when test="#{trouverSoutienBean.emptyListCommandes()}">
+                    <p class="text-center text-muted" style="margin-top: 80px;font-size: 2.3em">Pas de Commandes</p>
+                </c:when>
+                <c:otherwise>
+                    <h:dataTable
+                        value="#{trouverSoutienBean.listCommandes}" var="cmd"
+                        styleClass="table table-bordered table-striped text-center"
+                        style="background-color: white;margin-top: 15px"
+                        id="tableCMD"
+                        >
+                        <h:column headerClass="col-sm-2">    				
+                            <f:facet name="header">Niveau</f:facet>    				
+                                #{cmd.idMatiere.idNiveau.niveau}
+                        </h:column>
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header">Matière</f:facet>    				
+                                #{cmd.idMatiere.matiere}
+                        </h:column>
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header">Date Début</f:facet>    				
+                                #{cmd.dateDebut}
+                        </h:column>
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header">Heure Début</f:facet>    				
+                                #{cmd.getHeureDebutString()}
+                        </h:column>
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header">Statut</f:facet>    				
+                            <c:choose>
+                                <c:when test="#{trouverSoutienBean.statut(cmd.statut,1)}">
+                                    <span class="label label-info"> En Attend</span>
+                                </c:when>
+                                <c:when test="#{trouverSoutienBean.statut(cmd.statut,2)}">
+                                    <span class="label label-success"> </span>
+                                </c:when>
+                                <c:when test="#{trouverSoutienBean.statut(cmd.statut,3)}">
+                                    <span class="label label-default"> Terminé</span>
+                                </c:when>
+                                <c:when test="#{trouverSoutienBean.statut(cmd.statut,4)}">
+                                    <span class="label label-danger"> Cloturé</span>
+                                </c:when>
+                            </c:choose>
+                        </h:column>
+                        <!-- plus info -->
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>    				
+                            <h:form>
+                                <h:commandButton id="moreInfo" value="Plus d'info" styleClass="btn btn-sm btn-info" action="#{trouverSoutienBean.plusInfo(cmd)}"
+                                                 onclick="$('#plusInfo').modal('show');">
+                                    <f:ajax execute="@this" render="matiereP niveauP profP dureeP descP titreP prixP dateDebutP heureDebutP"/>
+                                </h:commandButton>
+                            </h:form>
+                        </h:column>
+                        <!-- Modification -->
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>    				
+                            <h:form>
+                                <h:commandButton id="update" value="Modifier" styleClass="btn btn-sm btn-primary" action="#{trouverSoutienBean.initUpdate(cmd)}"
+                                                 onclick="$('#ModifierModal').modal('show');">
+                                    <f:ajax execute="@this" render="updateForm"/>
+                                </h:commandButton>
+                            </h:form>
+                        </h:column>
+                        <!-- Suppression -->
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>    				
+                            <h:form onsubmit="return confirm('Vous voulez vraiment continuer ?')">
+                                <h:commandButton id="delete" styleClass="btn btn-sm btn-danger" value="Supprimer" action="#{trouverSoutienBean.delete(cmd)}" />
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                </c:otherwise>
+            </c:choose>
+        </div>
+
+        <!-- plus info Modal -->
+        <div class="modal fade" id="plusInfo" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                        <h4 class="modal-title" id="myModalLabel">Plus d'information sur votre commande </h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-bordered table-condensed">
+                            <tr>
+                                <th>Nom de Professeur</th>
+                                <td>
+                                    <h:outputText id="profP" value="#{trouverSoutienBean.prof}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Niveau</th>
+                                <td>
+                                    <h:outputText id="niveauP" value="#{trouverSoutienBean.niveau}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Matiere</th>
+                                <td>
+                                    <h:outputText id="matiereP" value="#{trouverSoutienBean.matiere}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Titre du Cours</th>
+                                <td>
+                                    <h:outputText id="titreP" value="#{trouverSoutienBean.titre}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Vos Questions</th>
+                                <td>
+                                    <h:outputText id="descP" escape="false" value="#{trouverSoutienBean.description}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Durée</th>
+                                <td>
+                                    <h:outputText id="dureeP" value="#{trouverSoutienBean.dureeTotal()}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Prix Total</th>
+                                <td>
+                                    <h:outputText id="prixP" value="#{trouverSoutienBean.prixTotal} DH" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Date Début</th>
+                                <td>
+                                    <h:outputText id="dateDebutP" value="#{trouverSoutienBean.dateDebut}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Heure Début</th>
+                                <td>
+                                    <h:outputText id="heureDebutP" value="#{trouverSoutienBean.heureDebut}" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

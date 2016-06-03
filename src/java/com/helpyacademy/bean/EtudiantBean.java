@@ -9,7 +9,6 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
@@ -44,6 +43,18 @@ public class EtudiantBean implements Serializable {
     private boolean isPwdValid;
     private boolean emailExiste;
     private int niveau;
+
+    private boolean success;
+    private String newMotDePasse;
+    private String motDePasseConf;
+    private String OldMotDePasse;
+
+    private String nomM;
+    private String prenomM;
+    private String villeM;
+    private String adresseM;
+    private String telM;
+    private int nivM;
 
     private EtudiantService etudiantService;
 
@@ -195,7 +206,143 @@ public class EtudiantBean implements Serializable {
         this.niveau = niveau;
     }
 
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public String getNewMotDePasse() {
+        return newMotDePasse;
+    }
+
+    public String getMotDePasseConf() {
+        return motDePasseConf;
+    }
+
+    public String getOldMotDePasse() {
+        return OldMotDePasse;
+    }
+
+    public void setNewMotDePasse(String newMotDePasse) {
+        this.newMotDePasse = newMotDePasse;
+    }
+
+    public void setMotDePasseConf(String motDePasseConf) {
+        this.motDePasseConf = motDePasseConf;
+    }
+
+    public void setOldMotDePasse(String OldMotDePasse) {
+        this.OldMotDePasse = OldMotDePasse;
+    }
+
+    public String getNomM() {
+        return nomM;
+    }
+
+    public String getPrenomM() {
+        return prenomM;
+    }
+
+    public void setNomM(String nomM) {
+        this.nomM = nomM;
+    }
+
+    public void setPrenomM(String prenomM) {
+        this.prenomM = prenomM;
+    }
+
+    public String getVilleM() {
+        return villeM;
+    }
+
+    public String getAdresseM() {
+        return adresseM;
+    }
+
+    public String getTelM() {
+        return telM;
+    }
+
+    public int getNivM() {
+        return nivM;
+    }
+
+    public void setVilleM(String villeM) {
+        this.villeM = villeM;
+    }
+
+    public void setAdresseM(String adresseM) {
+        this.adresseM = adresseM;
+    }
+
+    public void setTelM(String telM) {
+        this.telM = telM;
+    }
+
+    public void setNivM(int nivM) {
+        this.nivM = nivM;
+    }
+
     // -------------------------------------------------------------------------
+    
+    public String modifierInfo() {
+        if (nomM.equals(nom) && prenomM.equals(prenom) && villeM.equals(ville) && adresse.equals(adresseM) && telM.equals(tel) && nivM == niveau) {
+            success = false;
+            Utils.addMessage("Vous avez pas modifier vos informations");
+        } else if (etudiantService.changerInfo(nomM, prenomM, villeM, adresseM, telM, nivM)) {
+            success = true;
+            Utils.addMessage("Vos informations ont été bien enregistré");
+            nom = nomM;
+            prenom = prenomM;
+            ville = villeM;
+            adresse = adresseM;
+            tel = telM;
+            niveau = nivM;
+        } else {
+            success = false;
+            Utils.addMessage("Vos informations n'ont pas été enregistré");
+        }
+        return "pretty:EspaceE_Profil";
+    }
+
+    public void initUpdate() {
+        nomM = nom;
+        prenomM = prenom;
+        villeM = ville;
+        adresseM = adresse;
+        telM = tel;
+        nivM = niveau;
+    }
+
+    public String modifierMdp() {
+        if (newMotDePasse.equals(motDePasseConf)) {
+            if (newMotDePasse.length() >= 8) {
+                if (etudiantService.mdpCorrect(email, OldMotDePasse)) {
+                    if (etudiantService.changerMdp(email, newMotDePasse)) {
+                        Utils.addMessage("Votre mot de passe a été bien modifier");
+                        success = true;
+                    } else {
+                        Utils.addMessage("Votre mot de passe n'a pas été modifier. Essayez une autre fois");
+                        success = false;
+                    }
+                } else {
+                    Utils.addMessage("l'ancien mot de passe est incorrect ");
+                    success = false;
+                }
+            } else {
+                Utils.addMessage("le mot de passe doit contenir au moin 8 caractéres");
+                success = false;
+            }
+        } else {
+            Utils.addMessage("Veuillez confirmer votre nouveau mot de passe");
+            success = false;
+        }
+        return "pretty:EspaceE_Profil";
+    }
+
+    public String getNiveauEtude() {
+        return etudiantService.getNiveauEtude();
+    }
+
     public String inscrire() {
         isPwdValid = mdp.equals(mdpConfirm);
         if (isPwdValid) {
@@ -232,7 +379,9 @@ public class EtudiantBean implements Serializable {
                 adresse = e.getAdresse();
                 tel = e.getTel();
                 date_inscription = e.getDateInscription();
-
+                ville = e.getVille();
+                nivM = e.getNiveau().getId();
+                
                 HttpSession session = Utils.getSession();
                 session.setAttribute("EtudiantID", id);
                 session.setAttribute("EtudiantNom", nom);

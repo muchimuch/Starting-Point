@@ -90,6 +90,35 @@ public class EtudiantDAOImpl implements EtudiantDAO{
         
         return e;
     }
+
+    @Override
+    public Etudiant getEtudiant(int idE) {
+        String hql = "FROM Etudiant WHERE id=:idE";
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery(hql);
+        q.setParameter("idE", idE);
+        Etudiant e = (Etudiant) q.uniqueResult();
+        session.close();
+        
+        return e;
+    }
+
+    @Override
+    public void update(Etudiant e) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        Integer ID = null;
+        try{
+           tx = session.beginTransaction();
+           session.update(e); 
+           tx.commit();
+        }catch (HibernateException ex) {
+           if (tx!=null) tx.rollback();
+           ex.printStackTrace(); 
+        }finally {
+           session.close(); 
+        }
+    }
     
     
 }

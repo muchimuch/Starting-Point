@@ -6,6 +6,7 @@
 package com.helpyacademy.dao.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -61,12 +62,11 @@ public class Conference implements Serializable {
     @Column(name = "prix")
     private Float prix;
     @Column(name = "cadeau20Min")
-    private Short cadeau20Min;
+    private boolean cadeau20Min;
     @Column(name = "duree")
     private Integer duree;
-    @Size(max = 2)
-    @Column(name = "statut")
-    private String statut;
+    @Column(name = "statut",columnDefinition = "enum('0','1','2','3')")
+    private char statut;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idConf")
     private List<Note> noteList;
     @JoinColumn(name = "idMatiere", referencedColumnName = "id")
@@ -142,11 +142,11 @@ public class Conference implements Serializable {
         this.prix = prix;
     }
 
-    public Short getCadeau20Min() {
+    public boolean getCadeau20Min() {
         return cadeau20Min;
     }
 
-    public void setCadeau20Min(Short cadeau20Min) {
+    public void setCadeau20Min(boolean cadeau20Min) {
         this.cadeau20Min = cadeau20Min;
     }
 
@@ -158,11 +158,11 @@ public class Conference implements Serializable {
         this.duree = duree;
     }
 
-    public String getStatut() {
+    public char getStatut() {
         return statut;
     }
 
-    public void setStatut(String statut) {
+    public void setStatut(char statut) {
         this.statut = statut;
     }
 
@@ -196,6 +196,11 @@ public class Conference implements Serializable {
 
     public void setIdProf(Professeur idProf) {
         this.idProf = idProf;
+    }
+    
+    public String getHeureDebutString() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        return formatter.format(heureDebut);
     }
 
     @Override

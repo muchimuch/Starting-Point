@@ -39,6 +39,18 @@
             <pattern value="/Espace/Etudiant/" />
             <view-id value="/WEB-INF/espaces/etudiant/index.xhtml?faces-redirect=true" />
         </url-mapping>
+        <url-mapping id="EspaceE_Profil">
+            <pattern value="/Espace/Etudiant/Profil" />
+            <view-id value="/WEB-INF/espaces/etudiant/profil.xhtml?faces-redirect=true" />
+        </url-mapping>
+        <url-mapping id="EspaceE_TrouvezSoutien">
+            <pattern value="/Espace/Etudiant/Trouvez-un-Soutien/" />
+            <view-id value="/WEB-INF/espaces/etudiant/trouvezSoutien.xhtml?faces-redirect=true" />
+        </url-mapping>
+        <url-mapping id="EspaceE_MesCommandes">
+            <pattern value="/Espace/Etudiant/Mes-Commandes/" />
+            <view-id value="/WEB-INF/espaces/etudiant/commandes.xhtml?faces-redirect=true" />
+        </url-mapping>
         <!-- ***************************** Espace Prof ***************************-->
         <url-mapping id="connexion_professeur">
             <pattern value="/Auth/Professeur" />

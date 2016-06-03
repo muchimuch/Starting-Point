@@ -105,5 +105,15 @@ public class EnseignerDAOImpl implements EnseignerDAO{
         session.close();
         return e;
     }
+
+    @Override
+    public List<Enseigner> getMatiere(int idM) {
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery("FROM Enseigner WHERE enseignerPK.idMatiere=:idMatiere");
+        q.setParameter("idMatiere", idM);
+        List<Enseigner> Liste = q.list();
+        session.close();
+        return Liste;
+    }
     
 }

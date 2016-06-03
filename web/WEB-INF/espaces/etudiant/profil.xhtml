@@ -1,0 +1,161 @@
+<ui:composition template="../templates/espaceEtudiant.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">Profil | HelpYAcademy</ui:define>
+    <ui:define name="page-title">Votre Profil</ui:define>
+    <ui:define name="page-subtitle"></ui:define>
+    <ui:define name="page-content">
+        <div class="col-sm-12" style="padding: 0">
+            <button class="pull-left btn btn-sm btn-info" data-toggle="modal" data-target="#modifierMDP"> <i class="fa fa-lock"></i> Modification du Mot de Passe</button>
+            <h:form class="pull-left" style="margin-left: 10px">
+                <h:commandButton value=" Modifier Vos Informations Personnel" styleClass="btn btn-sm btn-github" action="#{etudiantBean.initUpdate()}"
+                                 onclick="$('#modifierInfo').modal('show');">
+                    <f:ajax execute="@this" render="infoM"/>
+                </h:commandButton>
+            </h:form>
+            <h:messages styleClass="alert #{etudiantBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px"/>
+        </div>
+        <div class="panel panel-default col-sm-6" style="padding:0;margin-top: 10px">
+            <div class="panel-heading">
+                <h2 class="panel-title text-center"><i class="fa fa-info-circle"></i> Informations Personnel</h2>
+            </div>
+            <div class="panel-body" style="padding: 0">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td class="col-sm-6">Genre </td>
+                        <td class="col-sm-6">#{etudiantBean.genre}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">Nom </td>
+                        <td class="col-sm-6">#{etudiantBean.nom}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">Prénom </td>
+                        <td class="col-sm-6">#{etudiantBean.prenom}</td>
+                    </tr>
+                    <tr>
+                        <td>Ville </td>
+                        <td>#{empty etudiantBean.ville ? ' --- ' : etudiantBean.ville}</td>
+                    </tr>
+                    <tr>
+                        <td>Adresse </td>
+                        <td>#{empty etudiantBean.adresse ? ' --- ':etudiantBean.adresse}</td>
+                    </tr>
+                    <tr>
+                        <td>Téléphone </td>
+                        <td>#{empty etudiantBean.tel ? ' --- ':etudiantBean.tel}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">E-mail </td>
+                        <td class="col-sm-6">#{etudiantBean.email}</td>
+                    </tr>
+                    <tr>
+                        <td>Niveau d'étude </td>
+                        <td>#{etudiantBean.getNiveauEtude()}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">Date d'inscription </td>
+                        <td class="col-sm-6">#{etudiantBean.dateInscriptionStr()}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modifier Info Modal -->
+        <div class="modal fade" id="modifierInfo" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form id="infoM" styleClass="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modification des Informations Personnel </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h:outputLabel for="nom" styleClass="col-sm-4 control-label" value="Nom"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{etudiantBean.nomM}" id="nom" styleClass="form-control" required="true" requiredMessage="Veuillez entrer votre Nom" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="prenom" styleClass="col-sm-4 control-label" value="Prénom"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{etudiantBean.prenomM}" id="prenom" styleClass="form-control" required="true" requiredMessage="Veuillez entrer votre Prénom" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="ville" styleClass="col-sm-4 control-label" value="Ville"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{etudiantBean.villeM}" id="ville" styleClass="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="adresse" styleClass="col-sm-4 control-label" value="Adresse"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{etudiantBean.adresseM}" id="adresse" styleClass="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="tel" styleClass="col-sm-4 control-label" value="Téléphone"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{etudiantBean.telM}" id="tel" styleClass="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="niv" styleClass="col-sm-4 control-label" value="Niveau d'étude"/>
+                                <div class="col-sm-8">
+                                    <h:selectOneMenu value="#{etudiantBean.nivM}" id="niv" styleClass="form-control">
+                                        <f:selectItems value="#{etudiantBean.ListNiveau()}" var="niv" itemValue="#{niv.id}" itemLabel="#{niv.niveau}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{etudiantBean.modifierInfo()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <!-- Modifier Mot de passe Modal -->
+        <div class="modal fade" id="modifierMDP" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form styleClass="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modification du Mot de Passe</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h:outputLabel for="oldMdp" styleClass="col-sm-4 control-label" value="Ancien Mot de Passe"/>
+                                <div class="col-sm-8">
+                                    <h:inputSecret value="#{etudiantBean.oldMotDePasse}" id="oldMdp" styleClass="form-control" required="true" requiredMessage="Veuillez entrer votre ancien mot de passe" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="newMdp" styleClass="col-sm-4 control-label" value="Nouveau Mot de Passe"/>
+                                <div class="col-sm-8">
+                                    <h:inputSecret value="#{etudiantBean.newMotDePasse}" id="newMdp" styleClass="form-control" required="true" requiredMessage="Veuillez entrer le nouveau mot de passe" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="confMdp" styleClass="col-sm-4 control-label" value="Confirmation"/>
+                                <div class="col-sm-8">
+                                    <h:inputSecret value="#{etudiantBean.motDePasseConf}" id="confMdp" styleClass="form-control" required="true" requiredMessage="Veuillez confirmer le nouveau mot de passe" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{etudiantBean.modifierMdp()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
