@@ -26,7 +26,7 @@
                             <ul class="nav nav-stacked">
                                 <li><a href="#"><b>Prix/Heure</b> <span class="pull-right" style="color: #00a65a;border: 1px #00a65a solid;padding-left: 10px;padding-right: 10px">#{m.prixHeure} DH</span></a></li>
                                 <li><a href="#"><b>Cadeau 20 min</b> <span class="pull-right badge #{m.cadeau20Min ? 'bg-green':'bg-red'}">#{m.cadeau20Min ? 'Oui':'Non'}</span></a></li>
-                                <li><a href="#"><b>Description</b><p>#{m.description}</p></a></li>
+                                <li><a href="#"><b>Description</b><p><h:outputText value="#{m.description}" escape="false"/></p></a></li>
                             </ul>
                         </div>
                         <div class="box-footer">

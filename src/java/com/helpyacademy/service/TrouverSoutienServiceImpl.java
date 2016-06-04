@@ -100,7 +100,7 @@ public class TrouverSoutienServiceImpl implements TrouverSoutienService{
         Time t = new Time(Integer.parseInt(heureDebut.substring(0, 2)), Integer.parseInt(heureDebut.substring(3, 5)), 0);
         heure_debut.setTime(t.getTime());
         c.setHeureDebut(heure_debut);
-        c.setStatut('0');
+        c.setStatut(0);
         
         Integer id = conferenceDAO.add(c);
         

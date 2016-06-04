@@ -48,7 +48,7 @@ public class TrouverSoutienBean {
     private String description;
     private String prof;
     private String niveau;
-    
+
     private List<Conference> listCommandes;
 
     public void setTrouverSoutienService(TrouverSoutienService trouverSoutienService) {
@@ -160,8 +160,7 @@ public class TrouverSoutienBean {
     }
 
     // ----------------------------------------------------------------------
-    
-    public void plusInfo(Conference conf){
+    public void plusInfo(Conference conf) {
         Ccadeau20min = conf.getCadeau20Min();
         titre = conf.getTitre();
         description = conf.getDescription();
@@ -169,28 +168,30 @@ public class TrouverSoutienBean {
         prixTotal = conf.getPrix();
         dateDebut = conf.getDateDebut().toString();
         heureDebut = conf.getHeureDebutString();
-        prof = conf.getIdProf().getNom().toUpperCase()+" "+conf.getIdProf().getPrenom().toUpperCase();
+        prof = conf.getIdProf().getNom().toUpperCase() + " " + conf.getIdProf().getPrenom().toUpperCase();
         matiere = conf.getIdMatiere().getMatiere();
         niveau = conf.getIdMatiere().getIdNiveau().getNiveau();
     }
-    
-    public void initUpdate(Conference conf){
-        
+
+    public void initUpdate(Conference conf) {
+
     }
-    
-    public String dureeTotal(){
-        int h = duree/60;
-        int m = duree%60;
-        String d = h+"h ";
-        if(m != 0)
-            d += m+ "min";
-        if(Ccadeau20min)
+
+    public String dureeTotal() {
+        int h = duree / 60;
+        int m = duree % 60;
+        String d = h + "h ";
+        if (m != 0) {
+            d += m + "min";
+        }
+        if (Ccadeau20min) {
             d += " + 20 min Cadeau";
+        }
         return d;
     }
-    
+
     public String delete(Conference conf) {
-        if( conf.getStatut() == '0'){
+        if (conf.getStatut() == '0') {
             if (trouverSoutienService.deleteConf(conf)) {
                 success = true;
                 Utils.addMessage("Votre commande a été bien supprimé. ");
@@ -200,32 +201,6 @@ public class TrouverSoutienBean {
             }
         }
         return "pretty:EspaceE_MesCommandes";
-    }
-
-    public boolean statut(char s, int c) {
-        switch (c) {
-            case 1:
-                if ((int) s == 0) {
-                    return true;
-                }
-                return false;
-            case 2:
-                if ((int) s == 1) {
-                    return true;
-                }
-                return false;
-            case 3:
-                if ((int) s == 2) {
-                    return true;
-                }
-                return false;
-            case 4:
-                if ((int) s == 3) {
-                    return true;
-                }
-                return false;
-        }
-        return false;
     }
 
     public boolean emptyListCommandes() {

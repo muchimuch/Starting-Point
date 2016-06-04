@@ -39,21 +39,8 @@
                                 #{cmd.getHeureDebutString()}
                         </h:column>
                         <h:column headerClass="col-sm-1">    				
-                            <f:facet name="header">Statut</f:facet>    				
-                            <c:choose>
-                                <c:when test="#{trouverSoutienBean.statut(cmd.statut,1)}">
-                                    <span class="label label-info"> En Attend</span>
-                                </c:when>
-                                <c:when test="#{trouverSoutienBean.statut(cmd.statut,2)}">
-                                    <span class="label label-success"> </span>
-                                </c:when>
-                                <c:when test="#{trouverSoutienBean.statut(cmd.statut,3)}">
-                                    <span class="label label-default"> Terminé</span>
-                                </c:when>
-                                <c:when test="#{trouverSoutienBean.statut(cmd.statut,4)}">
-                                    <span class="label label-danger"> Cloturé</span>
-                                </c:when>
-                            </c:choose>
+                            <f:facet name="header">Statut</f:facet>   
+                            <h:outputLabel styleClass="label #{cmd.statut eq 0 ? 'label-info':cmd.statut eq 1 ? 'label-success' : cmd.statut eq 2 ? 'label-default' : cmd.statut eq 3 ? 'label-danger' : ''}" value="#{cmd.statut eq o ? 'En Attend':cmd.statut eq 1 ? 'label-success' : cmd.statut eq 2 ? 'Terminé' : cmd.statut eq 3 ? 'Cloturé' : ''}"/>
                         </h:column>
                         <!-- plus info -->
                         <h:column headerClass="col-sm-1">    				

@@ -297,6 +297,7 @@ public class EtudiantBean implements Serializable {
             adresse = adresseM;
             tel = telM;
             niveau = nivM;
+            
         } else {
             success = false;
             Utils.addMessage("Vos informations n'ont pas été enregistré");
@@ -310,7 +311,6 @@ public class EtudiantBean implements Serializable {
         villeM = ville;
         adresseM = adresse;
         telM = tel;
-        nivM = niveau;
     }
 
     public String modifierMdp() {

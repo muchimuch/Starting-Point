@@ -52,7 +52,7 @@
                             <h:form>
                                 <h:commandButton id="update" value="Modifier" styleClass="btn btn-sm btn-primary" action="#{enseignerBean.initUpdate(matiereEns)}"
                                                  onclick="$('#ModifierModal').modal('show');">
-                                    <f:ajax execute="@this" render="updateForm"/>
+                                    <f:ajax execute="@this" render="updateForm" onevent="update"/>
                                 </h:commandButton>
                             </h:form>
                         </h:column>
@@ -145,7 +145,7 @@
                             <div class="form-group">
                                 <h:outputLabel for="description" styleClass="col-sm-3 control-label" value="Description"/>
                                 <div class="col-sm-9">
-                                    <h:inputTextarea id="description" styleClass="form-control" value="#{enseignerBean.description}" required="true" requiredMessage="Veuillez Ecrire une description"/>
+                                    <h:inputTextarea id="description" styleClass="form-control wysihtml5" value="#{enseignerBean.description}" required="true" requiredMessage="Veuillez Ecrire une description"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -204,7 +204,7 @@
                             <div class="form-group">
                                 <h:outputLabel for="description" styleClass="col-sm-3 control-label" value="Description"/>
                                 <div class="col-sm-9">
-                                    <h:inputTextarea id="description" styleClass="form-control" value="#{enseignerBean.descriptionM}" required="true" requiredMessage="Veuillez Ecrire une description"/>
+                                    <h:inputTextarea id="description" styleClass="form-control wysihtml5" value="#{enseignerBean.descriptionM}" required="true" requiredMessage="Veuillez Ecrire une description"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -233,6 +233,34 @@
             </div>
         </div>
 
+    </ui:define>
+    <ui:define name="js">
+        <h:outputScript library="js" name="bootstrap3-wysihtml5.all.min.js"/>
+        <script>
+            $(".wysihtml5").wysihtml5({
+                toolbar: {
+                    'link': false,
+                    'blockquote': false,
+                    'image': false,
+                    'color': false
+                }
+            });
+            function update(data) {
+                if (data.status == "success") {
+                    $("#updateForm\\:description,.wysihtml5").wysihtml5({
+                        toolbar: {
+                            'link': false,
+                            'blockquote': false,
+                            'image': false,
+                            'color': false
+                        }
+                    });
+                }
+            }
+        </script>
+    </ui:define>
+    <ui:define name="css">
+        <h:outputStylesheet library="css" name="bootstrap-wysihtml5.css" />
     </ui:define>
 
 </ui:composition>

@@ -19,7 +19,7 @@ import javax.faces.event.ValueChangeEvent;
  *
  * @author youssefsafi
  */
-@ManagedBean
+@ManagedBean(name = "matiereBean")
 @RequestScoped
 public class MatiereBean implements Serializable{
     

@@ -65,8 +65,8 @@ public class Conference implements Serializable {
     private boolean cadeau20Min;
     @Column(name = "duree")
     private Integer duree;
-    @Column(name = "statut",columnDefinition = "enum('0','1','2','3')")
-    private char statut;
+    @Column(name = "statut")
+    private int statut;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idConf")
     private List<Note> noteList;
     @JoinColumn(name = "idMatiere", referencedColumnName = "id")
@@ -158,11 +158,11 @@ public class Conference implements Serializable {
         this.duree = duree;
     }
 
-    public char getStatut() {
+    public int getStatut() {
         return statut;
     }
 
-    public void setStatut(char statut) {
+    public void setStatut(int statut) {
         this.statut = statut;
     }
 
