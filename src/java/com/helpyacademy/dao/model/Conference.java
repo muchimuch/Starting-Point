@@ -66,7 +66,7 @@ public class Conference implements Serializable {
     @Column(name = "duree")
     private Integer duree;
     @Column(name = "statut")
-    private int statut;
+    private Integer statut;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idConf")
     private List<Note> noteList;
     @JoinColumn(name = "idMatiere", referencedColumnName = "id")
@@ -158,11 +158,11 @@ public class Conference implements Serializable {
         this.duree = duree;
     }
 
-    public int getStatut() {
+    public Integer getStatut() {
         return statut;
     }
 
-    public void setStatut(int statut) {
+    public void setStatut(Integer statut) {
         this.statut = statut;
     }
 

@@ -5,9 +5,13 @@
  */
 package com.helpyacademy.service;
 
+import com.helpyacademy.dao.ConferenceDAO;
 import com.helpyacademy.dao.DiplomeDAO;
+import com.helpyacademy.dao.NotificationDAO;
 import com.helpyacademy.dao.ProfesseurDAO;
+import com.helpyacademy.dao.model.Conference;
 import com.helpyacademy.dao.model.Diplome;
+import com.helpyacademy.dao.model.Notification;
 import com.helpyacademy.dao.model.Professeur;
 import com.helpyacademy.util.Utils;
 import java.util.Date;
@@ -22,6 +26,16 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 
     private ProfesseurDAO professeurDAO;
     private DiplomeDAO diplomeDAO;
+    private NotificationDAO notificationDAO;
+    private ConferenceDAO conferenceDAO;
+
+    public void setConferenceDAO(ConferenceDAO conferenceDAO) {
+        this.conferenceDAO = conferenceDAO;
+    }
+
+    public void setNotificationDAO(NotificationDAO notificationDAO) {
+        this.notificationDAO = notificationDAO;
+    }
 
     public void setProfesseurDAO(ProfesseurDAO professeurDAO) {
         this.professeurDAO = professeurDAO;
@@ -122,7 +136,8 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 
     @Override
     public boolean diplomeExiste(String diplome) {
-        Diplome d = diplomeDAO.getDiplomeByName(diplome);
+        int idp = (int) Utils.getSession().getAttribute("IDP");
+        Diplome d = diplomeDAO.getDiplomeByName(diplome,idp);
         return d != null;
     }
 
@@ -148,5 +163,20 @@ public class ProfesseurServiceImpl implements ProfesseurService {
         
         professeurDAO.update(p);
         return true;
+    }
+
+    @Override
+    public List<Notification> listNotification(int id, char c) {
+        return notificationDAO.getNotification(id, c);
+    }
+
+    @Override
+    public void notificationVu(int notifID) {
+        notificationDAO.notificationVu(notifID);
+    }
+
+    @Override
+    public Conference getConference(int idConf) {
+        return conferenceDAO.getConference(idConf);
     }
 }

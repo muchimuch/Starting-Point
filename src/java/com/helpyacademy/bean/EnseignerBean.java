@@ -243,9 +243,9 @@ public class EnseignerBean {
     }
 
     public List<Niveau> getListNiveau() {
-        if (listNiveau == null) {
+        //if (listNiveau == null) {
             listNiveau = enseignerService.listNiveau();
-        }
+        //}
         return listNiveau;
     }
 

@@ -68,6 +68,14 @@
             <pattern value="/Espace/Professeur/Profil" />
             <view-id value="/WEB-INF/espaces/professeur/profil.xhtml?faces-redirect=true" />
         </url-mapping>
+        <url-mapping id="EspaceP_GestionCMD">
+            <pattern value="/Espace/Professeur/Gestion-des-commandes" />
+            <view-id value="/WEB-INF/espaces/professeur/gestionCMD.xhtml?faces-redirect=true" />
+        </url-mapping>
+        <url-mapping id="EspaceP_voirCMD">
+            <pattern value="/Espace/Professeur/Nouvelle-Commande" />
+            <view-id value="/WEB-INF/espaces/professeur/voirCMD.xhtml?faces-redirect=true" />
+        </url-mapping>
         <!-- ***************************** Espace Admin ***************************-->
         <url-mapping id="connexion_admin">
             <pattern value="/Auth/Admin" />

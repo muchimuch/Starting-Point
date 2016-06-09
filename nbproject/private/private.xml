@@ -18,14 +18,15 @@
             <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/wizard/etap3.xhtml</file>
         </group>
         <group name="JEE">
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/espaces/professeur/gestionMatiere.xhtml</file>
             <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/applicationContext.xml</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/espaces/professeur/voirCMD.xhtml</file>
             <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/pretty-config.xml</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/dao/EtudiantDAOImpl.java</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/espaces/etudiant/trouvezSoutien.xhtml</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/espaces/etudiant/profil.xhtml</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/service/EtudiantServiceImpl.java</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/bean/EtudiantBean.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/espaces/templates/espaceProfesseur.xhtml</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/service/ProfesseurService.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/service/ProfesseurServiceImpl.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/bean/professeurBean.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/dao/NotificationDAO.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/dao/NotificationDAOImpl.java</file>
         </group>
     </open-files>
 </project-private>

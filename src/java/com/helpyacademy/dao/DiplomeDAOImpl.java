@@ -77,10 +77,11 @@ public class DiplomeDAOImpl implements DiplomeDAO {
     }
 
     @Override
-    public Diplome getDiplomeByName(String diplome) {
+    public Diplome getDiplomeByName(String diplome,int idp) {
         Session session = sessionFactory.openSession();
-        Query q = session.createQuery("FROM Diplome WHERE diplome=:diplome");
+        Query q = session.createQuery("FROM Diplome WHERE diplome=:diplome AND idProf.id=:idP");
         q.setParameter("diplome", diplome);
+        q.setParameter("idP", idp);
         Diplome d = (Diplome) q.uniqueResult();
         session.close();
         return d;

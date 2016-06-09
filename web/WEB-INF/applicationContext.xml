@@ -32,6 +32,7 @@
                 <beans:value>com.helpyacademy.dao.model.Niveau</beans:value>
                 <beans:value>com.helpyacademy.dao.model.Note</beans:value>
                 <beans:value>com.helpyacademy.dao.model.Professeur</beans:value>
+                <beans:value>com.helpyacademy.dao.model.Notification</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -67,6 +68,10 @@
     <beans:bean id="matiereBean" class="com.helpyacademy.bean.MatiereBean">
         <beans:property name="matiereService" ref="matiereService" />
     </beans:bean>
+    <!-- ++++++++++++    Notification    +++++++++++++ -->
+    <beans:bean id="notificationDAO" class="com.helpyacademy.dao.NotificationDAOImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
     <!-- ++++++++++++    Etudiant    +++++++++++++ -->
     <beans:bean id="etudiantDAO" class="com.helpyacademy.dao.EtudiantDAOImpl">
         <beans:property name="sessionFactory" ref="sessionFactory" />
@@ -97,6 +102,8 @@
     <beans:bean id="professeurService" class="com.helpyacademy.service.ProfesseurServiceImpl">
         <beans:property name="professeurDAO" ref="professeurDAO" />
         <beans:property name="diplomeDAO" ref="diplomeDAO" />
+        <beans:property name="notificationDAO" ref="notificationDAO" />
+        <beans:property name="conferenceDAO" ref="conferenceDAO" />
     </beans:bean>
     <beans:bean id="professeurBean" class="com.helpyacademy.bean.professeurBean">
         <beans:property name="professeurService" ref="professeurService" />
@@ -125,6 +132,7 @@
         <beans:property name="professeurDAO" ref="professeurDAO" />
         <beans:property name="matiereDAO" ref="matiereDAO" />
         <beans:property name="conferenceDAO" ref="conferenceDAO" />
+        <beans:property name="notificationDAO" ref="notificationDAO" />
     </beans:bean>
     <beans:bean id="trouverSoutienBean" class="com.helpyacademy.bean.TrouverSoutienBean">
         <beans:property name="trouverSoutienService" ref="trouverSoutienService" />

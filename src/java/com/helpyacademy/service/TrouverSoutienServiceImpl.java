@@ -8,11 +8,13 @@ package com.helpyacademy.service;
 import com.helpyacademy.dao.ConferenceDAO;
 import com.helpyacademy.dao.EnseignerDAO;
 import com.helpyacademy.dao.MatiereDAO;
+import com.helpyacademy.dao.NotificationDAO;
 import com.helpyacademy.dao.ProfesseurDAO;
 import com.helpyacademy.dao.model.Conference;
 import com.helpyacademy.dao.model.Enseigner;
 import com.helpyacademy.dao.model.Etudiant;
 import com.helpyacademy.dao.model.Matiere;
+import com.helpyacademy.dao.model.Notification;
 import com.helpyacademy.dao.model.Professeur;
 import com.helpyacademy.util.Utils;
 import java.sql.Time;
@@ -33,6 +35,11 @@ public class TrouverSoutienServiceImpl implements TrouverSoutienService{
     private ProfesseurDAO professeurDAO;
     private MatiereDAO matiereDAO;
     private ConferenceDAO conferenceDAO;
+    private NotificationDAO notificationDAO;
+
+    public void setNotificationDAO(NotificationDAO notificationDAO) {
+        this.notificationDAO = notificationDAO;
+    }
 
     public void setConferenceDAO(ConferenceDAO conferenceDAO) {
         this.conferenceDAO = conferenceDAO;
@@ -103,7 +110,21 @@ public class TrouverSoutienServiceImpl implements TrouverSoutienService{
         c.setStatut(0);
         
         Integer id = conferenceDAO.add(c);
-        
+        if(id != null){
+            Conference conf = conferenceDAO.getConference(id);
+            String Etud = conf.getIdEleve().getNom().toUpperCase()+" "+conf.getIdEleve().getPrenom().toUpperCase();
+          
+            Notification notification = new Notification();
+            notification.setTitre("Vous avez recu une commande de l'"+conf.getIdEleve().getGenre()+" <b>"+Etud+"</b>");
+            notification.setDateNotification(new Date());
+            notification.setIdUtilisateur(CidP);
+            notification.setIdPage(id);
+            notification.setEspace('p');
+            notification.setType("cmd");
+            notification.setVu('0');
+            
+            notificationDAO.addNotification(notification);
+        }
         return id != null;
     }
 
@@ -117,6 +138,59 @@ public class TrouverSoutienServiceImpl implements TrouverSoutienService{
     public boolean deleteConf(Conference conf) {
         conferenceDAO.delete(conf);
         return true;
+    }
+
+    @Override
+    public boolean updateStatut(Conference conf, int i,int c) {
+        conf.setStatut(i);
+        conferenceDAO.update(conf);
+        if(i == 3 && c == 0){
+            
+            String Etud = conf.getIdEleve().getNom().toUpperCase()+" "+conf.getIdEleve().getPrenom().toUpperCase();
+            Notification notification = new Notification();
+            notification.setTitre("l'"+conf.getIdEleve().getGenre()+" <b>"+Etud+"</b> a annulé sa commande");
+            notification.setDateNotification(new Date());
+            notification.setIdUtilisateur(conf.getIdProf().getId());
+            notification.setIdPage(conf.getId());
+            notification.setEspace('p');
+            notification.setType("cmdAnnuler");
+            notification.setVu('0');
+            
+            notificationDAO.addNotification(notification);
+        } else if(i == 3 && c == 1){
+            
+            String Prof = conf.getIdProf().getNom().toUpperCase()+" "+conf.getIdProf().getPrenom().toUpperCase();
+            Notification notification = new Notification();
+            notification.setTitre("le professeur <b>"+Prof+"</b> a annulé votre commande");
+            notification.setDateNotification(new Date());
+            notification.setIdUtilisateur(conf.getIdEleve().getId());
+            notification.setIdPage(conf.getId());
+            notification.setEspace('e');
+            notification.setType("cmdAnnuler");
+            notification.setVu('0');
+            
+            notificationDAO.addNotification(notification);
+        } else if(i == 1 && c == 1){
+            
+            String Prof = conf.getIdProf().getNom().toUpperCase()+" "+conf.getIdProf().getPrenom().toUpperCase();
+            Notification notification = new Notification();
+            notification.setTitre("le professeur <b>"+Prof+"</b> a accepté votre commande");
+            notification.setDateNotification(new Date());
+            notification.setIdUtilisateur(conf.getIdEleve().getId());
+            notification.setIdPage(conf.getId());
+            notification.setEspace('e');
+            notification.setType("cmd");
+            notification.setVu('0');
+            
+            notificationDAO.addNotification(notification);
+        }
+        return true;
+    }
+
+    @Override
+    public List<Conference> listCommandesP() {
+        int idP = (int) Utils.getSession().getAttribute("IDP");
+        return conferenceDAO.listCommandesP(idP);
     }
     
 }

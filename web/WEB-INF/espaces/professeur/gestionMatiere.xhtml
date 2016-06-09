@@ -91,7 +91,7 @@
                         <div class="form-group">
                             <h:outputLabel for="description" styleClass="col-sm-3 control-label" value="Description"/>
                             <div class="col-sm-9">
-                                <h:outputText id="descriptionP" value="#{enseignerBean.descriptionM}"/>
+                                <h:outputText escape="false" id="descriptionP" value="#{enseignerBean.descriptionM}"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -145,7 +145,7 @@
                             <div class="form-group">
                                 <h:outputLabel for="description" styleClass="col-sm-3 control-label" value="Description"/>
                                 <div class="col-sm-9">
-                                    <h:inputTextarea id="description" styleClass="form-control wysihtml5" value="#{enseignerBean.description}" required="true" requiredMessage="Veuillez Ecrire une description"/>
+                                    <h:inputTextarea id="desc" styleClass="form-control wysihtml5" value="#{enseignerBean.description}" required="true" requiredMessage="Veuillez Ecrire une description"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -247,7 +247,7 @@
             });
             function update(data) {
                 if (data.status == "success") {
-                    $("#updateForm\\:description,.wysihtml5").wysihtml5({
+                    $("#updateForm\\:description").wysihtml5({
                         toolbar: {
                             'link': false,
                             'blockquote': false,

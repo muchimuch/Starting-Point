@@ -72,4 +72,45 @@ public class ConferenceDAOImpl implements ConferenceDAO{
            session.close(); 
         }
     }
+
+    @Override
+    public void update(Conference conf) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        Integer ID = null;
+        try{
+           tx = session.beginTransaction();
+           session.update(conf); 
+           tx.commit();
+        }catch (HibernateException e) {
+           if (tx!=null) tx.rollback();
+           e.printStackTrace(); 
+        }finally {
+           session.close(); 
+        }
+    }
+
+    @Override
+    public List<Conference> listCommandesP(int idP) {
+        String hql = "FROM Conference WHERE idProf.id=:idP";
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery(hql);
+        q.setParameter("idP", idP);
+        List<Conference> e = q.list();
+        session.close();
+        
+        return e;
+    }
+
+    @Override
+    public Conference getConference(int idConf) {
+        String hql = "FROM Conference WHERE id=:idConf";
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery(hql);
+        q.setParameter("idConf", idConf);
+        Conference c = (Conference) q.uniqueResult();
+        session.close();
+        
+        return c;
+    }
 }

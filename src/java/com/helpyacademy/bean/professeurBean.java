@@ -5,7 +5,9 @@
  */
 package com.helpyacademy.bean;
 
+import com.helpyacademy.dao.model.Conference;
 import com.helpyacademy.dao.model.Diplome;
+import com.helpyacademy.dao.model.Notification;
 import com.helpyacademy.dao.model.Professeur;
 import com.helpyacademy.service.ProfesseurService;
 import com.helpyacademy.util.Utils;
@@ -51,6 +53,9 @@ public class professeurBean implements Serializable {
     private int idDiplomeM;
     private Professeur idProf;
     private String dateNaissanceM;
+    
+    private List<Notification> listNotification;
+    private Conference conference;
     
     private ProfesseurService professeurService;
 
@@ -220,8 +225,49 @@ public class professeurBean implements Serializable {
     public String getDateNaissanceM() {
         return dateNaissanceM;
     }
+    
+    public List<Notification> getListNotification() {
+        return listNotification;
+    }
 
+    public Conference getConference() {
+        return conference;
+    }
+    
     /* ====================================================================== */
+    
+    public boolean type(String type,String t){
+        return type.equals(t);
+    }
+
+    public String dureeTotal() {
+        int h = conference.getDuree() / 60;
+        int m = conference.getDuree() % 60;
+        String d = h + "h ";
+        if (m != 0) {
+            d += m + "min";
+        }
+        if (conference.getCadeau20Min()) {
+            d += " + 20 min Cadeau";
+        }
+        return d;
+    }
+    
+    public String voirCommande(int notifID,int idConf){
+        professeurService.notificationVu(notifID);
+        conference = professeurService.getConference(idConf);
+        return "pretty:EspaceP_voirCMD";
+    }
+    
+    public int nbrNotif(){
+        return listNotification.size();
+    }
+    
+    public int nbrNotification(){
+        listNotification = professeurService.listNotification(id,'p');
+        return nbrNotif();
+    }
+    
     public String modifierInfoP() throws ParseException{
         if(dateNaissanceM == ""){
             date_naissance = null;

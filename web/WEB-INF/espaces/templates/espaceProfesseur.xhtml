@@ -61,33 +61,53 @@
         <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell-o"></i>
-                <span class="label label-warning">10</span>
+                <span class="label label-warning">#{professeurBean.nbrNotification()}</span>
             </a>
             <ul class="dropdown-menu">
-                <li class="header">You have 10 notifications</li>
+                <li class="header">Vous avez #{professeurBean.nbrNotif()} notifications</li>
                 <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu">
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                            </a>
-                        </li>
+                        <c:forEach items="#{professeurBean.listNotification}" var="notif">
+                            <li>
+                                <h:form style="padding-left: 10px">
+                                    <c:choose>
+                                        <c:when test="#{professeurBean.type(notif.type, 'cmd')}" >
+                                            <h:commandLink styleClass="text-success" action="#{professeurBean.voirCommande(notif.id,notif.idPage)}">
+                                                <i class="fa fa-cart-plus text-aqua" style="margin-right: 5px"></i>
+                                                <h:outputText escape="false" value="#{notif.titre}"/>
+                                            </h:commandLink>
+                                        </c:when>
+                                        <c:when test="#{professeurBean.type(notif.type, 'cmdAnnuler')}" >
+                                            <h:commandLink styleClass="text-danger" action="#{professeurBean.voirCommande(notif.id,notif.idPage)}">
+                                                <i class="fa fa-close" style="margin-right: 5px"></i>
+                                                <h:outputText escape="false" value="#{notif.titre}"/>
+                                            </h:commandLink>
+                                        </c:when>
+                                    </c:choose>
+                                </h:form>
+                            </li>
+                        </c:forEach>
                     </ul>
                 </li>
-                <li class="footer"><a href="#">View all</a></li>
+                <!--<li class="footer"><a href="#">View all</a></li>-->
             </ul>
         </li>
     </ui:define>
 
     <ui:define name="menu">
-        
+
         <li>
             <pretty:link mappingId="gestionMatiereP">
                 <i class="fa fa-book"></i> <span> Gestion des Matières </span>
             </pretty:link>
         </li>
-    
+        <li>
+            <pretty:link mappingId="EspaceP_GestionCMD">
+                <i class="fa fa-cart-plus"></i> <span> Gestion des Commandes </span>
+            </pretty:link>
+        </li>
+
     </ui:define>
 
 </ui:composition>

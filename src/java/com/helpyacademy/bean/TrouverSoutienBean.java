@@ -30,6 +30,7 @@ public class TrouverSoutienBean {
     private int idM;
     private int idNiv;
     private boolean success;
+
     private TrouverSoutienService trouverSoutienService;
 
     private boolean Ccadeau20min;
@@ -48,6 +49,10 @@ public class TrouverSoutienBean {
     private String description;
     private String prof;
     private String niveau;
+    private String nivMatiere;
+
+    private String nivEtudiant;
+    private String etudiant;
 
     private List<Conference> listCommandes;
 
@@ -159,7 +164,73 @@ public class TrouverSoutienBean {
         return niveau;
     }
 
+    public String getNivEtudiant() {
+        return nivEtudiant;
+    }
+
+    public String getEtudiant() {
+        return etudiant;
+    }
+
+    public void setNivEtudiant(String nivEtudiant) {
+        this.nivEtudiant = nivEtudiant;
+    }
+
+    public void setEtudiant(String etudiant) {
+        this.etudiant = etudiant;
+    }
+
+    public String getNivMatiere() {
+        return nivMatiere;
+    }
+
     // ----------------------------------------------------------------------
+    public String annulerP(Conference conf) {
+        if (conf.getStatut() == 0) {
+            if (trouverSoutienService.updateStatut(conf, 3,1)) {
+                success = true;
+                Utils.addMessage("la commande a été annulé. ");
+            } else {
+                success = true;
+                Utils.addMessage("la commande n'a pas été annulé. ");
+            }
+        }
+        return "pretty:EspaceP_GestionCMD";
+    }
+
+    public String accepter(Conference conf) {
+        if (conf.getStatut() == 0) {
+            if (trouverSoutienService.updateStatut(conf, 1,1)) {
+                success = true;
+                Utils.addMessage("la commande a été bien accepté. ");
+            } else {
+                success = true;
+                Utils.addMessage("la commande a pas été accepté. ");
+            }
+        }
+        return "pretty:EspaceP_GestionCMD";
+    }
+
+    public boolean emptyListCommandesP() {
+        listCommandes = trouverSoutienService.listCommandesP();
+        return listCommandes.isEmpty();
+    }
+
+    public void plusInfoP(Conference conf) {
+        Ccadeau20min = conf.getCadeau20Min();
+        titre = conf.getTitre();
+        description = conf.getDescription();
+        duree = conf.getDuree();
+        prixTotal = conf.getPrix();
+        dateDebut = conf.getDateDebut().toString();
+        heureDebut = conf.getHeureDebutString();
+        matiere = conf.getIdMatiere().getMatiere();
+        niveau = conf.getIdMatiere().getIdNiveau().getNiveau();
+        etudiant = conf.getIdEleve().getNom().toUpperCase() + " " + conf.getIdEleve().getPrenom().toUpperCase();
+        nivEtudiant = conf.getIdEleve().getNiveau().getNiveau();
+        nivMatiere = conf.getIdMatiere().getIdNiveau().getNiveau();
+    }
+
     public void plusInfo(Conference conf) {
         Ccadeau20min = conf.getCadeau20Min();
         titre = conf.getTitre();
@@ -168,9 +239,9 @@ public class TrouverSoutienBean {
         prixTotal = conf.getPrix();
         dateDebut = conf.getDateDebut().toString();
         heureDebut = conf.getHeureDebutString();
-        prof = conf.getIdProf().getNom().toUpperCase() + " " + conf.getIdProf().getPrenom().toUpperCase();
         matiere = conf.getIdMatiere().getMatiere();
         niveau = conf.getIdMatiere().getIdNiveau().getNiveau();
+        prof = conf.getIdProf().getNom().toUpperCase() + " " + conf.getIdProf().getPrenom().toUpperCase();
     }
 
     public void initUpdate(Conference conf) {
@@ -189,15 +260,15 @@ public class TrouverSoutienBean {
         }
         return d;
     }
-
-    public String delete(Conference conf) {
-        if (conf.getStatut() == '0') {
-            if (trouverSoutienService.deleteConf(conf)) {
+    
+    public String annuler(Conference conf) {
+        if (conf.getStatut() == 0) {
+            if (trouverSoutienService.updateStatut(conf, 3,0)) {
                 success = true;
-                Utils.addMessage("Votre commande a été bien supprimé. ");
+                Utils.addMessage("Votre commande a été annulé. ");
             } else {
                 success = true;
-                Utils.addMessage("Votre commande n'a pas été supprimé. ");
+                Utils.addMessage("Votre commande n'a pas été annulé. ");
             }
         }
         return "pretty:EspaceE_MesCommandes";
@@ -212,6 +283,7 @@ public class TrouverSoutienBean {
         if (trouverSoutienService.ajouterCMD(CidM, CidP, titre, description, dateDebut, heureDebut, duree, prixTotal, Ccadeau20min, cadeau20min)) {
             success = true;
             Utils.addMessage("Votre commande a été bien enregistré. ");
+
         } else {
             success = false;
             Utils.addMessage("Votre commande n'a pas été enregistré. Veuillez saisir correctement les informations du formulaire");

@@ -19,7 +19,7 @@ public interface DiplomeDAO {
 
     public void delete(Diplome d);
 
-    public Diplome getDiplomeByName(String diplome);
+    public Diplome getDiplomeByName(String diplome,int idp);
 
     public void update(Diplome d);
 }

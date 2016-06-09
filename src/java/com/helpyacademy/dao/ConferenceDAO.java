@@ -15,8 +15,12 @@ import java.util.List;
  */
 public interface ConferenceDAO {
     public Integer add(Conference conference);
-
+    public Conference getConference(int idConf);
     public List<Conference> listCommandes(int idE);
 
     public void delete(Conference conf);
+
+    public void update(Conference conf);
+
+    public List<Conference> listCommandesP(int idP);
 }

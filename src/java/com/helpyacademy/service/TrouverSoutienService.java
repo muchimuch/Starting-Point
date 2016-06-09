@@ -26,5 +26,9 @@ public interface TrouverSoutienService {
     public List<Conference> listCommandes();
 
     public boolean deleteConf(Conference conf);
+
+    public boolean updateStatut(Conference conf, int i,int c);
+
+    public List<Conference> listCommandesP();
     
 }

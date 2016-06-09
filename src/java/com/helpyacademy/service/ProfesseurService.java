@@ -5,7 +5,9 @@
  */
 package com.helpyacademy.service;
 
+import com.helpyacademy.dao.model.Conference;
 import com.helpyacademy.dao.model.Diplome;
+import com.helpyacademy.dao.model.Notification;
 import com.helpyacademy.dao.model.Professeur;
 import java.util.Date;
 import java.util.List;
@@ -28,4 +30,9 @@ public interface ProfesseurService {
     public boolean diplomeExiste(String diplome);
     public boolean modifierDiplome(Professeur idProf, int idDiplomeM, String diplomeM);
     public boolean modifierInfoP(Date date_naissance, String ville, String adresse, String tel, String situation_pro, String niv_etude);
+    public List<Notification> listNotification(int id, char c);
+
+    public void notificationVu(int notifID);
+
+    public Conference getConference(int idConf);
 }
