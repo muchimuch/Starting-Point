@@ -16,11 +16,13 @@
             <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/pretty-config.xml</file>
         </group>
         <group>
-            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/service/AdminServiceImpl.java</file>
-            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/bean/AdminGestionProfInscriptionsBean.java</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/bean/ProfesseurChatBean.java</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/service/ChatServiceImpl.java</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/dao/ChatDAOImpl.java</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/espaces/professeur/Chat/Chat.xhtml</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pretty-config.xml</file>
             <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/espaces/admin/GestionProfesseur/nouvellesInscriptions.xhtml</file>
-            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/bean/NiveauBean.java</file>
-            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/dao/model/Professeur.java</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/websocket/ServerSide.java</file>
         </group>
     </open-files>
 </project-private>

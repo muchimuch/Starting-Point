@@ -22,4 +22,5 @@ public interface ProfesseurDAO {
     public List<Professeur> getProfByCompte(char etat);
     public boolean accepterProfInscription(Professeur p);
     public boolean refuserProfInscription(Professeur p);
+    public Professeur getProfesseurById(int id);
 }

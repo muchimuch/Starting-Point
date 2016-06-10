@@ -1,0 +1,238 @@
+<ui:composition template="../../templates/espaceEtudiant.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:pretty="http://ocpsoft.com/prettyfaces"
+                >
+    <ui:define name="title">Chat | Espace Etudiant | HelpYAcademy</ui:define>
+    <ui:define name="page-title">Boîte de réception</ui:define>
+    <ui:define name="page-subtitle"></ui:define>
+    <ui:define name="page-content">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Contacts</h3>
+                        <div class="box-tools">
+                            <span class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></span>
+                        </div>
+                    </div>
+                    <div class="box-body no-padding">
+                        <ul class="nav nav-pills nav-stacked">
+                            <!-- Contacts -->
+
+                            <c:if test="#{etudiantChatBean.contacts.size() > 0}">
+                                <ui:repeat value="#{etudiantChatBean.contacts}" var="contact">
+                                    <li>
+                                        <pretty:link mappingId="ChatProf">
+                                            <f:param value="etude-#{contact.id}"/>
+                                            <i class="fa fa-user text-aqua"></i>
+                                            <h:outputText value="#{contact.nom} #{contact.prenom}"/>
+                                        </pretty:link>
+                                    </li>
+                                </ui:repeat>
+                            </c:if>
+
+
+                        </ul>
+                    </div><!-- /.box-body -->
+                </div><!-- /. box -->
+            </div><!-- /.col -->
+            <div class="col-md-9" onmouseover="read()">
+                <div id="chatBox" class="box box-warning direct-chat direct-chat-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">#{etudiantChatBean.prof.nom} #{etudiantChatBean.prof.prenom} </h3>
+                        <h:inputHidden value="#{etudiantChatBean.prof.id}" id="prof"/>
+                        <h:inputHidden value="#{etudiantChatBean.current.id}" id="current"/>
+                        <div class="box-tools pull-right">
+                            <span data-toggle="tooltip" title="3 Nouveau Messages" class="badge bg-green" id="lu"></span>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body" >
+                        <!-- Conversations are loaded here -->
+                        <div class="direct-chat-messages" id="direct-chat-messages" Style="height: 368px;overflow-x: hidden;">
+
+                            <!-- Message. Default to the left -->
+                            <div class="direct-chat-msg">
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                                </div><!-- /.direct-chat-info -->
+                                <div class="direct-chat-text" style="margin: 0px!important;">
+                                    Is this template really for free? That's unbelievable!
+                                </div><!-- /.direct-chat-text -->
+                            </div><!-- /.direct-chat-msg -->
+
+                            <!-- Message to the right -->
+                            <div class="direct-chat-msg right">
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                                </div><!-- /.direct-chat-info -->
+                                <div class="direct-chat-text" style="margin: 0px!important;">
+                                    You better believe it!
+                                </div><!-- /.direct-chat-text -->
+                            </div><!-- /.direct-chat-msg -->
+
+                        </div><!--/.direct-chat-messages-->
+                    </div><!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="input-group">
+                            <input type="text" max="100" id="message" name="message" autocomplete="off" onkeypress="envoyerMessage(event)" placeholder="Entrez un message ..." class="form-control"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-success btn-flat" onclick="envoyer()">Envoyer</button>
+                            </span>
+                        </div>
+                    </div><!-- /.box-footer-->
+                </div>
+            </div><!-- /.col -->
+        </div>
+        <script>
+            if (window.WebSocket) {
+                // utilisation de la websocket
+                var wsUri = getRootUri() + "/HelpyAcademy/admin/serverEndPoint";
+                var websocket;
+                var id = 0;
+                var nonLu = 0;
+                var messageNumber = "";
+                function getRootUri() {
+                    return "ws://" + (document.location.hostname == "" ?
+                            "localhost" : document.location.hostname) + ":" +
+                            (document.location.port == "" ? "8080" : document.location.port);
+                }
+
+                function init() {
+                    messageDiv = document.getElementById("direct-chat-messages");
+                    messageDiv.scrollTop = messageDiv.scrollHeight;
+                    websocket = new WebSocket(wsUri);
+                    websocket.onopen = function (evt) {
+                        onOpen(evt)
+                    };
+                    websocket.onmessage = function (evt) {
+                        onMessage(evt)
+                    };
+                    websocket.onerror = function (evt) {
+                        onError(evt)
+                    };
+                }
+
+                function onOpen(evt) {
+                    connection = "open";
+                    document.getElementById("chatBox").className = "box box-success direct-chat direct-chat-success";
+                    var msg = {
+                        type: "defineUser",
+                        user: "etudiant",
+                        userId: $("#current").val()
+                    };
+                    websocket.send(JSON.stringify(msg));
+                    var online ={
+                        type: "online",
+                        users:"professeur"
+                    }
+                    websocket.send(JSON.stringify(online));
+                }
+
+                function onMessage(evt) {
+                    var msg = JSON.parse(evt.data);
+                    if (msg.type == "message") {
+                        nonLu++;
+                        $("#lu").fadeIn();
+                        $("#lu").html(nonLu);
+                        afficher(msg, "left");
+                    } else if (msg.type == "synchronise") {
+                        if (msg.rand != messageNumber) {
+                            afficher(msg, "right");
+                        }
+                    }
+                }
+
+                function onError(evt) {
+                    var block = '<div class="alert alert-danger alert-dismissable">\
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>\
+                                <h4><i class="icon fa fa-ban"></i> Alerte : ' + evt.data + '</h4>\
+                                Veuillez réssayer ultérieurement.\
+                                </div>';
+                    $(messageDiv).append(block);
+                    messageDiv.scrollTop = messageDiv.scrollHeight;
+                }
+
+                function envoyer() {
+                    if ($.trim($('#message').val()) != "") {
+                        var d = new Date(Date.now());
+                        var dformat = [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-') + ' ' + [d.getHours(), d.getMinutes(), d.getSeconds()].join(':');
+                        messageNumber = Math.random().toString();
+                        var msg = {
+                            type: "message",
+                            text: $('#message').val(),
+                            date: dformat.toString(),
+                            idProf: $('#prof').val(),
+                            recepteur: $('#prof').val(),
+                            ideleve: $('#current').val(),
+                            emmeteur: $('#current').val(),
+                            rand: messageNumber
+                        };
+                        $('#message').val("");
+                        afficher(msg, "right");
+                        if (websocket.readyState == websocket.close) {
+                            var block = '<div class="alert alert-danger alert-dismissable">\
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>\
+                                <h4><i class="icon fa fa-ban"></i> Alerte : Connection échoué!</h4>\
+                                Veuillez réssayer ultérieurement.\
+                                </div>';
+                            $(messageDiv).append(block);
+                            messageDiv.scrollTop = messageDiv.scrollHeight;
+                            document.getElementById("chatBox").className = "box box-warning direct-chat direct-chat-warning";
+                        } else {
+                            $('.alert').fadeOut();
+                            document.getElementById("chatBox").className = "box box-success direct-chat direct-chat-success";
+                        }
+                        websocket.send(JSON.stringify(msg));
+                    }
+                }
+
+                function afficher(msg, side) {
+                    var block = createBlock(msg, side);
+                    $(messageDiv).append(block);
+                    messageDiv.scrollTop = messageDiv.scrollHeight;
+                }
+                function createBlock(msg, side) {
+                    var block;
+                    if (side === "right") {
+                        block = '<div class="direct-chat-msg right">\
+                                <div class="direct-chat-info clearfix">\
+                                <span class="direct-chat-timestamp pull-left">' + msg.date + '</span>\
+                                </div>\
+                                <div class="direct-chat-text" style="margin: 0px!important;">\
+                                ' + msg.text + '\
+                                </div></div>';
+                    } else {
+                        block = '<div class="direct-chat-msg">\
+                                <div class="direct-chat-info clearfix">\
+                                <span class="direct-chat-timestamp pull-right">' + msg.date + '</span>\
+                                </div>\
+                                <div class="direct-chat-text" style="margin: 0px!important;">\
+                                ' + msg.text + '\
+                                </div></div>';
+                    }
+                    return block;
+                }
+
+                function read() {
+                    nonLu = 0;
+                    $("#lu").fadeOut();
+                }
+
+                function envoyerMessage(event) {
+                    if (event.which == 13 || event.keyCode == 13) {
+                        envoyer();
+                    }
+                }
+
+
+                window.addEventListener("load", init, false);
+            } else {
+                alert('Le navigateur ne supporte pas les websockets');
+            }
+        </script>
+    </ui:define>
+</ui:composition>

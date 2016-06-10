@@ -6,6 +6,7 @@
 package com.helpyacademy.dao;
 
 import com.helpyacademy.dao.model.Etudiant;
+import java.util.Set;
 
 /**
  *
@@ -17,4 +18,5 @@ public interface EtudiantDAO {
     public Integer activerCompte(String email);
     public boolean isPresent(String email, String token);
     public Etudiant login(String email,String mdp);
+    public Etudiant getEtudiantById(int id);
 }

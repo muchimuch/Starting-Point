@@ -132,4 +132,16 @@ public class ProfesseurDAOImpl implements ProfesseurDAO {
         int result = query.executeUpdate();
         return result > 0;
     }
+
+    @Override
+    public Professeur getProfesseurById(int id) {
+        Professeur p = null;
+        String hql = "FROM Professeur WHERE id=:id";
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery(hql);
+        q.setParameter("id", id);
+        p = (Professeur) q.uniqueResult();
+        session.close();
+        return p;
+    }
 }

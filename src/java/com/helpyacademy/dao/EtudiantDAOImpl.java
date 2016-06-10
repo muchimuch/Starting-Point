@@ -6,7 +6,10 @@
 package com.helpyacademy.dao;
 
 import com.helpyacademy.dao.model.Etudiant;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -90,6 +93,17 @@ public class EtudiantDAOImpl implements EtudiantDAO{
         
         return e;
     }
-    
+
+    @Override
+    public Etudiant getEtudiantById(int id) {
+        Etudiant e = null;
+        String hql = "FROM Etudiant WHERE id=:id";
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery(hql);
+        q.setParameter("id", id);
+        e = (Etudiant) q.uniqueResult();
+        session.close();
+        return e;
+    }
     
 }
