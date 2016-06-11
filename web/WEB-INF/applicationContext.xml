@@ -123,10 +123,17 @@
     <beans:bean id="enseignerBean" class="com.helpyacademy.bean.EnseignerBean">
         <beans:property name="enseignerService" ref="enseignerService" />
     </beans:bean>
-    <!-- ++++++++++++    Trouver Soutien    +++++++++++++ -->
+    <!-- ++++++++++++    Conference    +++++++++++++ -->
     <beans:bean id="conferenceDAO" class="com.helpyacademy.dao.ConferenceDAOImpl">
         <beans:property name="sessionFactory" ref="sessionFactory" />
     </beans:bean>
+    <beans:bean id="conferenceService" class="com.helpyacademy.service.ConferenceServiceImpl">
+        <beans:property name="conferenceDAO" ref="conferenceDAO" />
+    </beans:bean> 
+    <beans:bean id="conferanceBean" class="com.helpyacademy.bean.ConferanceBean">
+        <beans:property name="conferenceService" ref="conferenceService" />
+    </beans:bean>
+    <!-- ++++++++++++    Trouver Soutiens    +++++++++++++ -->
     <beans:bean id="trouverSoutienService" class="com.helpyacademy.service.TrouverSoutienServiceImpl">
         <beans:property name="enseignerDAO" ref="enseignerDAO" />
         <beans:property name="professeurDAO" ref="professeurDAO" />

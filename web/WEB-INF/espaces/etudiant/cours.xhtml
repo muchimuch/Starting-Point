@@ -1,0 +1,60 @@
+<ui:composition template="../templates/espaceEtudiant.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="title">Mes Cours | HelpYAcademy</ui:define>
+    <ui:define name="page-title"> <i class="fa fa-book"></i> Mes Cours</ui:define>
+    <ui:define name="page-subtitle"></ui:define>
+    <ui:define name="page-content">
+        <h:messages styleClass="alert #{conferanceBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px"/>
+
+        <div class="col-sm-12" style="padding: 0">
+            <c:choose>
+                <c:when test="#{conferanceBean.emptyListCours()}">
+                    <p class="text-center text-muted" style="margin-top: 80px;font-size: 2.3em">Pas de Cours</p>
+                </c:when>
+                <c:otherwise>
+                    <h:dataTable
+                        value="#{conferanceBean.listCours}" var="cours"
+                        styleClass="table table-bordered table-striped text-center"
+                        style="background-color: white;margin-top: 15px"
+                        id="tableCMD"
+                        >
+                        <h:column headerClass="col-sm-1 bg-yellow">    				
+                            <f:facet name="header">Date Début</f:facet>    				
+                                #{cours.dateDebut}
+                        </h:column>
+                        <h:column headerClass="col-sm-1 bg-yellow">    				
+                            <f:facet name="header">Heure Début</f:facet>    				
+                                #{cours.getHeureDebutString()}
+                        </h:column>
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header">Durée</f:facet>    				
+                                #{conferanceBean.dureeTotal(cours.duree,cours.cadeau20Min)}
+                        </h:column>
+                        <h:column headerClass="col-sm-2">    				
+                            <f:facet name="header">Titre du Cours</f:facet>    				
+                                #{cours.titre}
+                        </h:column>
+                        <h:column headerClass="col-sm-2">    				
+                            <f:facet name="header">Vos Questions</f:facet>    				
+                            <h:outputText style="padding: 0" escape="false" value="#{cours.description}"/>
+                        </h:column>
+
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>   
+                            <button class="btn btn-default">Voir la Commande</button>
+                        </h:column>
+                        <h:column headerClass="col-sm-1">    				
+                            <f:facet name="header"></f:facet>   
+                            <button class="btn btn-success">Démarrer la Séance</button>
+                        </h:column>
+
+                    </h:dataTable>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </ui:define>
+</ui:composition>

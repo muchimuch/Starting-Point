@@ -23,4 +23,6 @@ public interface ConferenceDAO {
     public void update(Conference conf);
 
     public List<Conference> listCommandesP(int idP);
+
+    public List<Conference> listCoursE(int idE);
 }

@@ -51,6 +51,10 @@
             <pattern value="/Espace/Etudiant/Mes-Commandes/" />
             <view-id value="/WEB-INF/espaces/etudiant/commandes.xhtml?faces-redirect=true" />
         </url-mapping>
+        <url-mapping id="EspaceE_MesCours">
+            <pattern value="/Espace/Etudiant/Mes-Cours/" />
+            <view-id value="/WEB-INF/espaces/etudiant/cours.xhtml?faces-redirect=true" />
+        </url-mapping>
         <!-- ***************************** Espace Prof ***************************-->
         <url-mapping id="connexion_professeur">
             <pattern value="/Auth/Professeur" />

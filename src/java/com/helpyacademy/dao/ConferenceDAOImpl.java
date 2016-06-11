@@ -113,4 +113,16 @@ public class ConferenceDAOImpl implements ConferenceDAO{
         
         return c;
     }
+
+    @Override
+    public List<Conference> listCoursE(int idE) {
+        String hql = "FROM Conference WHERE idEleve.id=:idE AND statut=1";
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery(hql);
+        q.setParameter("idE", idE);
+        List<Conference> e = q.list();
+        session.close();
+        
+        return e;
+    }
 }
