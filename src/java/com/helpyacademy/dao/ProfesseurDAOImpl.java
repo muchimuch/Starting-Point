@@ -134,4 +134,15 @@ public class ProfesseurDAOImpl implements ProfesseurDAO {
             session.close();
         }
     }
+
+    @Override
+    public int nbrProfesseurs() {
+        String hql = "SELECT COUNT(id) FROM Professeur";
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery(hql);
+        Long e = (Long) q.uniqueResult();
+        session.close();
+        
+        return e.intValue();
+    }
 }

@@ -119,6 +119,17 @@ public class EtudiantDAOImpl implements EtudiantDAO{
            session.close(); 
         }
     }
+
+    @Override
+    public int nbrEtudiants() {
+        String hql = "SELECT COUNT(id) FROM Etudiant";
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery(hql);
+        Long e = (Long) q.uniqueResult();
+        session.close();
+        
+        return e.intValue();
+    }
     
     
 }

@@ -6,6 +6,10 @@
 package com.helpyacademy.service;
 
 import com.helpyacademy.dao.AdminDAO;
+import com.helpyacademy.dao.ConferenceDAO;
+import com.helpyacademy.dao.EnseignerDAO;
+import com.helpyacademy.dao.EtudiantDAO;
+import com.helpyacademy.dao.ProfesseurDAO;
 import com.helpyacademy.dao.model.Admin;
 import com.helpyacademy.util.Utils;
 
@@ -15,7 +19,27 @@ import com.helpyacademy.util.Utils;
  */
 public class AdminServiceImpl implements AdminService{
 
-    public AdminDAO adminDAO;
+    private AdminDAO adminDAO;
+    private EtudiantDAO etudiantDAO;
+    private ConferenceDAO conferenceDAO;
+    private EnseignerDAO enseignerDAO;
+    private ProfesseurDAO professeurDAO;
+
+    public void setProfesseurDAO(ProfesseurDAO professeurDAO) {
+        this.professeurDAO = professeurDAO;
+    }
+    
+    public void setConferenceDAO(ConferenceDAO conferenceDAO) {
+        this.conferenceDAO = conferenceDAO;
+    }
+
+    public void setEnseignerDAO(EnseignerDAO enseignerDAO) {
+        this.enseignerDAO = enseignerDAO;
+    }
+    
+    public void setEtudiantDAO(EtudiantDAO etudiantDAO) {
+        this.etudiantDAO = etudiantDAO;
+    }
 
     public void setAdminDAO(AdminDAO adminDAO) {
         this.adminDAO = adminDAO;
@@ -48,6 +72,31 @@ public class AdminServiceImpl implements AdminService{
         a.setPrenom(prenom);
         adminDAO.update(a);
         return true;
+    }
+
+    @Override
+    public int nbrEtudiants() {
+        return etudiantDAO.nbrEtudiants();
+    }
+
+    @Override
+    public int nbrNCmd() {
+        return conferenceDAO.nbrNCmd();
+    }
+
+    @Override
+    public int nbrCoursProgramme() {
+        return conferenceDAO.nbrCoursProgramme();
+    }
+
+    @Override
+    public int nbrProfesseurs() {
+        return professeurDAO.nbrProfesseurs();
+    }
+
+    @Override
+    public int nbrOffres() {
+        return enseignerDAO.nbrOffres();
     }
     
 }

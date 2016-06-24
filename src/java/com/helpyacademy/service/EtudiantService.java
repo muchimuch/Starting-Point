@@ -27,4 +27,10 @@ public interface EtudiantService {
     public boolean changerMdp(String email, String newMotDePasse);
 
     public boolean changerInfo(String nomM, String prenomM, String villeM, String adresseM, String telM, int nivM);
+
+    public int nbrCoursDisponible();
+
+    public int nbrMesCours();
+
+    public int nbrNewCommandes();
 }

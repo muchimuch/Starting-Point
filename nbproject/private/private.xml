@@ -18,15 +18,15 @@
             <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/wizard/etap3.xhtml</file>
         </group>
         <group name="JEE">
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/espaces/templates/espaceEtudiant.xhtml</file>
             <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/applicationContext.xml</file>
             <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/pretty-config.xml</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/service/AdminServiceImpl.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/dao/ProfesseurDAOImpl.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/dao/EtudiantDAOImpl.java</file>
             <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/dao/ConferenceDAOImpl.java</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/dao/model/Conference.java</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/bean/ConferanceBean.java</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/service/ConferenceServiceImpl.java</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/service/ConferenceService.java</file>
-            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/espaces/etudiant/cours.xhtml</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/bean/AdminBean.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/src/java/com/helpyacademy/dao/EnseignerDAOImpl.java</file>
+            <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/espaces/admin/index.xhtml</file>
         </group>
     </open-files>
 </project-private>

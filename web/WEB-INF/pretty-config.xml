@@ -15,7 +15,7 @@
         <url-mapping id="verificationCompte">
             <pattern value="/VerificationCompte/#{token}/#{email}/" />
             <view-id value="/WEB-INF/pages/compteVerification.xhtml" /> 
-            <action>#{etudiantService.verifier(email,token)}</action>
+            <action>#{et udiantService.verifier(email,token)}</action>
         </url-mapping>
         <url-mapping id="verificationCompteProfesseur">
             <pattern value="/VerificationCompteProfesseur/#{token}/#{email}/" />
@@ -38,6 +38,7 @@
         <url-mapping id="EspaceE_HOME">
             <pattern value="/Espace/Etudiant/" />
             <view-id value="/WEB-INF/espaces/etudiant/index.xhtml?faces-redirect=true" />
+            <action>#{etudiantBean.initIndexPage()}</action>
         </url-mapping>
         <url-mapping id="EspaceE_Profil">
             <pattern value="/Espace/Etudiant/Profil" />
@@ -63,6 +64,7 @@
         <url-mapping id="EspaceP_HOME">
             <pattern value="/Espace/Professeur/" />
             <view-id value="/WEB-INF/espaces/professeur/index.xhtml?faces-redirect=true" />
+            <action>#{professeurBean.initIndexPage()}</action>
         </url-mapping>
         <url-mapping id="gestionMatiereP">
             <pattern value="/Espace/Professeur/Matieres" />
@@ -80,6 +82,10 @@
             <pattern value="/Espace/Professeur/Nouvelle-Commande" />
             <view-id value="/WEB-INF/espaces/professeur/voirCMD.xhtml?faces-redirect=true" />
         </url-mapping>
+        <url-mapping id="EspaceP_GestionCours">
+            <pattern value="/Espace/Professeur/Gestion-Cours" />
+            <view-id value="/WEB-INF/espaces/professeur/gestionCours.xhtml?faces-redirect=true"/>
+        </url-mapping>
         <!-- ***************************** Espace Admin ***************************-->
         <url-mapping id="connexion_admin">
             <pattern value="/Auth/Admin" />
@@ -88,6 +94,7 @@
         <url-mapping id="EspaceA_HOME">
             <pattern value="/Espace/Admin/" />
             <view-id value="/WEB-INF/espaces/admin/index.xhtml?faces-redirect=true" />
+            <action>#{adminBean.initIndexPage()}</action>
         </url-mapping>
         <!-- Gestion des Matieres -->
         <url-mapping id="EspaceA_LMatieres">
@@ -101,6 +108,10 @@
         <url-mapping id="EspaceA_Profil">
             <pattern value="/Espace/Admin/Profil" />
             <view-id value="/WEB-INF/espaces/admin/profil.xhtml?faces-redirect=true" />
+        </url-mapping>
+        <url-mapping id="EspaceA_Config">
+            <pattern value="/Espace/Admin/Config" />
+            <view-id value="/WEB-INF/espaces/admin/config.xhtml?faces-redirect=true" />
         </url-mapping>
         
 

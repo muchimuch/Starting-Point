@@ -21,4 +21,6 @@ public interface ProfesseurDAO {
     public Professeur getProf(String email);
     public Professeur getProfByID(int idp);
     public void update(Professeur p);
+
+    public int nbrProfesseurs();
 }

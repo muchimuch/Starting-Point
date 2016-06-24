@@ -25,4 +25,20 @@ public interface ConferenceDAO {
     public List<Conference> listCommandesP(int idP);
 
     public List<Conference> listCoursE(int idE);
+
+    public List<Conference> listCoursP(int idP);
+
+    public Integer confirmerFinCours(int idConf);
+
+    public int nbrEtudiantCours(int idE);
+
+    public int nbrEtudiantNewCMD(int idE);
+
+    public int nbrCoursPrevenu(int idp);
+
+    public int nbrNouvelleCmd(int idp);
+
+    public int nbrNCmd();
+
+    public int nbrCoursProgramme();
 }

@@ -19,4 +19,14 @@ public interface AdminService {
     public boolean mdpCorrect(String email, String oldMotDePasse);
 
     public boolean modifierInfo(String nom, String prenom);
+
+    public int nbrEtudiants();
+
+    public int nbrNCmd();
+
+    public int nbrCoursProgramme();
+
+    public int nbrProfesseurs();
+
+    public int nbrOffres();
 }

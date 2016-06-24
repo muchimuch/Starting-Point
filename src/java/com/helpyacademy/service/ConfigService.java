@@ -5,19 +5,16 @@
  */
 package com.helpyacademy.service;
 
-import com.helpyacademy.dao.model.Conference;
-import java.util.List;
+import com.helpyacademy.dao.model.Config;
 
 /**
  *
  * @author youssefsafi
  */
-public interface ConferenceService {
+public interface ConfigService {
 
-    public List<Conference> listCours();
+    public Config getConf();
 
-    public List<Conference> listCoursP();
-
-    public boolean confirmerFinCours(int idConf);
+    public boolean updateBBBServerConf(String url, String salt);
     
 }

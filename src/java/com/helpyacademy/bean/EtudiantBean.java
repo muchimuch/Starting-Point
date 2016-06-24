@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author youssefsafi
  */
+
 @ManagedBean
 @SessionScoped
 public class EtudiantBean implements Serializable {
@@ -56,6 +57,10 @@ public class EtudiantBean implements Serializable {
     private String telM;
     private int nivM;
 
+    private int nbrNewCommandes;
+    private int nbrMesCours;
+    private int nbrCoursDisponible;
+    
     private EtudiantService etudiantService;
 
     public EtudiantBean() {
@@ -282,7 +287,25 @@ public class EtudiantBean implements Serializable {
         this.nivM = nivM;
     }
 
+    public int getNbrNewCommandes() {
+        return nbrNewCommandes;
+    }
+
+    public int getNbrMesCours() {
+        return nbrMesCours;
+    }
+
+    public int getNbrCoursDisponible() {
+        return nbrCoursDisponible;
+    }
+
     // -------------------------------------------------------------------------
+    
+    public void initIndexPage(){
+        nbrCoursDisponible = etudiantService.nbrCoursDisponible();
+        nbrMesCours = etudiantService.nbrMesCours();
+        nbrNewCommandes = etudiantService.nbrNewCommandes();
+    }
     
     public String modifierInfo() {
         if (nomM.equals(nom) && prenomM.equals(prenom) && villeM.equals(ville) && adresse.equals(adresseM) && telM.equals(tel) && nivM == niveau) {
@@ -387,7 +410,7 @@ public class EtudiantBean implements Serializable {
                 session.setAttribute("EtudiantNom", nom);
                 session.setAttribute("EtudiantPrenom", prenom);
                 session.setAttribute("theme", "skin-blue");
-
+                
                 return "pretty:EspaceE_HOME";
             } else {
                 e = null;

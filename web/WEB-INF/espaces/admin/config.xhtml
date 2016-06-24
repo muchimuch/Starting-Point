@@ -1,0 +1,106 @@
+<ui:composition template="../templates/espaceAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="title">Configurations | HelpYAcademy</ui:define>
+    <ui:define name="page-title"><i class="fa fa-gear"></i> Configurations </ui:define>
+    <ui:define name="page-subtitle"></ui:define>
+    <ui:define name="page-content">
+
+        <h:messages styleClass="alert #{configBean.success ? 'alert-success':'alert-danger'} col-xs-12" style="padding-left: 40px;margin-top:10px"/>
+
+        <div class="panel panel-default col-sm-6" style="padding:0">
+            <div class="panel-heading col-xs-12" style="padding: 2px">
+                <h2 class="panel-title pull-left" style="margin-left: 10px;margin-top: 8px"><i class="fa fa-server"></i> Serveur BigBlueButton</h2>
+                <h:form styleClass="pull-right">
+                    <h:commandButton id="update" value="Modifier" styleClass="btn btn-sm btn-info" action="#{configBean.initBBBUpdate()}"
+                                     onclick="$('#BBBModal').modal('show');">
+                        <f:ajax execute="@this" render="updateBBBForm"/>
+                    </h:commandButton>
+                </h:form>
+                <h:form styleClass="pull-right" style="margin-right: 5px">
+                    <h:commandButton value="Tester le Serveur" styleClass="btn btn-sm btn-success" action="#{configBean.testBBBServeur()}"
+                                     onclick="$('#BBBTestModal').modal('show');">
+                        <f:ajax execute="@this" render="label1 label2"/>
+                    </h:commandButton>
+                </h:form>
+                <button class="btn btn-sm btn-default pull-right" style="margin-right: 5px" onclick="reload()"><i class="fa fa-repeat"></i></button>
+            </div>
+            <div class="panel-body" style="padding: 0">
+                <table class="table table-bordered table-striped" style="margin: 0">
+                    <tr>
+                        <th class="text-light-blue col-sm-1">URL</th>
+                        <td class="col-sm-11"> #{configBean.url}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-light-blue col-sm-1">Salt</th>
+                        <td class="col-sm-11"> #{configBean.salt}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- BBB Server Test Modal -->
+        <div class="modal fade" id="BBBTestModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                        <h4 class="modal-title" id="myModalLabel">Test du Serveur BigBlueButton</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <h:form styleClass="col-sm-12">
+                                <h:outputLabel id="label1" value="#{configBean.serverWorking ? 'ON':'OFF'}" style="margin-right: 30px" styleClass="label #{configBean.serverWorking ? 'label-success':'label-danger'}"/>
+                                <h:outputText id="label2" value="l'application #{configBean.serverWorking ? 'est bien':'n\'est pas'} connecté avec le serveur" />
+                            </h:form>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- BBB Modal -->
+        <div class="modal fade" id="BBBModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form styleClass="form-horizontal" id="updateBBBForm">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Configurations du Serveur BigBlueButton</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h:outputLabel for="url" styleClass="col-sm-4 control-label" value="URL"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{configBean.urlM}" id="url" styleClass="form-control" required="true" requiredMessage="Veuillez entrer URL du Serveur BBB" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="Salt" styleClass="col-sm-4 control-label" value="Salt"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{configBean.saltM}" id="Salt" styleClass="form-control" required="true" requiredMessage="Veuillez entrer Salt du Serveur BBB" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{configBean.updateBBB()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+    <ui:define name="js">
+        <script>
+            function reload(){
+                location.reload();
+            }
+        </script>
+    </ui:define>
+</ui:composition>

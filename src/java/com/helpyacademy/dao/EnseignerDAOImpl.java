@@ -115,5 +115,32 @@ public class EnseignerDAOImpl implements EnseignerDAO{
         session.close();
         return Liste;
     }
+
+    @Override
+    public int nbrCoursDisponible() {
+        Session session = sessionFactory.openSession();
+        Long nbr = (Long) session.createQuery("SELECT COUNT(enseignerPK.idMatiere) FROM Enseigner").uniqueResult();
+        session.close();
+        return nbr.intValue();
+    }
+
+    @Override
+    public int nbrMesCours(int idp) {
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery("SELECT COUNT(enseignerPK.idMatiere) FROM Enseigner WHERE enseignerPK.idProf=:idProf");
+        q.setParameter("idProf", idp);
+        Long nbr = (Long) q.uniqueResult();
+        session.close();
+        return nbr.intValue();
+    }
+
+    @Override
+    public int nbrOffres() {
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery("SELECT COUNT(enseignerPK.idMatiere) FROM Enseigner");
+        Long nbr = (Long) q.uniqueResult();
+        session.close();
+        return nbr.intValue();
+    }
     
 }

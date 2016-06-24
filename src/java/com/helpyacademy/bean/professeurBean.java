@@ -54,6 +54,10 @@ public class professeurBean implements Serializable {
     private Professeur idProf;
     private String dateNaissanceM;
     
+    private int nbrNouvelleCmd;
+    private int nbrCoursPrevenu;
+    private int nbrMesCours;
+    
     private List<Notification> listNotification;
     private Conference conference;
     
@@ -233,8 +237,26 @@ public class professeurBean implements Serializable {
     public Conference getConference() {
         return conference;
     }
+
+    public int getNbrNouvelleCmd() {
+        return nbrNouvelleCmd;
+    }
+
+    public int getNbrCoursPrevenu() {
+        return nbrCoursPrevenu;
+    }
+
+    public int getNbrMesCours() {
+        return nbrMesCours;
+    }
     
     /* ====================================================================== */
+    
+    public void initIndexPage(){
+        nbrMesCours = professeurService.nbrMesCours();
+        nbrCoursPrevenu = professeurService.nbrCoursPrevenu();
+        nbrNouvelleCmd = professeurService.nbrNouvelleCmd();
+    }
     
     public boolean type(String type,String t){
         return type.equals(t);

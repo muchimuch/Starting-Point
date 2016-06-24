@@ -1,7 +1,78 @@
 <ui:composition template="../templates/espaceAdmin.xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
-        <ui:define name="title">Espace Administrateur | HelpYAcademy</ui:define>
-        <ui:define name="page-title">
-            test
-        </ui:define>
+                xmlns='http://www.w3.org/1999/xhtml'
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pretty='http://ocpsoft.com/prettyfaces'>
+    <ui:define name="title">Espace Administrateur | HelpYAcademy</ui:define>
+    <ui:define name="page-title"></ui:define>
+    <ui:define name="page-subtitle"></ui:define>
+    <ui:define name="page-content">
+        <div class="row" style="margin-top: -30px">
+            
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>#{adminBean.nbrEtudiants}</h3>
+                        <p>Etudiants</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>#{adminBean.nbrProfesseurs}</h3>
+                        <p>Professeurs</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>#{adminBean.nbrCMD}</h3>
+                        <p>Nouvelle Commandes</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-cart-plus"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>#{adminBean.nbrOffres}</h3>
+                        <p>Offres Disponibles</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-book"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-light-blue">
+                    <div class="inner">
+                        <h3>#{adminBean.nbrCoursProgramme}</h3>
+                        <p>Cours Programmé</p>
+                        <div class="icon">
+                            <i class="fa fa-video-camera"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
 </ui:composition>

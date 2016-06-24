@@ -33,6 +33,7 @@
                 <beans:value>com.helpyacademy.dao.model.Note</beans:value>
                 <beans:value>com.helpyacademy.dao.model.Professeur</beans:value>
                 <beans:value>com.helpyacademy.dao.model.Notification</beans:value>
+                <beans:value>com.helpyacademy.dao.model.Config</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -72,45 +73,7 @@
     <beans:bean id="notificationDAO" class="com.helpyacademy.dao.NotificationDAOImpl">
         <beans:property name="sessionFactory" ref="sessionFactory" />
     </beans:bean>
-    <!-- ++++++++++++    Etudiant    +++++++++++++ -->
-    <beans:bean id="etudiantDAO" class="com.helpyacademy.dao.EtudiantDAOImpl">
-        <beans:property name="sessionFactory" ref="sessionFactory" />
-    </beans:bean>
-    <beans:bean id="etudiantService" class="com.helpyacademy.service.EtudiantServiceImpl">
-        <beans:property name="etudiantDAO" ref="etudiantDAO"/>
-        <beans:property name="niveauDAO" ref="niveauDAO" />
-    </beans:bean>
-    <beans:bean id="etudiantBean" class="com.helpyacademy.bean.EtudiantBean">
-        <beans:property name="etudiantService" ref="etudiantService" />
-        <beans:property name="isPwdValid" value="true"/>
-        <beans:property name="emailExiste" value="false" />
-    </beans:bean>
-    <!-- ++++++++++++    Admin    +++++++++++++ -->
-    <beans:bean id="adminDAO" class="com.helpyacademy.dao.AdminDAOImpl">
-        <beans:property name="sessionFactory" ref="sessionFactory" />
-    </beans:bean>
-    <beans:bean id="adminService" class="com.helpyacademy.service.AdminServiceImpl">
-        <beans:property name="adminDAO" ref="adminDAO"/>
-    </beans:bean>
-    <beans:bean id="adminBean" class="com.helpyacademy.bean.AdminBean">
-        <beans:property name="adminService" ref="adminService" />
-    </beans:bean>
-    <!-- ++++++++++++    Professeur    +++++++++++++ -->
-    <beans:bean id="professeurDAO" class="com.helpyacademy.dao.ProfesseurDAOImpl">
-        <beans:property name="sessionFactory" ref="sessionFactory" />
-    </beans:bean>
-    <beans:bean id="professeurService" class="com.helpyacademy.service.ProfesseurServiceImpl">
-        <beans:property name="professeurDAO" ref="professeurDAO" />
-        <beans:property name="diplomeDAO" ref="diplomeDAO" />
-        <beans:property name="notificationDAO" ref="notificationDAO" />
-        <beans:property name="conferenceDAO" ref="conferenceDAO" />
-    </beans:bean>
-    <beans:bean id="professeurBean" class="com.helpyacademy.bean.professeurBean">
-        <beans:property name="professeurService" ref="professeurService" />
-    </beans:bean>
-    <beans:bean id="profInsciptionBean" class="com.helpyacademy.bean.profInsciptionBean">
-        <beans:property name="professeurService" ref="professeurService" />
-    </beans:bean>
+    
     <!-- ++++++++++++    Enseigner    +++++++++++++ -->
     <beans:bean id="enseignerDAO" class="com.helpyacademy.dao.EnseignerDAOImpl">
         <beans:property name="sessionFactory" ref="sessionFactory" />
@@ -123,6 +86,33 @@
     <beans:bean id="enseignerBean" class="com.helpyacademy.bean.EnseignerBean">
         <beans:property name="enseignerService" ref="enseignerService" />
     </beans:bean>
+    <!-- ++++++++++++    Professeur    +++++++++++++ -->
+    <beans:bean id="professeurDAO" class="com.helpyacademy.dao.ProfesseurDAOImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
+    <beans:bean id="professeurService" class="com.helpyacademy.service.ProfesseurServiceImpl">
+        <beans:property name="professeurDAO" ref="professeurDAO" />
+        <beans:property name="diplomeDAO" ref="diplomeDAO" />
+        <beans:property name="notificationDAO" ref="notificationDAO" />
+        <beans:property name="conferenceDAO" ref="conferenceDAO" />
+        <beans:property name="enseignerDAO" ref="enseignerDAO" />
+    </beans:bean>
+    <beans:bean id="professeurBean" class="com.helpyacademy.bean.professeurBean">
+        <beans:property name="professeurService" ref="professeurService" />
+    </beans:bean>
+    <beans:bean id="profInsciptionBean" class="com.helpyacademy.bean.profInsciptionBean">
+        <beans:property name="professeurService" ref="professeurService" />
+    </beans:bean>
+    <!-- ++++++++++++    Config    +++++++++++++ -->
+    <beans:bean id="configDAO" class="com.helpyacademy.dao.ConfigDAOImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
+    <beans:bean id="configService" class="com.helpyacademy.service.ConfigServiceImpl">
+        <beans:property name="configDAO" ref="configDAO" />
+    </beans:bean>
+    <beans:bean id="configBean" class="com.helpyacademy.bean.ConfigBean" init-method="init">
+        <beans:property name="configService" ref="configService" />
+    </beans:bean>
     <!-- ++++++++++++    Conference    +++++++++++++ -->
     <beans:bean id="conferenceDAO" class="com.helpyacademy.dao.ConferenceDAOImpl">
         <beans:property name="sessionFactory" ref="sessionFactory" />
@@ -132,6 +122,7 @@
     </beans:bean> 
     <beans:bean id="conferanceBean" class="com.helpyacademy.bean.ConferanceBean">
         <beans:property name="conferenceService" ref="conferenceService" />
+        <beans:property name="configDAO" ref="configDAO" />
     </beans:bean>
     <!-- ++++++++++++    Trouver Soutiens    +++++++++++++ -->
     <beans:bean id="trouverSoutienService" class="com.helpyacademy.service.TrouverSoutienServiceImpl">
@@ -144,4 +135,34 @@
     <beans:bean id="trouverSoutienBean" class="com.helpyacademy.bean.TrouverSoutienBean">
         <beans:property name="trouverSoutienService" ref="trouverSoutienService" />
     </beans:bean>
+    <!-- ++++++++++++    Etudiant    +++++++++++++ -->
+    <beans:bean id="etudiantDAO" class="com.helpyacademy.dao.EtudiantDAOImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
+    <beans:bean id="etudiantService" class="com.helpyacademy.service.EtudiantServiceImpl">
+        <beans:property name="etudiantDAO" ref="etudiantDAO"/>
+        <beans:property name="niveauDAO" ref="niveauDAO" />
+        <beans:property name="conferenceDAO" ref="conferenceDAO" />
+        <beans:property name="enseignerDAO" ref="enseignerDAO" />
+    </beans:bean>
+    <beans:bean id="etudiantBean" class="com.helpyacademy.bean.EtudiantBean">
+        <beans:property name="etudiantService" ref="etudiantService" />
+        <beans:property name="isPwdValid" value="true"/>
+        <beans:property name="emailExiste" value="false" />
+    </beans:bean>
+    <!-- ++++++++++++    Admin    +++++++++++++ -->
+    <beans:bean id="adminDAO" class="com.helpyacademy.dao.AdminDAOImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
+    <beans:bean id="adminService" class="com.helpyacademy.service.AdminServiceImpl">
+        <beans:property name="adminDAO" ref="adminDAO"/>
+        <beans:property name="etudiantDAO" ref="etudiantDAO"/>
+        <beans:property name="conferenceDAO" ref="conferenceDAO" />
+        <beans:property name="enseignerDAO" ref="enseignerDAO" />
+        <beans:property name="professeurDAO" ref="professeurDAO" />
+    </beans:bean>
+    <beans:bean id="adminBean" class="com.helpyacademy.bean.AdminBean">
+        <beans:property name="adminService" ref="adminService" />
+    </beans:bean>
+    
 </beans:beans>

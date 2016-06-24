@@ -6,26 +6,34 @@
     <ui:define name="page-title">Votre Profil</ui:define>
     <ui:define name="page-subtitle"></ui:define>
     <ui:define name="page-content">
-        <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modifierMDP"> <i class="fa fa-lock"></i> Modification du Mot de Passe</button>
-        <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modifierInfo"> <i class="fa fa-info"></i> Modification des informations Personnel</button>
+        <div class="col-xs-12" style="padding: 0;margin-bottom: 10px">
+            <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modifierMDP"> <i class="fa fa-lock"></i> Modification du Mot de Passe</button>
+            <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modifierInfo"> <i class="fa fa-info"></i> Modification des informations Personnel</button>
+        </div>
         <h:messages styleClass="alert #{adminBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px"/>
-        
-        <table style="font-size: 1.5em;margin-top: 15px" class="well">
-            <tr>
-                <td class="col-sm-3 text-light-blue">Nom</td>
-                <td> : #{adminBean.nom}</td>
-            </tr>
-            <tr>
-                <td class="col-sm-3 text-light-blue">Prénom</td>
-                <td> : #{adminBean.prenom}</td>
-            </tr>
-            <tr>
-                <td class="col-sm-3 text-light-blue">E-mail</td>
-                <td> : #{adminBean.email}</td>
-            </tr>
-        </table>
-        
-        
+
+        <div class="panel panel-default col-sm-6" style="padding:0">
+            <div class="panel-heading">
+                <h2 class="panel-title text-center"><i class="fa fa-info-circle"></i> Informations Personnel</h2>
+            </div>
+            <div class="panel-body" style="padding: 0">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th class="text-light-blue">Nom</th>
+                        <td> #{adminBean.nom}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-light-blue">Prénom</th>
+                        <td> #{adminBean.prenom}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-light-blue">E-mail</th>
+                        <td> #{adminBean.email}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+      
         <!-- Modifier Info Modal -->
         <div class="modal fade" id="modifierInfo" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">

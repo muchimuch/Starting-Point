@@ -38,6 +38,12 @@ public class AdminBean implements Serializable{
     private String nomM;
     private String prenomM;
     
+    private int nbrEtudiants;
+    private int nbrProfesseurs;
+    private int nbrCMD;
+    private int nbrOffres;
+    private int nbrCoursProgramme;
+    
     private AdminService adminService;
 
     public AdminBean() {
@@ -126,8 +132,36 @@ public class AdminBean implements Serializable{
     public void setPrenomM(String prenomM) {
         this.prenomM = prenomM;
     }
+
+    public int getNbrEtudiants() {
+        return nbrEtudiants;
+    }
+
+    public int getNbrProfesseurs() {
+        return nbrProfesseurs;
+    }
+
+    public int getNbrCMD() {
+        return nbrCMD;
+    }
+
+    public int getNbrOffres() {
+        return nbrOffres;
+    }
+
+    public int getNbrCoursProgramme() {
+        return nbrCoursProgramme;
+    }
     
     /* ------------------------------------------ */
+    
+    public void initIndexPage(){
+        nbrEtudiants = adminService.nbrEtudiants();
+        nbrCMD = adminService.nbrNCmd();
+        nbrCoursProgramme = adminService.nbrCoursProgramme();
+        nbrProfesseurs = adminService.nbrProfesseurs();
+        nbrOffres = adminService.nbrOffres();
+    }
     
     public String modifierInfo(){
         if(nomM.equals(nom) && prenomM.equals(prenom)){

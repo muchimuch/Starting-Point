@@ -24,4 +24,10 @@ public interface EnseignerDAO {
     public Enseigner getMatiere(int idMatiere, int idp);
 
     public List<Enseigner> getMatiere(int idM);
+
+    public int nbrCoursDisponible();
+
+    public int nbrMesCours(int idp);
+
+    public int nbrOffres();
 }

@@ -21,4 +21,6 @@ public interface EtudiantDAO {
     public Etudiant getEtudiant(int idE);
 
     public void update(Etudiant e);
+
+    public int nbrEtudiants();
 }

@@ -1,0 +1,119 @@
+<ui:composition template="../templates/espaceProfesseur.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="title">Gestion des Cours | HelpYAcademy</ui:define>
+    <ui:define name="page-title"> <i class="fa fa-book"></i> Gestion des Cours</ui:define>
+    <ui:define name="page-subtitle"></ui:define>
+    <ui:define name="page-content">
+        <h:messages styleClass="alert #{conferanceBean.success ? 'alert-success':'alert-danger'} col-sm-12" style="padding-left: 40px;margin-top:10px"/>
+
+        <div class="col-sm-12" style="padding: 0">
+            <c:choose>
+                <c:when test="#{conferanceBean.emptyListCoursP()}">
+                    <p class="text-center text-muted" style="margin-top: 80px;font-size: 2.3em">Pas de Cours</p>
+                </c:when>
+                <c:otherwise>
+                    <div class="panel panel-default">
+                        <div class="panel-heading col-sm-12" style="padding: 5px">
+                            <c:if test="#{conferanceBean.PrecedentTest()}">
+                                <h:form>
+                                    <h:commandButton action="#{conferanceBean.coursPrecedent()}" value="Cours Précédent (#{conferanceBean.diffCoursPrecedent()})" styleClass="btn btn-sm btn-default pull-left"></h:commandButton>
+                                </h:form>
+                            </c:if>
+                            <c:if test="#{conferanceBean.SuivantTest()}">
+                                <h:form>
+                                    <h:commandButton action="#{conferanceBean.coursSuivant()}" value="Cours Suivant (#{conferanceBean.diffCoursSuivant()})" styleClass="btn btn-sm btn-info pull-right"></h:commandButton>
+                                </h:form>
+                            </c:if>
+                        </div>
+                        <div class="panel-body">
+
+                            <c:choose>
+                                <c:when test="#{conferanceBean.coursTermine()}">
+                                    <p class="text-center text-green" style="font-size: 2.2em;font-weight:bold;"><br/>Ce cours est Terminé<br/></p>
+                                    <h:form styleClass="col-sm-6 col-sm-offset-3" style="margin-bottom: 15px" onsubmit="return confirm('voulez-vous continuer ?')">
+                                        <h:commandButton styleClass="btn btn-primary btn-block" value="Confirmer la fin du cours" action="#{conferanceBean.confirmerFinCours()}"/>
+                                    </h:form>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="col-sm-6 col-sm-offset-3" style="margin-top: 40px;margin-bottom: 30px">
+                                        <div class="clock pull-left" style="margin-top: 30px;margin-left: 30px"></div>
+                                        <a style="margin-top: 10px" id="start" class="btn btn-success col-xs-12 disabled" href="#{conferanceBean.startConfProf()}" target="_blank">Commancer le Cours</a>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td class="text-center"><b>Date Début : </b>#{conferanceBean.cours.dateDebut}</td>
+                                    <td class="text-center"><b>Heure Début : </b>#{conferanceBean.cours.heureDebutString}</td>
+                                    <td class="text-center"><b>Durée : </b>#{conferanceBean.dureeTotal()}</td>
+                                    <td class="text-center"><b>Prix : </b> <h:outputText value="#{conferanceBean.cours.prix}" ><f:convertNumber pattern="#0.00" /></h:outputText> DH</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Nom d'Eleve : </b> #{conferanceBean.cours.idEleve.nom.toUpperCase()} #{conferanceBean.cours.idEleve.prenom.toUpperCase()}
+                                    </td>
+                                    <td colspan="3">
+                                        <b>Titre du Cours : </b> #{conferanceBean.cours.titre}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Niveau d'Eleve : </b> #{conferanceBean.cours.idEleve.niveau.niveau}
+                                    </td>
+                                    <td rowspan="3" colspan="3">
+                                        <b class="pull-left">Questions d'Eleve : </b> <h:outputText value="#{conferanceBean.cours.description}" escape="false" style="margin-left:10px" styleClass="pull-left"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Matiere : </b> #{conferanceBean.cours.idMatiere.matiere}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Niveau du Matiere : </b> #{conferanceBean.cours.idMatiere.idNiveau.niveau}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <table>
+                    </table>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </ui:define>
+    <ui:define name="js">
+        <h:outputScript library="js" name="flipclock.min.js" />
+        <c:choose>
+            <c:when test="#{conferanceBean.coursTerminer}">
+
+            </c:when>
+            <c:otherwise>
+                <script>
+                    var clock;
+                    clock = $('.clock').FlipClock({
+                        clockFace: 'DailyCounter',
+                        autoStart: false,
+                        callbacks: {
+                            stop: function () {
+                                $('#start').removeClass('disabled');
+                            }
+                        }
+                    });
+                    clock.setTime(#{conferanceBean.countDown()});
+                    clock.setCountdown(true);
+                    clock.start();
+                </script>
+            </c:otherwise>
+        </c:choose>
+    </ui:define>
+    <ui:define name="css">
+        <h:outputStylesheet library="css" name="flipclock.css" />
+    </ui:define>
+</ui:composition>

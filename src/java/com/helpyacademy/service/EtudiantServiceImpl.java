@@ -5,6 +5,8 @@
  */
 package com.helpyacademy.service;
 
+import com.helpyacademy.dao.ConferenceDAO;
+import com.helpyacademy.dao.EnseignerDAO;
 import com.helpyacademy.dao.EtudiantDAO;
 import com.helpyacademy.dao.NiveauDAO;
 import com.helpyacademy.dao.model.Etudiant;
@@ -22,6 +24,16 @@ public class EtudiantServiceImpl implements EtudiantService{
 
     private EtudiantDAO etudiantDAO;
     private NiveauDAO niveauDAO;
+    private ConferenceDAO conferenceDAO;
+    private EnseignerDAO enseignerDAO;
+
+    public void setConferenceDAO(ConferenceDAO conferenceDAO) {
+        this.conferenceDAO = conferenceDAO;
+    }
+
+    public void setEnseignerDAO(EnseignerDAO enseignerDAO) {
+        this.enseignerDAO = enseignerDAO;
+    }
 
     public void setEtudiantDAO(EtudiantDAO etudiantDAO) {
         this.etudiantDAO = etudiantDAO;
@@ -123,6 +135,23 @@ public class EtudiantServiceImpl implements EtudiantService{
         etudiantDAO.update(e);
         
         return true;
+    }
+
+    @Override
+    public int nbrCoursDisponible() {
+        return enseignerDAO.nbrCoursDisponible();
+    }
+
+    @Override
+    public int nbrMesCours() {
+        int idE = (int) Utils.getSession().getAttribute("EtudiantID");
+        return conferenceDAO.nbrEtudiantCours(idE);
+    }
+
+    @Override
+    public int nbrNewCommandes() {
+        int idE = (int) Utils.getSession().getAttribute("EtudiantID");
+        return conferenceDAO.nbrEtudiantNewCMD(idE);
     }
 
 }

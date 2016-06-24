@@ -7,6 +7,7 @@ package com.helpyacademy.service;
 
 import com.helpyacademy.dao.ConferenceDAO;
 import com.helpyacademy.dao.DiplomeDAO;
+import com.helpyacademy.dao.EnseignerDAO;
 import com.helpyacademy.dao.NotificationDAO;
 import com.helpyacademy.dao.ProfesseurDAO;
 import com.helpyacademy.dao.model.Conference;
@@ -28,6 +29,11 @@ public class ProfesseurServiceImpl implements ProfesseurService {
     private DiplomeDAO diplomeDAO;
     private NotificationDAO notificationDAO;
     private ConferenceDAO conferenceDAO;
+    private EnseignerDAO enseignerDAO;
+
+    public void setEnseignerDAO(EnseignerDAO enseignerDAO) {
+        this.enseignerDAO = enseignerDAO;
+    }
 
     public void setConferenceDAO(ConferenceDAO conferenceDAO) {
         this.conferenceDAO = conferenceDAO;
@@ -178,5 +184,23 @@ public class ProfesseurServiceImpl implements ProfesseurService {
     @Override
     public Conference getConference(int idConf) {
         return conferenceDAO.getConference(idConf);
+    }
+
+    @Override
+    public int nbrMesCours() {
+        int idp = (int) Utils.getSession().getAttribute("IDP");
+        return enseignerDAO.nbrMesCours(idp);
+    }
+
+    @Override
+    public int nbrCoursPrevenu() {
+        int idp = (int) Utils.getSession().getAttribute("IDP");
+        return conferenceDAO.nbrCoursPrevenu(idp);
+    }
+
+    @Override
+    public int nbrNouvelleCmd() {
+        int idp = (int) Utils.getSession().getAttribute("IDP");
+        return conferenceDAO.nbrNouvelleCmd(idp);
     }
 }

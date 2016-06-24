@@ -27,5 +27,17 @@ public class ConferenceServiceImpl implements ConferenceService{
         int idE = (int) Utils.getSession().getAttribute("EtudiantID");
         return conferenceDAO.listCoursE(idE);
     }
+
+    @Override
+    public List<Conference> listCoursP() {
+        int idP = (int) Utils.getSession().getAttribute("IDP");
+        return conferenceDAO.listCoursP(idP);
+    }
+
+    @Override
+    public boolean confirmerFinCours(int idConf) {
+        Integer id = conferenceDAO.confirmerFinCours(idConf);
+        return id != null;
+    }
     
 }

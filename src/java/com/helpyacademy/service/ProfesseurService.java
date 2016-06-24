@@ -35,4 +35,10 @@ public interface ProfesseurService {
     public void notificationVu(int notifID);
 
     public Conference getConference(int idConf);
+
+    public int nbrMesCours();
+
+    public int nbrCoursPrevenu();
+
+    public int nbrNouvelleCmd();
 }
