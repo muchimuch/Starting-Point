@@ -23,7 +23,8 @@
             <file>file:/Users/youssefsafi/GitHub/HelpyAcademy/web/WEB-INF/espaces/admin/index.xhtml</file>
         </group>
         <group>
-            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/applicationContext.xml</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/src/java/com/helpyacademy/bean/AdminGestionProfInscriptionsBean.java</file>
+            <file>file:/C:/Users/mkerm/OneDrive/Documents/GitHub/Starting-Point/web/WEB-INF/pages/index.xhtml</file>
         </group>
     </open-files>
 </project-private>
