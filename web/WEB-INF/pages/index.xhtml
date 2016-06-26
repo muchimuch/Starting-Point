@@ -20,7 +20,7 @@
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-custom navbar-fixed-top" role="navigation" style="background:#2b262d;">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
@@ -38,10 +38,10 @@
                             <a href="#page-top"></a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="#about">Qui somme nous ?</a>
+                            <a class="page-scroll" href="#about">Qui sommes nous ?</a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="#download">Test</a>
+                            <a class="page-scroll" href="#service">Nos services</a>
                         </li>
                         <li>
                             <a class="page-scroll" href="#contact">Contactez-Nous</a>
@@ -63,8 +63,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <h1 class="brand-heading">HelpY Academy</h1>
-                            <p class="intro-text">E-learning Platform</p>
+                            <h1 class="brand-heading" style="text-shadow: 0px 0px 20px #080808;">HelpY Academy</h1>
+                            <p class="intro-text" style="text-shadow: 0px 0px 20px #080808;">Plateforme de soutien scolaire en ligne</p>
                             <a href="#about" class="btn btn-circle page-scroll">
                                 <i class="fa fa-angle-double-down animated"></i>
                             </a>
@@ -75,58 +75,63 @@
         </header>
 
         <!-- About Section -->
-        <section id="about" class="container content-section text-center">
+        <section id="about" class="intro container content-section text-center" style="padding: 200px 0!important;">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <h2>Qui somme nous ?</h2>
-                    <p></p>
-                </div>
+                <h2>Qui sommes nous ?</h2>
+                <p>Helpy Academy est un service de cours particuliers par visio-conférence pour le programme marocain du collège et du lycée.</p>
+            </div>
             </div>
         </section>
 
-        <!-- Download Section -->
-        <section id="download" class="content-section text-center">
-            <div class="download-section">
-                <div class="container">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <h2>Test</h2>
-                        <p> </p>
-                    </div>
-                </div>
+        <!-- service Section -->
+        <section id="service" class="intro container content-section text-center" style="padding: 200px 0!important;
+    background: #f8f8f8;
+    color: #000;
+    margin: 0!important;
+    background-size: 100%;">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                <h2>Nos Services</h2>
+                <p>Notre service est de fournir un enourme choix des offres des soutiens aux étudiants pour les aider dans leurs cadre scolaire.</p>
+                <p>Nos professeurs sont formés sur le programme marocain, de la 1ère année collège à la 2ème année bac, et sont dotés d'outils pédagogiques pour assister au mieux l'élève.</p>
+                <p>L'élève et le professeur communiquent dans une salle virtuelle par microphone, caméra et chat. Nos professeurs sont également équipés d'une tablette et d'un stylet numérique.</p>
+                <p>Plus besoin de se déplacer. L'élève assiste depuis chez lui, et en toute tranquilité, à un véritable cours particulier avec un professeur dédié.</p>
+            </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="container content-section text-center">
+        <!-- service Section -->
+        <section id="auth" class="intro container content-section text-center" style="">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Authentification</h2>
+                    <pretty:link mappingId="connexion_etudiant" styleClass="btn btn-success">
+                        Espace Etudiant
+                    </pretty:link>
+                    <pretty:link mappingId="connexion_professeur" styleClass="btn btn-info">
+                        Espace Professeur
+                    </pretty:link>
+                </div>
+            </div>
+            </div>
+        </section>
+      
+        
+          <!-- Contact Section -->
+        <section id="contact" class="intro container content-section text-center">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <h2>Contactez-Nous</h2>
-                    <p> </p>
-                    <h:form styleClass="form-horizontal">
-                        <div class="form-group">
-                            <h:outputLabel for="niv" styleClass="col-sm-3 control-label" value="E-mail"/>
-                            <div class="col-sm-9">
-                                <h:outputText />
-                            </div>
-                        </div>
-                        <h:commandButton styleClass="btn btn-success" value="Envoyer"/>
-                    </h:form>
-                </div>
-            </div>
-        </section>
-
-        <!-- Auth Section -->
-        <!-- Contact Section -->
-        <section id="auth" class="container content-section text-center">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2" style="height: 300px">
-                    <h2>Authentification</h2>
-                    <pretty:link mappingId="connexion_etudiant" styleClass="btn btn-danger">
-                        Espace Etudiant
-                    </pretty:link>
-                    <pretty:link mappingId="connexion_professeur" styleClass="btn btn-warning">
-                        Espace Professeur
-                    </pretty:link>
+                    <div style="text-align: left;">
+                    <h3>HOW SARL AU</h3>
+                    <h3><b>Adresse : </b>30, Rue Moulay Ahmed boukili, Apt 8, 10 000 Rabat</h3>    
+                    <h3><b>Email : </b>saidalamihamedane@gmail.com</h3>    
+                    <h3><b>Téléphone : </b>+212 (5) 20 14 58 63</h3>    
+                    </div>
+                    
+                    
                 </div>
             </div>
         </section>
