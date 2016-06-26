@@ -47,7 +47,9 @@ public class profInsciptionBean implements Serializable {
     private List<String> Diplomes = new ArrayList<String>();
     private int etape = 1;
     private boolean success;
-
+    private String diplomeM;
+    private String diplomeMV0;
+    
     private ProfesseurService professeurService;
 
     public void setProfesseurService(ProfesseurService professeurService) {
@@ -198,7 +200,38 @@ public class profInsciptionBean implements Serializable {
         return DateNaissance;
     }
 
+    public void setDiplomeM(String diplomeM) {
+        this.diplomeM = diplomeM;
+    }
+    
+    public String getDiplomeM() {
+        return diplomeM;
+    }
+    
     /* ====================================================================== */
+
+    public void updateDiplome(){
+        if (!diplomeM.equals(diplomeMV0)) {
+            if (Diplomes.indexOf(diplomeM) == -1) {
+                Diplomes.remove(diplomeMV0);
+                Diplomes.add(diplomeM);
+                Diplome = "";
+            } else {
+                Utils.addMessage("le Diplome Existe deja");
+            }
+        } else {
+            Utils.addMessage("Vous avez rien changé");
+        }
+    }
+    
+    public void updateDiplomeInit(String d){
+        diplomeM = d;
+        diplomeMV0 = d;
+    }
+    
+    public void deleteDiplome(String d){
+        Diplomes.remove(Diplomes.indexOf(d));
+    }
     
     public void addDiplome() {
         if (Diplome != null && !Diplome.isEmpty()) {
@@ -206,7 +239,7 @@ public class profInsciptionBean implements Serializable {
                 Diplomes.add(Diplome);
                 Diplome = "";
             } else {
-                Utils.addMessage("le Diplome Existe deja");
+                Utils.addMessage("le Diplome Existe déja");
             }
         } else {
             Utils.addMessage("Insérer un diplome pour l'ajouter à vous Diplomes");

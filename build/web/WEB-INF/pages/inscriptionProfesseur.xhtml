@@ -49,32 +49,47 @@
                         <li role="presentation" class="col-sm-4 #{profInsciptionBean.etape eq 2 ? 'active' : ''}"><a class="text-center">inforamtion personnel</a></li>
                         <li role="presentation" class="col-sm-4 #{profInsciptionBean.etape eq 3 ? 'active' : ''}"><a class="text-center">formation et expérience</a></li>
                     </ul>
-                    <h:form id="Form" styleClass="form-horizontal col-sm-12">
+                    <c:if test="#{profInsciptionBean.etape eq 1 or profInsciptionBean.etape eq 2}">
+                        <h:form id="Form" styleClass="form-horizontal col-sm-12">
+                            <h:messages styleClass="alert #{profInsciptionBean.success ? 'alert-success' : 'alert-danger'}" style="padding-left: 80px;margin-top: -10px" />
+                            <c:choose>
+                                <c:when test="#{profInsciptionBean.etape eq 1}">
+                                    <ui:include src="wizard/etap1.xhtml"/>
+                                </c:when>
+                                <c:when test="#{profInsciptionBean.etape eq 2}">
+                                    <ui:include src="wizard/etap2.xhtml"/>
+                                </c:when>
+                                <c:when test="#{profInsciptionBean.etape eq 3}">
+                                    <ui:include src="wizard/etap3.xhtml"/>
+                                </c:when>
+                            </c:choose>
 
-                        <h:messages styleClass="alert #{profInsciptionBean.success ? 'alert-success' : 'alert-danger'}" style="padding-left: 80px;margin-top: -10px" />
-                        <c:choose>
-                            <c:when test="#{profInsciptionBean.etape eq 1}">
-                                <ui:include src="wizard/etap1.xhtml"/>
-                            </c:when>
-                            <c:when test="#{profInsciptionBean.etape eq 2}">
-                                <ui:include src="wizard/etap2.xhtml"/>
-                            </c:when>
-                            <c:when test="#{profInsciptionBean.etape eq 3}">
-                                <ui:include src="wizard/etap3.xhtml"/>
-                            </c:when>
-                        </c:choose>
-                        <div class="col-md-12" id="wizard-footer">     
-                            <c:if test="${profInsciptionBean.etape != 3}">
-                                <h:commandButton styleClass="btn btn-primary pull-right" value="Suivant" action="#{profInsciptionBean.next()}"/>
-                            </c:if>
-                            <c:if test="${profInsciptionBean.etape != 1}">
+                            <div class="col-md-12" id="wizard-footer">     
+                                <c:if test="${profInsciptionBean.etape != 3}">
+                                    <h:commandButton styleClass="btn btn-primary pull-right" value="Suivant" action="#{profInsciptionBean.next()}"/>
+                                </c:if>
+                                <c:if test="${profInsciptionBean.etape != 1}">
+                                    <h:commandButton styleClass="btn btn-warning pull-left" value="Précédant" action="#{profInsciptionBean.previous()}"/>
+                                </c:if>
+                                <c:if test="${profInsciptionBean.etape == 3}">
+                                    <h:commandButton styleClass="btn btn-success pull-right" value="Terminer" action="#{profInsciptionBean.finish()}"/>
+                                </c:if>
+                            </div>
+                        </h:form>    
+                    </c:if>
+                    <c:if test="#{profInsciptionBean.etape eq 3}">
+
+                        <h:messages styleClass="alert #{profInsciptionBean.success ? 'alert-success' : 'alert-danger' } col-xs-12" style="padding-left: 80px;margin-top: -10px" />
+                        <ui:include src="wizard/etap3.xhtml"/>
+                        <div class="col-md-12" id="wizard-footer">  
+                            <h:form>
                                 <h:commandButton styleClass="btn btn-warning pull-left" value="Précédant" action="#{profInsciptionBean.previous()}"/>
-                            </c:if>
-                            <c:if test="${profInsciptionBean.etape == 3}">
+                            </h:form>
+                            <h:form>
                                 <h:commandButton styleClass="btn btn-success pull-right" value="Terminer" action="#{profInsciptionBean.finish()}"/>
-                            </c:if>
+                            </h:form>
                         </div>
-                    </h:form>
+                    </c:if>
 
 
                 </div>
@@ -85,12 +100,12 @@
         <h:outputScript library="js" name="bootstrap.min.js" />
         <h:outputScript library="js" name="bootstrap-datepicker.js" />
         <c:if test="#{profInsciptionBean.etape == 2}">
-                <script>
-                    $('#Form\\:dateNaiss').datepicker({
-                        autoclose: true,
-                        format: "yyyy-mm-dd"
-                    });
-                </script>
+            <script>
+                $('#Form\\:dateNaiss').datepicker({
+                    autoclose: true,
+                    format: "yyyy-mm-dd"
+                });
+            </script>
         </c:if>
 
     </h:body>

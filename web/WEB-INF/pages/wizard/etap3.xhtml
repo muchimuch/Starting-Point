@@ -2,28 +2,71 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <div class="form-group">
-        <label for="diplome" class="col-sm-3 col-sm-offset-1 control-label">Ajouter Diplome : </label>
-        <div class="col-sm-5">
-            <h:inputText id="diplome" value="#{profInsciptionBean.diplome}" styleClass="form-control" />
+    <h:form styleClass="form-horizontal col-sm-12" id="Form">
+        <div class="form-group">
+            <label for="diplome" class="col-sm-3 col-sm-offset-1 control-label">Ajouter Diplome : </label>
+            <div class="col-sm-5">
+                <h:inputText id="diplome" value="#{profInsciptionBean.diplome}" styleClass="form-control" />
+            </div>
+            <h:commandButton styleClass="btn btn-primary pull-left" value="Ajouter" action="#{profInsciptionBean.addDiplome()}" />
         </div>
-        <h:commandButton styleClass="btn btn-primary pull-left" value="Ajouter" action="#{profInsciptionBean.addDiplome()}">
-        
-        </h:commandButton>
-    </div>
-    
+
+    </h:form>
+
     <div class="form-group">
         <label for="diplomes" class="col-sm-3 col-sm-offset-1 control-label">Vos Diplomes<span class="text-danger"> (*)</span></label>
         <h:outputLabel rendered="#{empty profInsciptionBean.diplomes}" value="Pas de diplomes" styleClass="col-xs-10 col-xs-offset-1 text-muted text-center" style="margin-top: 10px;padding-top: 30px;padding-bottom: 30px;border: 1px #eee dashed"/>
-        <h:dataTable rendered="#{not empty profInsciptionBean.diplomes}" id="listDiplome" value="#{profInsciptionBean.diplomes}" var="diplome" styleClass="table table-responsive table-bordered col-xs-10 col-xs-offset-1" style="margin-top: 10px;">
-            
-            <h:column headerClass="col-sm-10">
-                #{diplome}
-            </h:column>
-            
-        </h:dataTable>
+        <div class="col-sm-10 col-sm-offset-1" style="margin-top: 15px">
+            <c:set var="c" value="0" />
+            <h:dataTable rendered="#{not empty profInsciptionBean.diplomes}" id="listDiplome" value="#{profInsciptionBean.diplomes}" var="diplome" styleClass="table table-bordered table-condensed">
+
+                <h:column headerClass="col-sm-10">
+                    <f:facet name="header">Nom du Diplome</f:facet>
+                        #{diplome}
+                </h:column>
+
+                <h:column headerClass="col-sm-1">
+                    <h:form>
+                        <h:commandButton id="update" value="Modifier" styleClass="btn btn-sm btn-default" action="#{profInsciptionBean.updateDiplomeInit(diplome)}"
+                                         onclick="$('#ModifierModal').modal('show');">
+                            <f:ajax execute="@this" render="updateForm"/>
+                        </h:commandButton>
+                    </h:form>
+                </h:column>
+
+                <h:column headerClass="col-sm-1">
+                    <h:form id="suppForm">
+                        <h:commandButton onclick="return confirm('voulez-vous continuer ?')" id="deleteDip" value="Supprimer" styleClass="btn btn-sm btn-danger" action="#{profInsciptionBean.deleteDiplome(diplome)}"/> 
+                    </h:form>
+                </h:column>
+
+            </h:dataTable>
+        </div>
     </div>
-    
+
+    <!-- Modifier Diplome Modal -->
+    <div class="modal fade" id="ModifierModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <h:form id="updateForm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modifier Diplome</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h:outputLabel value="Diplome" for="dip" styleClass=""/>
+                        <h:inputText id="dip" value="#{profInsciptionBean.diplomeM}" styleClass="form-control" required="true" requiredMessage="Entrez un Diplome !"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        <h:commandButton id="btnUpdate" styleClass="btn btn-primary" value="Enregistrer" action="#{profInsciptionBean.updateDiplome()}"/>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </div>
+
 </ui:composition>
