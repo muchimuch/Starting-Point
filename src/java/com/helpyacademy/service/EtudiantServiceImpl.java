@@ -60,10 +60,11 @@ public class EtudiantServiceImpl implements EtudiantService{
                     return false;
                 } else {
                     try{
-                        
-                        String url = Utils.urlVerification(etudiant.getEmail(),token,1);
-                        String msg = Utils.VerrificationCompteMessage(etudiant.getNom().toUpperCase(), etudiant.getPrenom().toUpperCase(), url);
                         Config conf = configDAO.getConf(1);
+                        
+                        String url = Utils.urlVerification(etudiant.getEmail(),token,1,conf.getUrlSite());
+                        String msg = Utils.VerrificationCompteMessage(etudiant.getNom().toUpperCase(), etudiant.getPrenom().toUpperCase(), url);
+                        
                         MailService m = new MailService(conf.getMailHost(), conf.getMailPort(), conf.getEmail(), conf.getMdpEmail(), conf.getMailFrom());
                         m.sendMessage(etudiant.getEmail(), "Vérifiez votre compte HelpyAcademy", msg);
         

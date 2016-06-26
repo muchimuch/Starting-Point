@@ -13,7 +13,7 @@
         <beans:property name="url"
                         value="jdbc:mysql://localhost:3306/helpy" />
         <beans:property name="username" value="root" />
-        <beans:property name="password" value="" />
+        <beans:property name="password" value="root" />
     </beans:bean>
  
     <!-- Hibernate 4 SessionFactory Bean definition -->
@@ -167,6 +167,7 @@
         <beans:property name="enseignerDAO" ref="enseignerDAO" />
         <beans:property name="professeurDAO" ref="professeurDAO" />
         <beans:property name="diplomeDAO" ref="diplomeDAO"/>
+        <beans:property name="configDAO" ref="configDAO" />
     </beans:bean>
     <beans:bean id="adminBean" class="com.helpyacademy.bean.AdminBean">
         <beans:property name="adminService" ref="adminService" />

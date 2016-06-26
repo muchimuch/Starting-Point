@@ -50,8 +50,19 @@ public class Config implements Serializable {
     @NotNull
     @Column(name = "mailPort")
     private int mailPort;
-
+    @NotNull
+    @Column(name = "urlSite")
+    private String urlSite;
+    
     public Config() {
+    }
+
+    public void setUrlSite(String urlSite) {
+        this.urlSite = urlSite;
+    }
+
+    public String getUrlSite() {
+        return urlSite;
     }
 
     public void setMailPort(int mailPort) {

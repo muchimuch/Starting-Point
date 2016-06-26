@@ -7,17 +7,19 @@ package com.helpyacademy.service;
 
 import com.helpyacademy.dao.AdminDAO;
 import com.helpyacademy.dao.ConferenceDAO;
+import com.helpyacademy.dao.ConfigDAO;
 import com.helpyacademy.dao.DiplomeDAO;
 import com.helpyacademy.dao.EnseignerDAO;
 import com.helpyacademy.dao.EtudiantDAO;
 import com.helpyacademy.dao.ProfesseurDAO;
 import com.helpyacademy.dao.model.Admin;
+import com.helpyacademy.dao.model.Config;
 import com.helpyacademy.dao.model.Diplome;
 import com.helpyacademy.dao.model.Professeur;
 import com.helpyacademy.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.mail.MessagingException;
 /**
  *
  * @author youssefsafi
@@ -29,7 +31,12 @@ public class AdminServiceImpl implements AdminService{
     private ConferenceDAO conferenceDAO;
     private EnseignerDAO enseignerDAO;
     private ProfesseurDAO professeurDAO;
-    public DiplomeDAO diplomeDAO;
+    private DiplomeDAO diplomeDAO;
+    private ConfigDAO configDAO;
+
+    public void setConfigDAO(ConfigDAO configDAO) {
+        this.configDAO = configDAO;
+    }
 
     public void setProfesseurDAO(ProfesseurDAO professeurDAO) {
         this.professeurDAO = professeurDAO;
@@ -122,12 +129,44 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public boolean accepterProfInscription(Professeur p) {
-        return professeurDAO.accepterProfInscription(p);
+        boolean t = professeurDAO.accepterProfInscription(p);
+        if(t){
+            try {
+
+                Config conf = configDAO.getConf(1);
+                
+                String msg = Utils.accepterProf(p.getNom(),p.getPrenom());
+                
+                MailService m = new MailService(conf.getMailHost(), conf.getMailPort(), conf.getEmail(), conf.getMdpEmail(), conf.getMailFrom());
+                m.sendMessage(p.getEmail(), "HelpyAcademy | Inscription", msg);
+                
+                return true;
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }
+        return t;
     }
 
     @Override
     public boolean refuserProfInscription(Professeur p) {
-        return professeurDAO.refuserProfInscription(p);
+        boolean t = professeurDAO.refuserProfInscription(p);
+        if(t){
+            try {
+
+                Config conf = configDAO.getConf(1);
+                
+                String msg = Utils.refuserProf(p.getNom(),p.getPrenom());
+                
+                MailService m = new MailService(conf.getMailHost(), conf.getMailPort(), conf.getEmail(), conf.getMdpEmail(), conf.getMailFrom());
+                m.sendMessage(p.getEmail(), "HelpyAcademy | Inscription", msg);
+                
+                return true;
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }
+        return t;
     }
     
 }

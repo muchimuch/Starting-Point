@@ -17,7 +17,7 @@ import javax.faces.bean.RequestScoped;
  *
  * @author youssefsafi
  */
-@ManagedBean
+@ManagedBean(name = "configBean")
 @RequestScoped
 public class ConfigBean {
     
@@ -29,6 +29,7 @@ public class ConfigBean {
     private String hostMail;
     private String from;
     private int mailPort;
+    private String urlSite;
     private String Serverlink;
     private boolean serverWorking;
     
@@ -39,6 +40,7 @@ public class ConfigBean {
     private String hostMailM;
     private String fromM;
     private int mailPortM;
+    private String urlSiteM;
     
     private ConfigService configService;
 
@@ -169,8 +171,43 @@ public class ConfigBean {
     public void setMailPortM(int mailPortM) {
         this.mailPortM = mailPortM;
     }
+
+    public String getUrlSite() {
+        return urlSite;
+    }
+
+    public String getUrlSiteM() {
+        return urlSiteM;
+    }
+
+    public void setUrlSite(String urlSite) {
+        this.urlSite = urlSite;
+    }
+
+    public void setUrlSiteM(String urlSiteM) {
+        this.urlSiteM = urlSiteM;
+    }
     
     /* --------------------------------------------- */
+    
+    public String webSiteSettingUpdate(){
+        if(urlSite.equals(urlSiteM)){ 
+            success = false;
+            Utils.addMessage("Vous avez pas modifier vos informations");
+        } else if(configService.webSiteSettingUpdate(urlSiteM)){
+            urlSite = urlSiteM;
+            success = true;
+            Utils.addMessage("L'URL du site a été bien enregister");
+        } else {
+            success = false;
+            Utils.addMessage("L'URL du site n'a pas été enregister");
+        }
+        return "pretty:EspaceA_Config";
+    }
+    
+    public void initWebSiteSettingUpdate(){
+        urlSiteM = urlSite;
+    }
     
     public String updateServiceEmail(){
         if(email.equals(emailM) && mdp.equals(mdpM) && mailPort == mailPortM && hostMail.equals(hostMailM) && from.equals(fromM)){ 
@@ -244,5 +281,6 @@ public class ConfigBean {
         mailPort = config.getMailPort();
         hostMail = config.getMailHost();
         from = config.getMailFrom();
+        urlSite = config.getUrlSite();
     }
 }

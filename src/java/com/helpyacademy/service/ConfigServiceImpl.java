@@ -36,5 +36,11 @@ public class ConfigServiceImpl implements ConfigService{
         Integer id = configDAO.updateServiceEmailConf(emailM,mdpM,mailPort,hostMailM,fromM,1);
         return id != null;
     }
+
+    @Override
+    public boolean webSiteSettingUpdate(String urlSiteM) {
+        Integer id = configDAO.updateWebSiteConf(urlSiteM);
+        return id != null;
+    }
     
 }

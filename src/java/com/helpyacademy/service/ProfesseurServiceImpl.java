@@ -86,9 +86,11 @@ public class ProfesseurServiceImpl implements ProfesseurService {
             }
             try {
 
-                String url = Utils.urlVerification(p.getEmail(), token,2);
-                String msg = Utils.VerrificationCompteProfMessage(p.getNom().toUpperCase(), p.getPrenom().toUpperCase(), url);
                 Config conf = configDAO.getConf(1);
+                
+                String url = Utils.urlVerification(p.getEmail(), token,2,conf.getUrlSite());
+                String msg = Utils.VerrificationCompteProfMessage(p.getNom().toUpperCase(), p.getPrenom().toUpperCase(), url);
+                
                 MailService m = new MailService(conf.getMailHost(), conf.getMailPort(), conf.getEmail(), conf.getMdpEmail(), conf.getMailFrom());
                 m.sendMessage(p.getEmail(), "Vérifiez votre compte HelpyAcademy", msg);
                 

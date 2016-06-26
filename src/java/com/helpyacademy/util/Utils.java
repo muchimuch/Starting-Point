@@ -74,11 +74,11 @@ public class Utils {
         return bytes.toString();
     }
 
-    public static String urlVerification(String email, String token, int type) {
+    public static String urlVerification(String email, String token, int type,String WebSiteUrl) {
         if (type == 1) {
-            return "http://localhost:8080/HelpyAcademy/VerificationCompte/" + token + "/" + email + "/";
+            return WebSiteUrl+"VerificationCompte/" + token + "/" + email + "/";
         }
-        return "http://localhost:8080/HelpyAcademy/VerificationCompteProfesseur/" + token + "/" + email + "/";
+        return WebSiteUrl+"VerificationCompteProfesseur/" + token + "/" + email + "/";
     }
 
     public static HashMap<String, String> JSONToMap(String txt) {
@@ -91,6 +91,24 @@ public class Utils {
             map.put(p1,p2);
         }
         return map;
+    }
+
+    public static String refuserProf(String nom,String prenom) {
+        String msg = "<div style=\"font-size:1.3em\"><span>Bonjour <b>" + nom + " " + prenom + ",</b><span><br/><br/>";
+
+        msg += "<div style=\"padding-left:30px;padding-top:40px;padding-bottom:40px\">Suite a votre demande d'inscription sur la plateforme <b>HelpY Academy</b>, nous avons etudié votre dossier mais votre demande a été rejetée. veuillez nous envoyer a nouveau une demande d'inscription avec des information correcte .<br/><br/>";
+        msg += "Cordialement,<br/>L'équipe <b>HelpyAcademy</b></div>";
+
+        return msg;
+    }
+
+    public static String accepterProf(String nom, String prenom) {
+        String msg = "<div style=\"font-size:1.3em\"><span>Bonjour <b>" + nom + " " + prenom + ",</b><span><br/><br/>";
+
+        msg += "<div style=\"padding-left:30px;padding-top:40px;padding-bottom:40px\">Suite a votre demande d'inscription sur la plateforme <b>HelpY Academy</b>, nous vous informe que votre demande a été accepté.<br/><br/>";
+        msg += "Cordialement,<br/>L'équipe <b>HelpyAcademy</b></div>";
+
+        return msg;
     }
 
 }

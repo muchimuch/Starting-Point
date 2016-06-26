@@ -60,5 +60,16 @@ public class ConfigDAOImpl implements ConfigDAO{
         session.close();
         return n;
     }
+
+    @Override
+    public Integer updateWebSiteConf(String urlSiteM) {
+        String hql = "UPDATE Config set urlSite=:url WHERE id=1";
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery(hql);
+        query.setParameter("url", urlSiteM);
+        Integer n = query.executeUpdate();
+        session.close();
+        return n;
+    }
     
 }

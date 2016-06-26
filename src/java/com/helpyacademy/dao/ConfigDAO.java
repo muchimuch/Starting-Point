@@ -17,5 +17,7 @@ public interface ConfigDAO {
     public Integer updateBBBServerConf(String url, String salt, int i);
 
     public Integer updateServiceEmailConf(String emailM, String mdpM, int mailPort, String hostMailM, String fromM, int i);
+
+    public Integer updateWebSiteConf(String urlSiteM);
     
 }
