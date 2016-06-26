@@ -6,6 +6,10 @@
 package com.helpyacademy.util;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +21,14 @@ import javax.servlet.http.HttpSession;
  * @author youssefsafi
  */
 public class Utils {
+    
+    public static <T> List<T> castList(Class<? extends T> clazz, Collection<?> c) {
+        List<T> r = new ArrayList<>(c.size());
+        for (Object o : c) {
+            r.add(clazz.cast(o));
+        }
+        return r;
+    }
 
     public static void addMessage(String msg) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(msg));
@@ -67,6 +79,18 @@ public class Utils {
             return "http://localhost:8080/HelpyAcademy/VerificationCompte/" + token + "/" + email + "/";
         }
         return "http://localhost:8080/HelpyAcademy/VerificationCompteProfesseur/" + token + "/" + email + "/";
+    }
+
+    public static HashMap<String, String> JSONToMap(String txt) {
+        HashMap<String, String> map = new HashMap<>();
+        txt = txt.replace("\"", "");
+        for (String entry : txt.split(",")) {
+            String[] part = entry.split(":");
+            String p1=part[0].replace("{", "").trim();
+            String p2=part[1].replace("}","").trim();
+            map.put(p1,p2);
+        }
+        return map;
     }
 
 }

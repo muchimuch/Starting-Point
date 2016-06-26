@@ -7,11 +7,16 @@ package com.helpyacademy.service;
 
 import com.helpyacademy.dao.AdminDAO;
 import com.helpyacademy.dao.ConferenceDAO;
+import com.helpyacademy.dao.DiplomeDAO;
 import com.helpyacademy.dao.EnseignerDAO;
 import com.helpyacademy.dao.EtudiantDAO;
 import com.helpyacademy.dao.ProfesseurDAO;
 import com.helpyacademy.dao.model.Admin;
+import com.helpyacademy.dao.model.Diplome;
+import com.helpyacademy.dao.model.Professeur;
 import com.helpyacademy.util.Utils;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -24,9 +29,14 @@ public class AdminServiceImpl implements AdminService{
     private ConferenceDAO conferenceDAO;
     private EnseignerDAO enseignerDAO;
     private ProfesseurDAO professeurDAO;
+    public DiplomeDAO diplomeDAO;
 
     public void setProfesseurDAO(ProfesseurDAO professeurDAO) {
         this.professeurDAO = professeurDAO;
+    }
+
+    public void setDiplomeDAO(DiplomeDAO diplomeDAO) {
+        this.diplomeDAO = diplomeDAO;
     }
     
     public void setConferenceDAO(ConferenceDAO conferenceDAO) {
@@ -97,6 +107,27 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public int nbrOffres() {
         return enseignerDAO.nbrOffres();
+    }
+
+    @Override
+    public List<Professeur> getNewInscriptions() {
+        ArrayList<Professeur> profs = (ArrayList<Professeur>) professeurDAO.getProfByCompte('1');
+        return profs;
+    }
+
+    @Override
+    public List<Diplome> getProfDiplomes(Professeur p) {
+        return diplomeDAO.getProfDiplomes(p);
+    }
+
+    @Override
+    public boolean accepterProfInscription(Professeur p) {
+        return professeurDAO.accepterProfInscription(p);
+    }
+
+    @Override
+    public boolean refuserProfInscription(Professeur p) {
+        return professeurDAO.refuserProfInscription(p);
     }
     
 }

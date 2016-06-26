@@ -6,7 +6,9 @@
 package com.helpyacademy.dao;
 
 import com.helpyacademy.dao.model.Professeur;
+import com.helpyacademy.util.Utils;
 import java.util.Date;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -144,5 +146,36 @@ public class ProfesseurDAOImpl implements ProfesseurDAO {
         session.close();
         
         return e.intValue();
+    }
+
+    @Override
+    public List<Professeur> getProfByCompte(char etat) {
+        Session session = sessionFactory.openSession();
+        Query q = session.createQuery("FROM Professeur WHERE compte_active=:comte_active");
+        q.setParameter("comte_active", '1');
+        List result = q.list();
+        session.close();
+        return Utils.castList(Professeur.class, result);
+    }
+
+    @Override
+    public boolean accepterProfInscription(Professeur p) {
+        String hql = "UPDATE Professeur set compteActive = '2' WHERE email=:email";
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery(hql);
+        query.setParameter("email", p.getEmail());
+        Integer n = query.executeUpdate();
+        session.close();
+        return n > 0;
+    }
+
+    @Override
+    public boolean refuserProfInscription(Professeur p) {
+        String hql = "DELETE FROM Professeur WHERE email=:email";
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery(hql);
+        query.setParameter("email", p.getEmail());
+        int result = query.executeUpdate();
+        return result > 0;
     }
 }

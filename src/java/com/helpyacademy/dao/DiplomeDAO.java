@@ -16,7 +16,7 @@ import java.util.List;
 public interface DiplomeDAO {
     public Integer ajouter(Diplome diplome);
     public List<Diplome> getDiplomes(Professeur idProf);
-
+    public List<Diplome> getProfDiplomes(Professeur p);
     public void delete(Diplome d);
 
     public Diplome getDiplomeByName(String diplome,int idp);
