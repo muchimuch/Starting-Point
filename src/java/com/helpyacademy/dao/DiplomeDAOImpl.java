@@ -8,6 +8,7 @@ package com.helpyacademy.dao;
 import com.helpyacademy.dao.model.Diplome;
 import com.helpyacademy.dao.model.Enseigner;
 import com.helpyacademy.dao.model.Professeur;
+import com.helpyacademy.util.Utils;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -104,6 +105,16 @@ public class DiplomeDAOImpl implements DiplomeDAO {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public List<Diplome> getProfDiplomes(Professeur p) {
+         Session session = sessionFactory.openSession();
+        Query q = session.createQuery("FROM Diplome WHERE idProf.id=:id");
+        q.setParameter("id", p.getId());
+        List result = q.list();
+        session.close();
+        return Utils.castList(Diplome.class, result);
     }
 
 }

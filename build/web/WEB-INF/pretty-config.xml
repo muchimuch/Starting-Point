@@ -113,6 +113,21 @@
             <pattern value="/Espace/Admin/Config" />
             <view-id value="/WEB-INF/espaces/admin/config.xhtml?faces-redirect=true" />
         </url-mapping>
-        
+        <!-- Gestion des inscriptions professeurs-->
+        <url-mapping id="GestionProfInscription">
+            <pattern value="/Espace/Admin/Professeur/Inscription" />
+            <view-id value="/WEB-INF/espaces/admin/GestionProfesseur/nouvellesInscriptions.xhtml?faces-redirect=true" />
+        </url-mapping>
+        <!-- Chat -->
+        <url-mapping id="ChatProf">
+            <pattern value="/Espace/Professeur/Chat/#{userParam}" />
+            <view-id value="/WEB-INF/espaces/professeur/Chat/profChat.xhtml?faces-redirect=true" />
+            <action>#{professeurChatBean.setUserParam(userParam)}</action>
+        </url-mapping>
+        <url-mapping id="ChatEtude">
+            <pattern value="/Espace/Etudiant/Chat/#{userParam}" />
+            <view-id value="/WEB-INF/espaces/etudiant/Chat/etudChat.xhtml?faces-redirect=true" />
+            <action>#{etudiantChatBean.setUserParam(userParam)}</action>
+        </url-mapping>
 
 </pretty-config>
