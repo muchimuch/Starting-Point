@@ -35,8 +35,31 @@ public class Config implements Serializable {
     @NotNull
     @Column(name = "salt")
     private String salt;
+    @NotNull
+    @Column(name = "email")
+    private String email;
+    @NotNull
+    @Column(name = "mdpEmail")
+    private String mdpEmail;
+    @NotNull
+    @Column(name = "mailFrom")
+    private String mailFrom;
+    @NotNull
+    @Column(name = "mailHost")
+    private String mailHost;
+    @NotNull
+    @Column(name = "mailPort")
+    private int mailPort;
 
     public Config() {
+    }
+
+    public void setMailPort(int mailPort) {
+        this.mailPort = mailPort;
+    }
+
+    public int getMailPort() {
+        return mailPort;
     }
 
     public Config(Integer id) {
@@ -47,6 +70,22 @@ public class Config implements Serializable {
         this.id = id;
         this.url = url;
         this.salt = salt;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setMdpEmail(String mdpEmail) {
+        this.mdpEmail = mdpEmail;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getMdpEmail() {
+        return mdpEmail;
     }
 
     public Integer getId() {
@@ -71,6 +110,22 @@ public class Config implements Serializable {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public void setMailFrom(String mailFrom) {
+        this.mailFrom = mailFrom;
+    }
+
+    public void setMailHost(String mailHost) {
+        this.mailHost = mailHost;
+    }
+
+    public String getMailFrom() {
+        return mailFrom;
+    }
+
+    public String getMailHost() {
+        return mailHost;
     }
 
     @Override

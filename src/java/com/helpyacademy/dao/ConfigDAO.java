@@ -14,7 +14,8 @@ import com.helpyacademy.dao.model.Config;
 public interface ConfigDAO {
 
     public Config getConf(int i);
-
     public Integer updateBBBServerConf(String url, String salt, int i);
+
+    public Integer updateServiceEmailConf(String emailM, String mdpM, int mailPort, String hostMailM, String fromM, int i);
     
 }

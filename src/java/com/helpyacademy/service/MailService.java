@@ -5,6 +5,9 @@
  */
 package com.helpyacademy.service;
 
+import com.helpyacademy.dao.ConfigDAO;
+import com.helpyacademy.dao.ConfigDAOImpl;
+import com.helpyacademy.dao.model.Config;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -18,20 +21,15 @@ import javax.mail.internet.MimeMessage;
  * @author youssefsafi
  */
 public class MailService {
-    private static MailService theService = null;
-    private static Session mailSession;
+    private Session mailSession;
     
-    private static final String HOST = "smtp.gmail.com";
-    private static final int PORT = 465;
-    private static final String USER = "youssef.safi.gi@gmail.com";     
-    private static final String PASSWORD = "S@fi1234"; 
-    private static final String FROM = "HelpyAcademy";
+    private String HOST ;
+    private int PORT ;
+    private String USER ;     
+    private String PASSWORD ; 
+    private String FROM ;
     
-    public static void sendMessage(String recipient, String subject, String message) throws MessagingException {
-        
-        if ( theService == null ) {
-            theService = new MailService();
-        }
+    public void sendMessage(String recipient, String subject, String message) throws MessagingException {
 
         MimeMessage mimeMessage = new MimeMessage(mailSession);
 	mimeMessage.setFrom(new InternetAddress(FROM));
@@ -49,9 +47,16 @@ public class MailService {
 
     }
 
-    private MailService() {
+    public MailService(String host,int port,String user,String mdp,String from) {
+        
+        HOST = host;
+        PORT = port;
+        USER = user;
+        PASSWORD = mdp;
+        FROM = from;
+        
         Properties props = new Properties();
-
+        
         props.put("mail.transport.protocol", "smtps");
         props.put("mail.smtps.host", HOST);
         props.put("mail.smtps.auth", "true");

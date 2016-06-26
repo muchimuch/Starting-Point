@@ -10,8 +10,8 @@
     <ui:define name="page-content">
 
         <h:messages styleClass="alert #{configBean.success ? 'alert-success':'alert-danger'} col-xs-12" style="padding-left: 40px;margin-top:10px"/>
-
-        <div class="panel panel-default col-sm-6" style="padding:0">
+        <!-- BBB -->
+        <div class="panel panel-default col-xs-5" style="padding:0">
             <div class="panel-heading col-xs-12" style="padding: 2px">
                 <h2 class="panel-title pull-left" style="margin-left: 10px;margin-top: 8px"><i class="fa fa-server"></i> Serveur BigBlueButton</h2>
                 <h:form styleClass="pull-right">
@@ -39,6 +39,93 @@
                         <td class="col-sm-11"> #{configBean.salt}</td>
                     </tr>
                 </table>
+            </div>
+        </div>
+        <!-- Service E-mail -->
+        <div class="panel panel-default col-xs-6 col-xs-offset-1" style="padding:0;">
+            <div class="panel-heading col-xs-12" style="padding: 2px">
+                <h2 class="panel-title pull-left" style="margin-left: 10px;margin-top: 8px"><i class="fa fa-envelope-o"></i> Service Mail</h2>
+                <h:form styleClass="pull-right">
+                    <h:commandButton id="update" value="Modifier" styleClass="btn btn-sm btn-info" action="#{configBean.initServiceEmailUpdate()}"
+                                     onclick="$('#SMailModal').modal('show');">
+                        <f:ajax execute="@this" render="updateServiceMailForm"/>
+                    </h:commandButton>
+                </h:form>
+                <button style="margin-right: 5px" class="btn btn-sm btn-github pull-right" onclick="$('#hiddenMdp').show();$('#hiddenMdp1').hide()" onblur="$('#hiddenMdp').hide();$('#hiddenMdp1').show()">Afficher le Mot de Passe</button>
+            </div>
+            <div class="panel-body" style="padding: 0">
+                <table class="table table-bordered table-striped" style="margin: 0">
+                    <tr>
+                        <th class="text-light-blue col-sm-3">Host</th>
+                        <td class="col-sm-11"> #{configBean.hostMail}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-light-blue col-sm-3">Port</th>
+                        <td class="col-sm-11"> #{configBean.mailPort}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-light-blue col-sm-3">Émetteur</th>
+                        <td class="col-sm-11"> #{configBean.from}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-light-blue col-sm-3">E-mail</th>
+                        <td class="col-sm-11"> #{configBean.email}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-light-blue col-sm-3">Mot de passe</th>
+                        <td class="col-sm-11"><h:outputLabel style="margin: 0" id="hiddenMdp1" value="***************" /> <h:outputLabel value="#{configBean.mdp}" id="hiddenMdp" style="display: none;margin: 0" /> </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- Service Mail Modal -->
+        <div class="modal fade" id="SMailModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h:form styleClass="form-horizontal" id="updateServiceMailForm">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                            <h4 class="modal-title" id="myModalLabel">Configurations du Service Mail</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <div class="form-group">
+                                <h:outputLabel for="host" styleClass="col-sm-4 control-label" value="Host"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{configBean.hostMailM}" id="host" styleClass="form-control" required="true" requiredMessage="Veuillez entrer le nom du host de serveur mail" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="port" styleClass="col-sm-4 control-label" value="Port"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{configBean.mailPortM}" id="port" styleClass="form-control" required="true" requiredMessage="Veuillez entrer le port du serveur mail" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="from" styleClass="col-sm-4 control-label" value="Émetteur"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{configBean.fromM}" id="from" styleClass="form-control" required="true" requiredMessage="Veuillez entrer le nom d'Émetteur" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="url" styleClass="col-sm-4 control-label" value="E-mail"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{configBean.emailM}" id="url" styleClass="form-control" required="true" requiredMessage="Veuillez entrer un email" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="Salt" styleClass="col-sm-4 control-label" value="Mot de Passe d'E-mail"/>
+                                <div class="col-sm-8">
+                                    <h:inputText value="#{configBean.mdpM}" id="Salt" styleClass="form-control" required="true" requiredMessage="Veuillez entrer le mot de passe d'email" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                            <h:commandButton styleClass="btn btn-primary" value="Enregistrer" action="#{configBean.updateServiceEmail()}"/>
+                        </div>
+                    </h:form>
+                </div>
             </div>
         </div>
         <!-- BBB Server Test Modal -->

@@ -6,9 +6,11 @@
 package com.helpyacademy.service;
 
 import com.helpyacademy.dao.ConferenceDAO;
+import com.helpyacademy.dao.ConfigDAO;
 import com.helpyacademy.dao.EnseignerDAO;
 import com.helpyacademy.dao.EtudiantDAO;
 import com.helpyacademy.dao.NiveauDAO;
+import com.helpyacademy.dao.model.Config;
 import com.helpyacademy.dao.model.Etudiant;
 import com.helpyacademy.dao.model.Niveau;
 import com.helpyacademy.util.Utils;
@@ -26,6 +28,11 @@ public class EtudiantServiceImpl implements EtudiantService{
     private NiveauDAO niveauDAO;
     private ConferenceDAO conferenceDAO;
     private EnseignerDAO enseignerDAO;
+    private ConfigDAO configDAO;
+
+    public void setConfigDAO(ConfigDAO configDAO) {
+        this.configDAO = configDAO;
+    }
 
     public void setConferenceDAO(ConferenceDAO conferenceDAO) {
         this.conferenceDAO = conferenceDAO;
@@ -56,7 +63,9 @@ public class EtudiantServiceImpl implements EtudiantService{
                         
                         String url = Utils.urlVerification(etudiant.getEmail(),token,1);
                         String msg = Utils.VerrificationCompteMessage(etudiant.getNom().toUpperCase(), etudiant.getPrenom().toUpperCase(), url);
-                        MailService.sendMessage(etudiant.getEmail(), "Vérifiez votre compte HelpyAcademy", msg);
+                        Config conf = configDAO.getConf(1);
+                        MailService m = new MailService(conf.getMailHost(), conf.getMailPort(), conf.getEmail(), conf.getMdpEmail(), conf.getMailFrom());
+                        m.sendMessage(etudiant.getEmail(), "Vérifiez votre compte HelpyAcademy", msg);
         
                     } catch(MessagingException e){
                         e.printStackTrace();

@@ -44,5 +44,21 @@ public class ConfigDAOImpl implements ConfigDAO{
         session.close();
         return n;
     }
+
+    @Override
+    public Integer updateServiceEmailConf(String emailM, String mdpM, int mailPort, String hostMailM, String fromM, int i) {
+        String hql = "UPDATE Config set email=:email ,mdpEmail=:mdp,mailPort=:port,mailHost=:host,mailFrom=:from WHERE id=:id";
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery(hql);
+        query.setParameter("id", i);
+        query.setParameter("email", emailM);
+        query.setParameter("mdp", mdpM);
+        query.setParameter("port", mailPort);
+        query.setParameter("host", hostMailM);
+        query.setParameter("from", fromM);
+        Integer n = query.executeUpdate();
+        session.close();
+        return n;
+    }
     
 }

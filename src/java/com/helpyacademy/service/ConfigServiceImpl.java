@@ -30,6 +30,11 @@ public class ConfigServiceImpl implements ConfigService{
         Integer id = configDAO.updateBBBServerConf(url,salt,1);
         return id != null;
     }
-    
+
+    @Override
+    public boolean updateServiceEmailConf(String emailM, String mdpM, int mailPort, String hostMailM, String fromM) {
+        Integer id = configDAO.updateServiceEmailConf(emailM,mdpM,mailPort,hostMailM,fromM,1);
+        return id != null;
+    }
     
 }

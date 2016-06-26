@@ -96,6 +96,7 @@
         <beans:property name="notificationDAO" ref="notificationDAO" />
         <beans:property name="conferenceDAO" ref="conferenceDAO" />
         <beans:property name="enseignerDAO" ref="enseignerDAO" />
+        <beans:property name="configDAO" ref="configDAO" />
     </beans:bean>
     <beans:bean id="professeurBean" class="com.helpyacademy.bean.professeurBean">
         <beans:property name="professeurService" ref="professeurService" />
@@ -144,6 +145,7 @@
         <beans:property name="niveauDAO" ref="niveauDAO" />
         <beans:property name="conferenceDAO" ref="conferenceDAO" />
         <beans:property name="enseignerDAO" ref="enseignerDAO" />
+        <beans:property name="configDAO" ref="configDAO" />
     </beans:bean>
     <beans:bean id="etudiantBean" class="com.helpyacademy.bean.EtudiantBean">
         <beans:property name="etudiantService" ref="etudiantService" />
