@@ -6,11 +6,16 @@
 package com.helpyacademy.bean;
 
 import com.helpyacademy.service.ProfesseurService;
+import com.helpyacademy.service.TrouverSoutienServiceImpl;
 import com.helpyacademy.util.Utils;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -21,8 +26,8 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class profInsciptionBean implements Serializable{
-    
+public class profInsciptionBean implements Serializable {
+
     private int id;
     private String civilite;
     private String nom;
@@ -35,18 +40,20 @@ public class profInsciptionBean implements Serializable{
     private String mdpConfirm;
     private Date date_naissance;
     private String situation_pro;
-    private String niv_etude;   
+    private String niv_etude;
     private String Diplome;
+    private String DateNaissance;
+    private Date DateNaiss;
     private List<String> Diplomes = new ArrayList<String>();
     private int etape = 1;
     private boolean success;
-    
+
     private ProfesseurService professeurService;
 
     public void setProfesseurService(ProfesseurService professeurService) {
         this.professeurService = professeurService;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -183,84 +190,105 @@ public class profInsciptionBean implements Serializable{
         this.success = success;
     }
 
+    public void setDateNaissance(String DateNaissance) {
+        this.DateNaissance = DateNaissance;
+    }
+
+    public String getDateNaissance() {
+        return DateNaissance;
+    }
+
     /* ====================================================================== */
     
-    public void addDiplome(){
-        if(Diplome != null && !Diplome.isEmpty()){
-            if(Diplomes.indexOf(Diplome) == -1){
+    public void addDiplome() {
+        if (Diplome != null && !Diplome.isEmpty()) {
+            if (Diplomes.indexOf(Diplome) == -1) {
                 Diplomes.add(Diplome);
                 Diplome = "";
             } else {
                 Utils.addMessage("le Diplome Existe deja");
             }
-        }else{
+        } else {
             Utils.addMessage("Insérer un diplome pour l'ajouter à vous Diplomes");
         }
     }
-    
-    public void next(){
-        if(etape == 1){
-            if(!mdp.equals(mdpConfirm)){
+
+    public void next() {
+        if (etape == 1) {
+            if (!mdp.equals(mdpConfirm)) {
                 Utils.addMessage("Confirmation du mot de passe est erroné");
-                success=false;
-            } else if(professeurService.emailExiste(email)){
+                success = false;
+            } else if (professeurService.emailExiste(email)) {
                 Utils.addMessage("L'Email est déjà utilisé. Veuillez entrer un nouveau E-mail");
-                success=false;
+                success = false;
             } else {
-                etape ++;
-            }            
-        } else if(etape == 2){
-            boolean t1=true,t2=true,t3=true;
-            if(civilite == null || civilite.isEmpty()){
-                Utils.addMessage("Veuillez indiquez votre Civilité");
-                t1=false;
-            }
-            if(nom == null || nom.isEmpty()){
-                Utils.addMessage("Veuillez indiquez votre nom");
-                t2=false;
-            }
-            if(prenom == null || prenom.isEmpty()){
-                Utils.addMessage("Veuillez indiquez votre prenom");
-                t3=false;
-            }
-            if(t1 && t2 && t3){
                 etape++;
-            }else{
-                success=false;
             }
-        } 
-    }
-    
-    public void previous(){
-        if(etape == 2 || etape == 3){
-            etape --;
+        } else if (etape == 2) {
+            boolean t1 = true, t2 = true, t3 = true, t4 = true, t5 = true;
+            if (civilite == null || civilite.isEmpty()) {
+                Utils.addMessage("Veuillez indiquez votre Civilité");
+                t1 = false;
+            }
+            if (nom == null || nom.isEmpty()) {
+                Utils.addMessage("Veuillez indiquez votre Nom");
+                t2 = false;
+            }
+            if (prenom == null || prenom.isEmpty()) {
+                Utils.addMessage("Veuillez indiquez votre Prénom");
+                t3 = false;
+            }
+            if (DateNaissance == null || DateNaissance.isEmpty()) {
+                Utils.addMessage("Veuillez indiquez votre Date de Naissance");
+                t4 = false;
+            } else {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                DateNaiss = null;
+                try {
+                    DateNaiss = formatter.parse(DateNaissance);
+                } catch (ParseException ex) {
+                    Logger.getLogger(TrouverSoutienServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (t1 && t2 && t3 && t4) {
+                etape++;
+            } else {
+                success = false;
+            }
         }
     }
-    
-    public String finish(){
-        if(Diplomes.size()>0){
-            if(professeurService.inscrire(email,mdp,civilite,nom,prenom,tel,Diplomes)){
+
+    public void previous() {
+        if (etape == 2 || etape == 3) {
+            etape--;
+        }
+    }
+
+    public String finish() {
+        if (Diplomes.size() > 0) {
+            if (professeurService.inscrire(email, mdp, civilite, nom, prenom, tel, Diplomes,DateNaiss)) {
                 return "pretty:inscription_faite";
             } else {
-                success=false;
+                success = false;
                 Utils.addMessage("l'inscription n'est pas completé. Veuillez vérifier vos données");
             }
-        }else{
+        } else {
             Utils.addMessage("Veuillez insérez vos Diplomes.");
-            success=false;
+            success = false;
         }
         return "pretty:inscriptionP";
     }
-    
-    public void reset(){
+
+    public void reset() {
         civilite = "";
+        DateNaissance = "";
         nom = "";
         prenom = "";
-        tel="";
+        tel = "";
         email = "";
-        mdp="";
-        mdpConfirm="";
-        Diplome="";
+        mdp = "";
+        mdpConfirm = "";
+        Diplome = "";
         Diplomes.clear();
         etape = 1;
     }

@@ -16,11 +16,14 @@
     
     <div class="form-group">
         <label for="diplomes" class="col-sm-3 col-sm-offset-1 control-label">Vos Diplomes<span class="text-danger"> (*)</span></label>
-        <div class="col-sm-2">
-            <h:selectOneListbox   styleClass="form-control" disabled="true" id="diplomes">
-                <f:selectItems value="#{profInsciptionBean.diplomes}" />	
-            </h:selectOneListbox>
-        </div>
+        <h:outputLabel rendered="#{empty profInsciptionBean.diplomes}" value="Pas de diplomes" styleClass="col-xs-10 col-xs-offset-1 text-muted text-center" style="margin-top: 10px;padding-top: 30px;padding-bottom: 30px;border: 1px #eee dashed"/>
+        <h:dataTable rendered="#{not empty profInsciptionBean.diplomes}" id="listDiplome" value="#{profInsciptionBean.diplomes}" var="diplome" styleClass="table table-responsive table-bordered col-xs-10 col-xs-offset-1" style="margin-top: 10px;">
+            
+            <h:column headerClass="col-sm-10">
+                #{diplome}
+            </h:column>
+            
+        </h:dataTable>
     </div>
     
 </ui:composition>

@@ -15,26 +15,33 @@
             </h:selectOneMenu>
         </div>
     </div>
-    
+
     <div class="form-group">
         <label for="nom" class="col-sm-3 col-sm-offset-1 control-label">Nom <span class="text-danger"> (*)</span></label>
         <div class="col-sm-5">
             <h:inputText id="nom" value="#{profInsciptionBean.nom}" styleClass="form-control" />
         </div>
     </div>
-    
+
     <div class="form-group">
         <label for="prenom" class="col-sm-3 col-sm-offset-1 control-label">Prénom <span class="text-danger"> (*)</span></label>
         <div class="col-sm-5">
             <h:inputText id="prenom" value="#{profInsciptionBean.prenom}" styleClass="form-control"  />
         </div>
     </div>
-    
+
+    <div class="form-group">
+        <label for="dateNaiss" class="col-sm-3 col-sm-offset-1 control-label">Date de Naissance <span class="text-danger"> (*)</span></label>
+        <div class="col-sm-5">
+            <h:inputText id="dateNaiss" value="#{profInsciptionBean.dateNaissance}" styleClass="form-control"  />
+        </div>
+    </div>
+
     <div class="form-group">
         <label for="tel" class="col-sm-3 col-sm-offset-1 control-label">Téléphone</label>
         <div class="col-sm-5">
             <h:inputText id="tel" value="#{profInsciptionBean.tel}" styleClass="form-control" />
         </div>
     </div>
-    
+
 </ui:composition>

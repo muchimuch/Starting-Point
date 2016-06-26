@@ -20,7 +20,7 @@ import java.util.List;
 public interface ProfesseurService {
     public Professeur login(String email,String mdp);
     public boolean emailExiste(String email);
-    public boolean inscrire(String email, String mdp, String civilite, String nom, String prenom, String tel, List<String> Diplomes);
+    public boolean inscrire(String email, String mdp, String civilite, String nom, String prenom, String tel, List<String> Diplomes,Date dateNaiss);
     public String verifier(String email,String token);
     public boolean mdpCorrect(String email, String oldPassword);
     public boolean changerMdp(String email, String newPassword);

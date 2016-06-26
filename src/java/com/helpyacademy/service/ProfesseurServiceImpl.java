@@ -62,10 +62,11 @@ public class ProfesseurServiceImpl implements ProfesseurService {
     }
 
     @Override
-    public boolean inscrire(String email, String mdp, String civilite, String nom, String prenom, String tel, List<String> Diplomes) {
+    public boolean inscrire(String email, String mdp, String civilite, String nom, String prenom, String tel, List<String> Diplomes,Date dateNaiss) {
         String token = Utils.token();
         Professeur p = new Professeur(civilite, nom, prenom, tel, email, mdp);
         p.setToken(token);
+        p.setDateNaissance(dateNaiss);
         Integer idP = professeurDAO.ajouter(p);
         if (idP != null) {
             p.setId(idP);
